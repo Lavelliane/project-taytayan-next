@@ -30,10 +30,11 @@ const config: Config = {
 		},
     extend: {
       colors: {
-				chocolate: '#432F2B',
-				nude: '#F3EBE4',
-				coral: '#FF7F5C',
-				olive: '#6C7D47',
+				primary: '#002147',
+				secondary: '#E3F6F5',
+				tertiary: '#00AAFF',
+				accent: '#FFC72C',
+        dark: '#000C19',
 			},
       fontFamily: {
         inter: ['var(--font-inter)', ...fontFamily.sans],
