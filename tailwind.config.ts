@@ -38,6 +38,7 @@ const config: Config = {
 			},
       fontFamily: {
         inter: ['var(--font-inter)', ...fontFamily.sans],
+        lexendDeca: ['var(--font-lexend-deca)', ...fontFamily.sans],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

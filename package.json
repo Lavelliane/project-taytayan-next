@@ -21,6 +21,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-autosuggest": "^10.1.10",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",

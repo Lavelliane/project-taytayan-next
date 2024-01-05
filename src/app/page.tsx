@@ -1,5 +1,7 @@
-import Image from 'next/image';
+import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
 
 export default function Home() {
-	return <main className='flex min-h-screen flex-col items-center justify-between p-24'>Landing Page</main>;
+	return <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+		<SidebarSeeker />
+	</main>;
 }
