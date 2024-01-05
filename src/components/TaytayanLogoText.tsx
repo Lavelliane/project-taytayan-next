@@ -4,16 +4,16 @@ import { TaytaytanLogo } from '@/components/TaytayanLogo';
 
 const TaytayanLogoText = () => {
   return (
-    <div className='flex flex-row font-lexendDeca w-fit items-center'>
-      <div className='pr-1'>
-         <TaytaytanLogo size={34} /> 
-      </div>
-      <span className='font-extralight text-xs flex pr-1'>
-        PROJECT
-      </span>
-      <span className='font-light text-lg flex -translate-y-0.5'> 
-        taytayan
-      </span>
+    <div className='flex flex-row font-lexendDeca items-center gap-1'>
+      <TaytaytanLogo size={34} />
+      <h1 className='flex items-center'>
+        <span className='font-light text-sm'>
+          PROJECT&nbsp;
+        </span>
+        <span className='font-normal text-lg'>
+          taytayan
+        </span>
+      </h1>
     </div>
   )
 }
