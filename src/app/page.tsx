@@ -3,7 +3,7 @@ import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
 
 export default function Home() {
 	return (
-		<main className='flex min-h-screen items-center justify-between p-24 bg-white'>
+		<main className='flex min-h-screen items-start justify-between p-24 bg-white'>
 			<div className='w-64'>
 				<SidebarSeeker />
 			</div>

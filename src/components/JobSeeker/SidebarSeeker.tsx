@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Drawer } from 'flowbite';
-import type { DrawerOptions, DrawerInterface, InstanceOptions } from 'flowbite';
+import { Drawer, DrawerOptions, DrawerInterface, InstanceOptions } from 'flowbite';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -61,7 +60,7 @@ const SidebarSeeker = () => {
 				aria-hidden='true'
 			>
 				<div className='max-h-screen h-screen px-4 py-6 overflow-y-auto flex flex-col text-sm'>
-					<Link href='/admin' className=' flex font-lexendDeca items-center justify-center mt-4 mb-10 gap-1'>
+					<Link href='/' className=' flex font-lexendDeca items-center justify-center mt-4 mb-10 gap-1'>
 						<Image src='/taytayan-logo.svg' className='h-6 sm:h-12' alt='Project taytayan Logo' width={0} height={0} style={{ width: 'auto', height: '50px', objectFit: 'fill' }} />
 						<span className='flex flex-col items-start justify-center'>
 							<span className='text-sm font-light whitespace-nowrap dark:text-white'>PROJECT</span>
@@ -73,7 +72,8 @@ const SidebarSeeker = () => {
 							<li>
 								<Link
 									href='/'
-									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${pathName.includes('/') ? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]' : 'text-gray-700 dark:text-white'}`}
+									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg 
+									${pathName.includes('jobs') || pathName.includes('trainings') || pathName.includes('network') || pathName.includes('contact-us') || pathName.includes('profile') || pathName.includes('settings') || pathName.includes('logout') ? 'text-gray-700 dark:text-white' : 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'}`}
 								>
 									<svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
 										<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9" />
@@ -128,15 +128,18 @@ const SidebarSeeker = () => {
 						</ul>
 					</div>
 					<div className='flex flex-col h-3/4 justify-between'>
-						<ul className='flex flex-col px-4 gap-2 h-fit font-medium border-t-2 border-gray-300 justify-between'>
+						<ul className='flex flex-col gap-2 h-fit font-medium border-t-2 border-gray-300 justify-between'>
 							<li className='flex flex-col gap-2 font-semibold items-start'>
-								<h1 className=' text-sm font-semibold text-gray-500 mt-2'>My Profile</h1>
-								<div className='flex gap-2 items-center'>
-									<Image src='/favicon.ico' className='h-8' alt='avatar icon' width={0}
-										height={0} style={{ width: 'auto', height: '30px', objectFit: 'fill' }} />
-									<span>Jhury Lastre</span>
-								</div>
+								<h1 className=' text-sm font-semibold text-gray-500 mt-4'>My Profile</h1>
+								<Link href='/profile' className={`flex items-center w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${pathName.includes('/profile') ? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]' : 'text-gray-700 dark:text-white'}`}>
+									<div className='flex gap-2 items-center'>
+										<Image src='/favicon.ico' className='h-8' alt='avatar icon' width={0}
+											height={0} style={{ width: 'auto', height: '30px', objectFit: 'fill' }} />
+										<span>Jhury Lastre</span>
+									</div>
+								</Link>
 							</li>
+
 						</ul>
 
 						<ul className='flex flex-col gap-2 h-fit font-medium'>
