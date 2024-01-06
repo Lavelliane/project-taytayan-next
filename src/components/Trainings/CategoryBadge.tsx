@@ -16,7 +16,7 @@ export const CategoryBadge: React.FC<BadgeProps> = ({ category, size }) => {
    
     return (
       <Badge
-        className={`${badgeClass} w-fit justify-center border-2 rounded-full px-3 capitalize`}
+        className={`${badgeClass} w-fit justify-center border-0 rounded-full px-4 capitalize`}
         size={size}
       >
         {category}
