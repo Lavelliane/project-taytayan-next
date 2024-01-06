@@ -10,10 +10,23 @@ export const DashboardTraining = () => {
     const defaultSelectedCategories = ['technical', 'certification', 'personal', 'professional', 'vocational & arts', 'other']; // Define defaults
     const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize 
   
+    const [filteredTrainings, setFilteredTrainings] = useState<any[]>(trainings);
+
+    useEffect(() => {
+      filterTrainings();
+    }, [selectedCategories]); // Run the effect whenever selectedCategories changes
+  
     const handleCategoryChange = (newSelectedCategories: string[]) => {
       setSelectedCategories(newSelectedCategories);
     };
-
+  
+    const filterTrainings = () => {
+      setFilteredTrainings(
+        trainings.filter((training) =>
+          selectedCategories.includes(training.trainingCategory)
+        )
+      );
+    };
 
 
     return (
@@ -30,7 +43,7 @@ export const DashboardTraining = () => {
                 </div>
             </div>
             <div className='grid grid-cols-2 gap-8 w-full pb-8'>
-                {trainings.map((training) => (
+                {filteredTrainings.map((training) => (
                     <TrainingCard
                     key={training.trainingId}
                     trainingName={training.trainingName}
