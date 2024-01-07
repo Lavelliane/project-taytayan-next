@@ -57,19 +57,28 @@ export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ selectedCate
   };
 
   return (
-    <Dropdown label="Category" dismissOnClick={false} renderTrigger={categoryButton} theme={customTheme} placement='right-start'>
+    <Dropdown 
+      label="Category" 
+      dismissOnClick={false} 
+      renderTrigger={categoryButton} 
+      theme={customTheme} 
+      placement='bottom'
+      inline
+      className='z-50'
+    >
       {trainingCategories.map((category) => (
-        <DropdownItem key={category.key}>
-          <div className='bg-gray-100/70 w-fit p-2'>
+        <DropdownItem key={category.key} onClick={() => handleCategoryChange(category.value)} >
+          <div className='bg-gray-200/50 w-fit p-2'>
             <Checkbox
               className='h-4 w-4 rounded focus:ring-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 bg-gray-100'
               color='gray'
               checked={internalSelectedCategories.includes(category.value)}
               onChange={() => handleCategoryChange(category.value)}
+              onClick={() => handleCategoryChange(category.value)}
             />
           </div>
           <div className='py-1 px-2'>
-            <CategoryBadge category={category.value} size='sm' />
+            <CategoryBadge category={category.value} />
           </div>
         </DropdownItem>
       ))}

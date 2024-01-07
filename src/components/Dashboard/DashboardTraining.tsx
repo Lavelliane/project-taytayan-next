@@ -13,19 +13,29 @@ export const DashboardTraining = () => {
     const [filteredTrainings, setFilteredTrainings] = useState<any[]>(trainings);
 
     useEffect(() => {
+        console.log(selectedCategories)
       filterTrainings();
     }, [selectedCategories]); // Run the effect whenever selectedCategories changes
+
+    useEffect(() => {
+      console.log(filteredTrainings)
+    }, [filteredTrainings])
   
     const handleCategoryChange = (newSelectedCategories: string[]) => {
       setSelectedCategories(newSelectedCategories);
     };
   
     const filterTrainings = () => {
-      setFilteredTrainings(
-        trainings.filter((training) =>
-          selectedCategories.includes(training.trainingCategory)
+      if (selectedCategories.length > 0) {
+        setFilteredTrainings(
+          trainings.filter((training) =>
+            selectedCategories.includes(training.trainingCategory)
+          )
         )
-      );
+      } 
+      else {
+        setFilteredTrainings(trainings)
+      }
     };
 
 
@@ -36,13 +46,13 @@ export const DashboardTraining = () => {
                     selectedCategories={selectedCategories}
                     onCategoryChange={handleCategoryChange}
                 />
-                <div className='flex gap-2 pt-4 bg'>
+                <div className='flex flex-wrap gap-2 pt-4 '>
                     {selectedCategories.slice().sort().map((category, index) => (
-                        <CategoryBadge key={index} category={category} size='sm' />
+                        <CategoryBadge key={index} category={category} />
                     ))}
                 </div>
             </div>
-            <div className='grid grid-cols-2 gap-8 w-full pb-8'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
                 {filteredTrainings.map((training) => (
                     <TrainingCard
                     key={training.trainingId}
