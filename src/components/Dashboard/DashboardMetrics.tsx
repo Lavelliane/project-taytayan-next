@@ -14,7 +14,7 @@ export const DashboardMetrics: React.FC<PropType> = (props) => {
     const { activeTrainings, jobsAvailable, upcomingEvents } = props;
     return (
         <div className='min-w-3xl w-full'>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 text-white'>
+            <div className='grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-6 text-white'>
                 <MetricsBanner />
                 <ActiveTrainingsMetrics activeTrainings={activeTrainings} />
                 <JobsAvailableMetrics jobsAvailable={jobsAvailable} />
