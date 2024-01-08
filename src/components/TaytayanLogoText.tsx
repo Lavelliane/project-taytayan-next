@@ -10,7 +10,7 @@ const TaytayanLogoText = () => {
         <span className='font-light text-sm'>
           PROJECT&nbsp;
         </span>
-        <span className='font-normal text-lg -translate-y-0.5'>
+        <span className='font-normal text-lg -translate-y-0'>
           taytayan
         </span>
       </h1>
