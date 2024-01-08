@@ -156,7 +156,7 @@ const SidebarSeeker = () => {
 							</li>
 							<li>
 								<Link
-									href='#logout'
+									href='/login'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${pathName.includes('/logout') ? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]' : 'text-gray-700 dark:text-white'}`}
 								>
 									<svg className="w-4 h-4 text-[#F05656] dark:text-[#F05656]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
