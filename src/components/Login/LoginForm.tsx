@@ -1,86 +1,101 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
+import React, { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button, Checkbox, CustomFlowbiteTheme, Label, TextInput } from 'flowbite-react';
+import {
+  Button,
+  Checkbox,
+  CustomFlowbiteTheme,
+  Label,
+  TextInput,
+} from 'flowbite-react';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 
 interface LoginFormProps {}
 
 interface LoginFormState {
-    email: string;
-    password: string;
-    remember: boolean;
+  email: string;
+  password: string;
+  remember: boolean;
 }
 
 const googleButton: CustomFlowbiteTheme['button'] = {
-    color: {
-      google: 'bg-white hover:bg-gray-100/30 border border-gray-200/50 text-gray-500 shadow-md w-full',
-    },
+  color: {
+    google: 'bg-white hover:bg-gray-100/30 border border-gray-200/50 text-gray-500 shadow-md w-full',
+  },
 };
-  
+
 const buttonTheme: CustomFlowbiteTheme['button'] = {
-    color: {
-      primary: 'bg-tertiary hover:bg-primary text-white py-2',
-    },
+  color: {
+    primary: 'bg-tertiary hover:bg-primary text-white py-2',
+  },
 };
-  
 
 export const LoginForm: React.FC<LoginFormProps> = () => {
-  const router = useRouter()
+  const router = useRouter();
+
   const [formData, setFormData] = useState<LoginFormState>({
     email: '',
     password: '',
     remember: false,
   });
-  const [emptyEmailError, setEmptyEmailError] = useState(false);
-  const [emptyPasswordError, setEmptyPasswordError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [credentialsError, setCredentialsError] = useState(false);
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    setEmptyEmailError(false)
-    setEmptyPasswordError(false)
-    setEmailError(false)
-    setCredentialsError(false)
-    if (formData.email && formData.password) {   
-      setTimeout(() => { // Simulate a server response
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation regex
-        if (!emailRegex.test(formData.email)) {
-          setEmailError(true);
+  // Combine error states into a single state object for better maintainability
+  const [formErrors, setFormErrors] = useState({
+    emptyEmail: false,
+    emptyPassword: false,
+    invalidEmail: false,
+    wrongCredentials: false,
+  });
+
+  const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    // Destructure form data for cleaner code
+    const { email, password } = formData;
+
+    // Reset all form errors
+    setFormErrors({
+      emptyEmail: false,
+      emptyPassword: false,
+      invalidEmail: false,
+      wrongCredentials: false,
+    });
+
+    if (email && password) {
+      setTimeout(() => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+          setFormErrors((prevErrors) => ({ ...prevErrors, invalidEmail: true }));
           return;
         }
-        //alert(JSON.stringify(formData, null, 2));
-        if (formData.email === 'admin@email.com' && formData.password === 'password') {
-          router.push('/'); // Replace with the desired route path
+
+        if (email === 'admin@email.com' && password === 'password') {
+          router.push('/');
         } else {
-          setCredentialsError(true); // Set credentials error if login fails
+          setFormErrors((prevErrors) => ({ ...prevErrors, wrongCredentials: true }));
         }
       }, 1000);
-    }
-    else {
-      if (!formData.email) {
-        setEmptyEmailError(true)
-        return
-      }
-      if (!formData.password) {
-        setEmptyPasswordError(true)
-        return
-      }
+    } else {
+      // Set specific error states based on form data
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        emptyEmail: !email,
+        emptyPassword: !password,
+      }));
     }
   };
 
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({
-        ...formData,
-        [event.target.id]: event.target.value,
+      ...formData,
+      [event.target.id]: event.target.value,
     });
   };
 
-  const handleRememberMe = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRememberMe = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       remember: event.target.checked,
@@ -88,12 +103,12 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
   };
 
   const handleGoogleAuth = () => {
-    alert('GOOGLE AUTH')
-  }
+    alert('GOOGLE AUTH');
+  };
 
   useEffect(() => {
-    console.log(formData)
-  }, [formData])
+    console.log(formData);
+  }, [formData]);
 
   return (
     <div className='w-full lg:max-w-lg px-12'>
@@ -121,17 +136,17 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
           required
           icon={HiMail}
           sizing="md"
-          color={(emailError || credentialsError || emptyEmailError) ? "failure" : undefined}
+          color={(formErrors.invalidEmail || formErrors.wrongCredentials || formErrors.emptyEmail) ? "failure" : undefined}
           helperText={
-            (emailError && !credentialsError && !emptyEmailError) ? (
+            (formErrors.invalidEmail && !formErrors.wrongCredentials && !formErrors.emptyEmail) ? (
               <>
                 <span className="font-medium">Oops!</span> Not a valid email address!
               </>
-            ) : credentialsError ? (
+            ) : formErrors.wrongCredentials ? (
               <>
                 <span className="font-medium">Oops!</span> Incorrect email or password!
               </>
-            ) : emptyEmailError ? (
+            ) : formErrors.emptyEmail ? (
               <>
                 <span className="font-medium">Oops!</span> Email address cannot be empty!
               </>
@@ -151,9 +166,9 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
           required 
           icon={HiLockClosed}
           sizing='md'
-          color={(emptyPasswordError) ? "failure" : undefined}
+          color={(formErrors.emptyPassword) ? "failure" : undefined}
           helperText={
-            (emptyPasswordError) ? (
+            (formErrors.emptyPassword) ? (
               <>
                 <span className="font-medium">Oops!</span> Password cannot be empty!
               </>

@@ -1,98 +1,100 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
+import React, { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button, Checkbox, CustomFlowbiteTheme, Label, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 
 interface RegistrationFormProps {}
 
 interface RegistrationFormState {
-    email: string;
-    password: string;
-    confirmPassword: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
-const googleButton: CustomFlowbiteTheme['button'] = {
-    color: {
-      google: 'bg-white hover:bg-gray-100/30 border border-gray-200/50 text-gray-500 shadow-md w-full',
-    },
+const googleButton = {
+  color: {
+    google: 'bg-white hover:bg-gray-100/30 border border-gray-200/50 text-gray-500 shadow-md w-full',
+  },
 };
-  
-const buttonTheme: CustomFlowbiteTheme['button'] = {
-    color: {
-      primary: 'bg-tertiary hover:bg-primary text-white py-2',
-    },
+
+const buttonTheme = {
+  color: {
+    primary: 'bg-tertiary hover:bg-primary text-white py-2',
+  },
 };
-  
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
-  const router = useRouter()
+  const router = useRouter();
+
   const [formData, setFormData] = useState<RegistrationFormState>({
     email: '',
     password: '',
     confirmPassword: '',
   });
-  const [emptyEmailError, setEmptyEmailError] = useState(false);
-  const [emptyPasswordError, setEmptyPasswordError] = useState(false);
-  const [emptyConfirmPasswordError, setEmptyConfirmPasswordError] = useState(false)
-  const [emailError, setEmailError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    setEmptyEmailError(false)
-    setEmptyPasswordError(false)
-    setEmptyConfirmPasswordError(false)
-    setConfirmPasswordError(false)
-    setEmailError(false)
-    if (formData.email && formData.password && formData.confirmPassword) {   
-      setTimeout(() => { // Simulate a server response
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation regex
-        if (!emailRegex.test(formData.email)) {
-          setEmailError(true);
+  const [formErrors, setFormErrors] = useState({
+    emptyEmail: false,
+    emptyPassword: false,
+    emptyConfirmPassword: false,
+    invalidEmail: false,
+    confirmPasswordMismatch: false,
+  });
+
+  const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const { email, password, confirmPassword } = formData;
+
+    setFormErrors({
+      emptyEmail: false,
+      emptyPassword: false,
+      emptyConfirmPassword: false,
+      invalidEmail: false,
+      confirmPasswordMismatch: false,
+    });
+
+    if (email && password && confirmPassword) {
+      setTimeout(() => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+          setFormErrors((prevErrors) => ({ ...prevErrors, invalidEmail: true }));
           return;
         }
-        alert(JSON.stringify(formData, null, 2));
-        if (formData.password === formData.confirmPassword) {
-          router.push('/'); // Replace with the desired route path
+
+        if (password === confirmPassword) {
+          router.push('/');
         } else {
-          setConfirmPasswordError(true); // Set credentials error if Registration fails
+          setFormErrors((prevErrors) => ({ ...prevErrors, confirmPasswordMismatch: true }));
         }
       }, 1000);
-    }
-    else {
-      if (!formData.email) {
-        setEmptyEmailError(true)
-        return
-      }
-      if (!formData.password) {
-        setEmptyPasswordError(true)
-        return
-      }
-      if (!formData.confirmPassword) {
-        setEmptyConfirmPasswordError(true)
-        return
-      }
+    } else {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        emptyEmail: !email,
+        emptyPassword: !password,
+        emptyConfirmPassword: !confirmPassword,
+      }));
     }
   };
 
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({
-        ...formData,
-        [event.target.id]: event.target.value,
+      ...formData,
+      [event.target.id]: event.target.value,
     });
   };
 
   const handleGoogleAuth = () => {
-    alert('GOOGLE AUTH')
-  }
+    alert('GOOGLE AUTH');
+  };
 
   useEffect(() => {
-    console.log(formData)
-  }, [formData])
+    console.log(formData);
+  }, [formData]);
 
   return (
     <div className='w-full lg:max-w-lg px-12'>
@@ -120,13 +122,13 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
           required
           icon={HiMail}
           sizing="md"
-          color={(emailError || emptyEmailError) ? "failure" : undefined}
+          color={(formErrors.invalidEmail || formErrors.emptyEmail) ? "failure" : undefined}
           helperText={
-            (emailError && !emptyEmailError) ? (
+            (formErrors.invalidEmail && !formErrors.emptyEmail) ? (
               <>
                 <span className="font-medium">Oops!</span> Not a valid email address!
               </>
-            ) : emptyEmailError ? (
+            ) : formErrors.emptyEmail ? (
               <>
                 Email address cannot be empty.
               </>
@@ -146,9 +148,9 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
           required 
           icon={HiLockClosed}
           sizing='md'
-          color={(emptyPasswordError) ? "failure" : undefined}
+          color={(formErrors.emptyPassword) ? "failure" : undefined}
           helperText={
-            (emptyPasswordError) ? (
+            (formErrors.emptyPassword) ? (
               <>
                 Password cannot be empty.
               </>
@@ -168,13 +170,13 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
           required 
           icon={HiLockClosed}
           sizing='md'
-          color={(confirmPasswordError || emptyConfirmPasswordError) ? "failure" : undefined}
+          color={(formErrors.confirmPasswordMismatch || formErrors.emptyConfirmPassword) ? "failure" : undefined}
           helperText={
-            (confirmPasswordError && !emptyConfirmPasswordError) ? (
+            (formErrors.confirmPasswordMismatch && !formErrors.emptyConfirmPassword) ? (
               <>
                 <span className="font-medium">Oops!</span> Password confirmation does not match!
               </>
-            ) : emptyConfirmPasswordError ? (
+            ) : formErrors.emptyConfirmPassword ? (
               <>
                 Enter password again to confirm.
               </>
