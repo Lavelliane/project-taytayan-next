@@ -5,6 +5,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useAuthStore } from '@/hooks/useAuth';
+import SignUpSchema from '@/schemas/SignUpSchema';
+import { ZodError } from 'zod';
 
 interface RegistrationFormProps {}
 
@@ -28,6 +32,9 @@ const buttonTheme = {
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
   const router = useRouter();
+  const signUp = useAuthStore((state) => state.signUp)
+  const user = useAuthStore((state) => state.user)
+  const authStateChangeListener = useAuthStore((state) => state.authStateChangeListener)
 
   const [formData, setFormData] = useState<RegistrationFormState>({
     email: '',
@@ -56,29 +63,21 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
       confirmPasswordMismatch: false,
     });
 
-    if (email && password && confirmPassword) {
-      setTimeout(() => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    try {
+      const validatedCredentials = SignUpSchema.parse({ email, password, confirmPassword })
+      const { email: vEmail, password: vPassword, confirmPassword: vConfirmPassword } = validatedCredentials
+      signUp(vEmail, vPassword, vConfirmPassword)
+      authStateChangeListener()
+      router.push('/')
 
-        if (!emailRegex.test(email)) {
-          setFormErrors((prevErrors) => ({ ...prevErrors, invalidEmail: true }));
-          return;
-        }
-
-        if (password === confirmPassword) {
-          router.push('/');
-        } else {
-          setFormErrors((prevErrors) => ({ ...prevErrors, confirmPasswordMismatch: true }));
-        }
-      }, 1000);
-    } else {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        emptyEmail: !email,
-        emptyPassword: !password,
-        emptyConfirmPassword: !confirmPassword,
-      }));
+    } catch (error) {
+      if (error instanceof ZodError) {
+        console.error('Validation error:', error.errors);
+      } else {
+        console.error('Unexpected error:', error);
+      }
     }
+    
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

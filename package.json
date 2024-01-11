@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase": "^10.7.1",
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "google-fonts": "^1.0.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^4.12.0"
+    "react-icons": "^4.12.0",
+    "zod": "^3.22.4",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",

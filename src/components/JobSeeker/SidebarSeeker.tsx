@@ -5,7 +5,8 @@ import { Drawer } from 'flowbite';
 import type { DrawerOptions, DrawerInterface, InstanceOptions } from 'flowbite';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useAuthStore } from '@/hooks/useAuth';
 
 const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
 // options with default values
@@ -28,6 +29,13 @@ const drawer: DrawerInterface = new Drawer($targetEl, options, instanceOptions);
 
 const SidebarSeeker = () => {
 	const pathName = usePathname();
+	const router = useRouter()
+	const logout = useAuthStore((state) => state.logout)
+
+	function handleLogout(){
+		logout()
+		router.push('/login')
+	}
 
 	return (
 		<>
@@ -155,15 +163,15 @@ const SidebarSeeker = () => {
 								</Link>
 							</li>
 							<li>
-								<Link
-									href='/login'
-									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${pathName.includes('/logout') ? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]' : 'text-gray-700 dark:text-white'}`}
+								<p
+								onClick={handleLogout}
+									className={`cursor-pointer flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${pathName.includes('/logout') ? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]' : 'text-gray-700 dark:text-white'}`}
 								>
 									<svg className="w-4 h-4 text-[#F05656] dark:text-[#F05656]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
 										<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
 									</svg>
 									<span className='flex-1 ms-3 whitespace-nowrap'>Logout</span>
-								</Link>
+								</p>
 							</li>
 						</ul>
 					</div>
