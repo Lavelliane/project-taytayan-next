@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'flowbite-react';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
+import { useAuthStore } from '@/hooks/useAuth';
 
 interface LoginFormProps {}
 
@@ -34,6 +35,8 @@ const buttonTheme: CustomFlowbiteTheme['button'] = {
 
 export const LoginForm: React.FC<LoginFormProps> = () => {
   const router = useRouter();
+  const signIn = useAuthStore((state) => state.signIn)
+  const authStateChangeListener = useAuthStore((state) => state.authStateChangeListener)
 
   const [formData, setFormData] = useState<LoginFormState>({
     email: '',
@@ -64,20 +67,8 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
     });
 
     if (email && password) {
-      setTimeout(() => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailRegex.test(email)) {
-          setFormErrors((prevErrors) => ({ ...prevErrors, invalidEmail: true }));
-          return;
-        }
-
-        if (email === 'admin@email.com' && password === 'password') {
-          router.push('/');
-        } else {
-          setFormErrors((prevErrors) => ({ ...prevErrors, wrongCredentials: true }));
-        }
-      }, 1000);
+      signIn(email, password)
+      authStateChangeListener()
     } else {
       // Set specific error states based on form data
       setFormErrors((prevErrors) => ({
