@@ -38,6 +38,7 @@ const config: Config = {
 			},
       fontFamily: {
         inter: ['var(--font-inter)', ...fontFamily.sans],
+        roboto: ['var(--font-roboto)', ...fontFamily.sans],
         lexendDeca: ['var(--font-lexendDeca)', ...fontFamily.serif],
       },
       backgroundImage: {
