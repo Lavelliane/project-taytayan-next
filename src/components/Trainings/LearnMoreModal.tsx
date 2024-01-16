@@ -1,5 +1,5 @@
 import { Avatar, Button, CustomFlowbiteTheme, Modal } from "flowbite-react";
-import { Training } from "@/utils/DummyTrainings";
+import { Training } from "@/types/types";
 import { FiMapPin } from "react-icons/fi";
 
 //TODO: Bind button to Firebase status of user as registered.
@@ -71,7 +71,7 @@ export const LearnMoreModal = ({
           </div>
           <div className="text-sm lg:text-lg font-bold">
             Registration Fee:{" "}
-            {trainingData.trainingRegistration === "No Registration Fee" ? (
+            {parseFloat(trainingData.trainingRegistration) === 0 ? (
               <span className="text-green-400 font-bold">Free</span>
             ) : (
               <span className="text-red-600 font-bold">

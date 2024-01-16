@@ -1,15 +1,4 @@
-export type Training = {
-  trainingId: number;
-  trainingName: string;
-  trainingCenter: string;
-  trainingDate: Date;
-  trainingAddress: string;
-  trainingDescription: string;
-  trainingActivities: string[];
-  trainingObjectives: string[];
-  trainingRegistration: string;
-  trainingCategory: string;
-};
+import { Training } from "@/types/types";
 
 export const trainings: Training[] = [
   {
@@ -30,7 +19,7 @@ export const trainings: Training[] = [
       "Gain proficiency in using Google Cloud Console",
       "Deploy and manage virtual machines effectively",
     ],
-    trainingRegistration: "No Registration Fee",
+    trainingRegistration: "20.00",
     trainingCategory: "certification",
   },
   {
@@ -52,7 +41,7 @@ export const trainings: Training[] = [
       "Enhance knowledge of system diagnostics",
       "Improve communication skills in technical support scenarios",
     ],
-    trainingRegistration: "No Registration Fee",
+    trainingRegistration: "10.00",
     trainingCategory: "technical",
   },
   {
@@ -73,7 +62,7 @@ export const trainings: Training[] = [
       "Master IP addressing and subnetting techniques",
       "Understand basic concepts of network security",
     ],
-    trainingRegistration: "No Registration Fee",
+    trainingRegistration: "0.00",
     trainingCategory: "certification",
   },
   {
@@ -94,7 +83,7 @@ export const trainings: Training[] = [
       "Provide excellent customer service in a hospitality setting",
       "Adhere to hygiene and safety standards in food service",
     ],
-    trainingRegistration: "No Registration Fee",
+    trainingRegistration: "20.00",
     trainingCategory: "vocational & arts",
   },
   {
@@ -118,7 +107,7 @@ export const trainings: Training[] = [
       "Create a functional mobile app",
       "Understand basics of Python for data science",
     ],
-    trainingRegistration: "No Registration Fee",
+    trainingRegistration: "0.00",
     trainingCategory: "technical",
   },
 ];
