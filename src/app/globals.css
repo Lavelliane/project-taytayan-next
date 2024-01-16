@@ -31,3 +31,32 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+input.searchBox:focus {
+  border: none !important;
+  box-shadow: 0 0 10px #ffffff !important;
+}
+
+li.highlightOption {
+  background-color: #9ca3af;
+  color: black;
+}
+
+li.option.highlightOption:hover {
+  background-color: #d1d5db !important;
+  color: black !important;
+}
+
+li.option {
+  padding: 6px !important;
+}
+
+li.option:hover{
+  background-color: #e5e7eb !important;
+  color: black !important;
+  padding: 6px !important;
+}
+
+div.optionListContainer {
+  margin-top: 6px !important;
+}

@@ -13,6 +13,7 @@
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "google-fonts": "^1.0.0",
+    "multiselect-react-dropdown": "^2.0.25",
     "lodash": "^4.17.21",
     "next": "14.0.4",
     "react": "^18",
