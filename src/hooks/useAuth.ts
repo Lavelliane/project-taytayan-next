@@ -1,14 +1,16 @@
-import { auth, db } from "@/lib/firebase";
+import { auth, db, provider } from "@/lib/firebase";
 import SignUpSchema from "@/schemas/SignUpSchema";
 import { AuthStore, User } from "@/types/types";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { UserCredential, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth/cordova";
 import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { ZodError } from "zod";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { pick } from "lodash";
 
-const initialUserState: User = {
+export const initialUserState: User = {
     email: "",
     uid: "",
     role: "general",
@@ -90,6 +92,9 @@ export const useAuthStore = create(
                 }
             })
             return response
+        },
+        updateUserState: (user: User) => {
+            set({ user })
         },
         logout: async () => {
             set((state) => ({ user: initialUserState }))

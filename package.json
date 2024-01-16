@@ -13,6 +13,7 @@
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "google-fonts": "^1.0.0",
+    "lodash": "^4.17.21",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-autosuggest": "^10.1.10",
