@@ -6,13 +6,12 @@ import {
 } from 'flowbite-react';
 import React from 'react'
 import { CategoryBadge } from './CategoryBadge';
+import { LearnMoreButton } from './LearnMoreButton';
+import { Training } from "@/utils/DummyTrainings";
+
 
 interface TrainingProps {
-  trainingName: string;
-  trainingCenter: string;
-  trainingAddress: string;
-  trainingRegistration: string;
-  trainingCategory: string;
+  trainingData: Training;
 }
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
@@ -32,7 +31,14 @@ const cardTheme: CustomFlowbiteTheme['card'] = {
 
 
 export const TrainingCard: React.FC<TrainingProps> = (props) => {
-  const { trainingName, trainingCenter, trainingAddress, trainingRegistration, trainingCategory } = props;
+  const { 
+    trainingId,
+    trainingName,
+    trainingCenter,
+    trainingAddress,
+    trainingRegistration,
+    trainingCategory
+  } = props.trainingData;
   return (
     <Card className="max-w-full p-0 shadow-none border-[1px] md:border-[3px] justify-between" theme={cardTheme}>
       <div className='flex items-center'>
@@ -63,17 +69,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
         </svg>
         <span className='font-base text-xs lg:text-sm'>{trainingRegistration}</span>
       </h5>
-
-      <Button className='w-fit bg-tertiary border-none text-white px-5' size='lg'>
-        Learn more
-        <svg className="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path
-            fillRule="evenodd"
-            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </Button>
+      <LearnMoreButton key={trainingId} trainingData={props.trainingData}  />
     </Card>
   )
 }

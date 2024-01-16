@@ -55,12 +55,8 @@ export const DashboardTraining = () => {
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
                 {filteredTrainings.map((training) => (
                     <TrainingCard
-                    key={training.trainingId}
-                    trainingName={training.trainingName}
-                    trainingCenter={training.trainingCenter}
-                    trainingAddress={training.trainingAddress}
-                    trainingRegistration={training.trainingRegistration}
-                    trainingCategory={training.trainingCategory}
+                      key={training.trainingId}
+                      trainingData={training}
                     />
                 ))}
             </div>
