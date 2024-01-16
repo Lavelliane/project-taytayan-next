@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { Card } from 'flowbite-react';
 import Link from "next/link";
 import TrainingsCard from "./TrainingsCard";
@@ -10,7 +10,10 @@ import { User } from '@/types/types'
 
 const Profile = () => {
     const user = useAuthStore<User>((state) => state.user)
-    console.log(user)
+    useEffect(() => {
+        console.log(user)
+    }, [user])
+
     const name = user.firstName + ' ' + user.lastName;
     const pronounce = 'He/Him';
     const address = 'Talamban, Cebu';
@@ -34,9 +37,9 @@ const Profile = () => {
                 <div className="flex gap-6 items-end ">
                     <Image src="/favicon.ico" alt="Profile" width={0} height={0} className="rounded-full" style={{ width: 'auto', height: '140px', objectFit: 'fill' }} />
                     <div className="flex flex-col ">
-                        <h1 className="text-xl font-bold">{name}&nbsp;<span className="text-xs font-normal">({pronounce})</span></h1>
-                        <h2 className="text-gray-700">{address}</h2>
-                        <h2 className="text-[#FDBC09] font-semibold">{occupation}</h2>
+                        <h1 className="text-xl font-bold">{user.firstName + ' ' + user.lastName}&nbsp;<span className="text-xs font-normal">({user.pronoun})</span></h1>
+                        <h2 className="text-gray-700">{user.location}</h2>
+                        <h2 className="text-[#FDBC09] font-semibold">{user.occupation}</h2>
                     </div>
                 </div>
                 <Link href='/profile/edit' className="mt-8 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-1 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400">Edit Profile</Link>
@@ -45,11 +48,11 @@ const Profile = () => {
         <div className="flex w-fit h-fit my-10 gap-20">
             <div className="flex w-full flex-col gap-6">
                 <h1 className="font-semibold text-lg">About Me</h1>
-                <p>{aboutMe}</p>
+                <p>{user.aboutMe}</p>
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Skills</span><br />
                     <span className="flex flex-wrap gap-2 mt-1">
-                        {skills.map((skill) => (<span className="font-normal px-2 py-1 border border-gray-500 rounded-full" key={skill}>{skill}<br /></span>))}
+                        {user.skills.map((skill) => (<span className="font-normal px-2 py-1 border border-gray-500 rounded-full" key={skill}>{skill}<br /></span>))}
                     </span>
                 </h5>
             </div>
@@ -57,25 +60,25 @@ const Profile = () => {
             <Card href="#" className="max-w-2xl w-[42rem] h-fit">
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Email</span><br />
-                    {email}
+                    {user.email}
                 </h5>
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Education</span>
                     <br />
                     <span className="font-semibold">
-                        {school}
+                        {user.school}
                     </span>
                     <br />
-                    {course}
+                    {user.course}
                 </h5>
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Industry</span><br />
-                    {industry}
+                    {user.industry}
                 </h5>
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Interest</span><br />
                     <span className="flex flex-wrap gap-2 mt-1">
-                        {interests.map((interest) => (<span className="font-normal px-2 py-1 border border-gray-500 rounded-full" key={interest}>{interest}<br /></span>))}
+                        {user.interest.map((interest) => (<span className="font-normal px-2 py-1 border border-gray-500 rounded-full" key={interest}>{interest}<br /></span>))}
                     </span>
                 </h5>
             </Card>

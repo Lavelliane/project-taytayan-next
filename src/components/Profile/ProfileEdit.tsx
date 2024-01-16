@@ -1,11 +1,21 @@
 'use client'
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import { Card } from 'flowbite-react';
+import { User } from '@/types/types'
+import { DefaultProfile } from '@/utils/DefaultProfile'
 import Multiselect from 'multiselect-react-dropdown';
 
 const ProfileEdit = () => {
+    const [user, setUser] = useState<User>(DefaultProfile);
+
+
+    const handleOnChange: any = (event: ChangeEvent<HTMLInputElement>) => {
+        setUser({ ...user, [event.target.name]: event.target.value })
+    }
+
+    console.log(user);
     const name = 'Jhury Kevin Lastre';
     const pronounce = 'He/Him';
     const address = 'Talamban, Cebu';
@@ -16,7 +26,7 @@ const ProfileEdit = () => {
     const course = 'Bachelor of Science in Information and Communications Technology';
     const industry = 'Lanex Corp';
     const interests = ['Web Development', 'Mobile Development', 'UI/UX Design', 'Cyber Security']
-    const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'NodeJS', 'ExpressJS', 'MongoDB', 'MySQL', 'Java']
+    const skillOptions = ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'NodeJS', 'ExpressJS', 'MongoDB', 'MySQL', 'Java']
 
     return <form className="h-fit w-full lg:p-0 p-4">
         <div className="flex flex-col w-full lg:h-52 relative">
@@ -40,32 +50,38 @@ const ProfileEdit = () => {
             <h1 className="font-semibold text-lg">Basic Info</h1>
             <div className="flex flex-col max-w-xl w-full gap-6">
                 <div className="w-full flex items-center gap-4">
-                    <label htmlFor="name" className="text-sm font-semibold w-1/4">
-                        Name
+                    <label htmlFor="firstName" className="text-sm font-semibold w-1/4">
+                        First Name
                     </label>
-                    <input type="text" name="name" id="name" placeholder={name} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="firstName" id="firstName" placeholder={'e.g. Juan'} defaultValue={''} value={user.firstName || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
-                    <label htmlFor="address" className="text-sm font-semibold w-1/4">
+                    <label htmlFor="lastName" className="text-sm font-semibold w-1/4">
+                        Last Name
+                    </label>
+                    <input type="text" name="lastName" id="lastName" placeholder={'e.g. Cruz'} defaultValue={''} value={user.lastName || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+                <div className="w-full flex items-center gap-4">
+                    <label htmlFor="location" className="text-sm font-semibold w-1/4">
                         Address
                     </label>
-                    <input type="text" name="address" id="address" placeholder={address} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="location" id="location" placeholder={'Street/Brgy/City/Province/Country'} defaultValue={''} value={user.location || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="occupation" className="text-sm font-semibold w-1/4">
                         Occupation
                     </label>
-                    <input type="text" name="occupation" id="occupation" placeholder={occupation} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="occupation" id="occupation" placeholder={'e.g. Construction Worker'} defaultValue={''} value={user.occupation || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="pronoun" className="text-sm font-semibold w-1/4">
                         Pronoun
                     </label>
-                    <select id='pronoun' name='pronoun' className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    <select id='pronoun' name='pronoun' value={user.pronoun} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     >
-                        <option value='he'>He/Him</option>
-                        <option value='she'>She/Her</option>
-                        <option value='they'>They/Them</option>
+                        <option value='He/Him'>He/Him</option>
+                        <option value='She/Her'>She/Her</option>
+                        <option value='They/Them'>They/Them</option>
                     </select>
                 </div>
             </div>
@@ -74,10 +90,10 @@ const ProfileEdit = () => {
             <h1 className="font-semibold text-lg">About Me</h1>
             <div className="flex flex-col max-w-xl w-full gap-6">
                 <div className="w-full flex flex-col items-start gap-4">
-                    <label htmlFor="bio" className="text-sm font-semibold">
+                    <label htmlFor="aboutMe" className="text-sm font-semibold">
                         Bio
                     </label>
-                    <textarea name="bio" id="bio" placeholder={aboutMe} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-4 h-32 resize-none" />
+                    <textarea name="aboutMe" id="aboutMe" placeholder={'Tell us about yourself...'} defaultValue={''} value={user.aboutMe || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-4 h-32 resize-none" />
                 </div>
                 <div>
                     <label htmlFor="skills" className="text-sm font-semibold">
@@ -86,6 +102,9 @@ const ProfileEdit = () => {
                     <p className="text-sm text-gray-600">Add skills to display your experience</p>
                     <Multiselect
                         id="skills"
+                        selectedValues={user.skills}
+                        onSelect={(selectedList, selectedItem) => setUser({ ...user, skills: selectedList })}
+                        onRemove={(selectedList, removedItem) => setUser({ ...user, skills: selectedList })}
                         customCloseIcon={<svg className="hover:text-gray-600 hover:cursor-pointer ml-1 w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                         </svg>}
@@ -94,7 +113,7 @@ const ProfileEdit = () => {
                             chips: { background: "#DBDEE3", color: '#000000', margin: '8px 4px 2px 4px' }, searchBox: { border: "1px solid #DBDEE3", borderRadius: '6px', padding: '0px 10px 4px 10px' }
                         }}
                         isObject={false}
-                        options={skills}
+                        options={skillOptions}
                         placeholder=""
                     />
 
@@ -108,33 +127,36 @@ const ProfileEdit = () => {
                     <label htmlFor="email" className="text-sm font-semibold w-1/4">
                         Email
                     </label>
-                    <input type="email" name="email" id="email" placeholder={email} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="email" name="email" id="email" placeholder={'e.g. juancruz@gmail.com'} defaultValue={''} value={user.email || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="school" className="text-sm font-semibold w-1/4">
                         School
                     </label>
-                    <input type="text" name="school" id="school" placeholder={school} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="school" id="school" placeholder={'Enter school if applicable'} defaultValue={''} value={user.school || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="course" className="text-sm font-semibold w-1/4">
                         Course
                     </label>
-                    <input type="text" name="course" id="course" placeholder={course} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="course" id="course" placeholder={'Enter course if applicable'} defaultValue={''} value={user.course || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="industry" className="text-sm font-semibold w-1/4">
                         Industry
                     </label>
-                    <input type="text" name="industry" id="industry" placeholder={industry} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="industry" id="industry" placeholder={'Enter workplace if applicable'} defaultValue={''} value={user.industry || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div>
-                    <label htmlFor="interests" className="text-sm font-semibold">
+                    <label htmlFor="interest" className="text-sm font-semibold">
                         Interests
                     </label>
                     <p className="text-sm text-gray-600">Tell us about your hobbies and passions</p>
                     <Multiselect
-                        id="interests"
+                        id="interest"
+                        selectedValues={user.interest}
+                        onSelect={(selectedList, selectedItem) => setUser({ ...user, interest: selectedList })}
+                        onRemove={(selectedList, removedItem) => setUser({ ...user, interest: selectedList })}
                         customCloseIcon={<svg className="hover:text-gray-600 hover:cursor-pointer ml-1 w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                         </svg>}
