@@ -1,5 +1,7 @@
-import { DashboardMetrics } from '@/components/Dashboard/DashboardMetrics';
+import Dashboard from '@/components/Dashboard/Dashboard';
+import { NavbarSeeker } from '@/components/JobSeeker/NavbarSeeker';
 import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
+
 
 export default function Home() {
 	return (
@@ -7,7 +9,6 @@ export default function Home() {
 			<div className='w-64'>
 				<SidebarSeeker />
 			</div>
-			<DashboardMetrics activeTrainings={232} jobsAvailable={132} upcomingEvents={13} />
 		</main>
 	);
 };

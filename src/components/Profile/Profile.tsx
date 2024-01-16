@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Card } from 'flowbite-react';
+import Link from "next/link";
 
 const Profile = () => {
     const name = 'Jhury Kevin Lastre';
@@ -22,7 +23,7 @@ const Profile = () => {
         <div className="flex flex-col w-full h-52 relative">
             <div className="absolute w-full h-32 bg-[#9B5FFC] rounded-lg">
             </div>
-            <div className="px-10 w-full h-fit z-10 absolute bottom-0 flex items-center justify-between">
+            <div className="px-10 w-full h-fit z-10 absolute bottom-0 flex sm:flex-row flex-col items-center justify-between">
                 <div className="flex gap-6 items-end ">
                     <Image src="/favicon.ico" alt="Profile" width={0} height={0} className="rounded-full" style={{ width: 'auto', height: '140px', objectFit: 'fill' }} />
                     <div className="flex flex-col ">
@@ -31,7 +32,7 @@ const Profile = () => {
                         <h2 className="text-[#FDBC09] font-semibold">{occupation}</h2>
                     </div>
                 </div>
-                <button type="button" className="mt-8 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400">Edit Profile</button>
+                <Link href='/profile/edit' className="mt-8 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-1 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400">Edit Profile</Link>
             </div>
         </div>
         <div className="flex w-fit h-fit my-10 gap-20">
