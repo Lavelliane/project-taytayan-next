@@ -5,9 +5,10 @@ import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
 
 export default function Home() {
 	return (
-		<main className='flex min-h-screen items-start justify-between p-24 bg-white'>
-			<div className='w-64'>
-				<SidebarSeeker />
+		<main className='flex flex-col min-h-screen justify-between bg-white'>
+			<NavbarSeeker />
+			<div className='w-full pl-0 sm:pl-64'>
+				<Dashboard />
 			</div>
 		</main>
 	);
