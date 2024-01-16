@@ -31,7 +31,6 @@ const buttonTheme: CustomFlowbiteTheme['button'] = {
 export const LoginForm: React.FC<LoginFormProps> = () => {
   const router = useRouter();
   const signIn = useAuthStore((state) => state.signIn)
-  const authStateChangeListener = useAuthStore((state) => state.authStateChangeListener)
 
   const [formData, setFormData] = useState<LoginFormState>({
     email: '',
@@ -63,7 +62,7 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
 
     if (email && password) {
       signIn(email, password)
-      authStateChangeListener()
+      router.push('/')
     } else {
       // Set specific error states based on form data
       setFormErrors((prevErrors) => ({

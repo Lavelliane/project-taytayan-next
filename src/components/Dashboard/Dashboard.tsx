@@ -9,7 +9,7 @@ const Dashboard = () => {
     const user = useAuthStore((state) => state.user)
     useEffect(() => {
       console.log(user)
-    }, [])
+    }, [user])
     
     return (
       <main className='flex flex-col w-full px-4 md:px-8 lg:px-12 xl:px-24'>

@@ -29,7 +29,6 @@ export const RegistrationForm = () => {
   const router = useRouter();
   const signUp = useAuthStore((state) => state.signUp)
   const user = useAuthStore((state) => state.user)
-  const authStateChangeListener = useAuthStore((state) => state.authStateChangeListener)
 
   const [formData, setFormData] = useState<RegistrationFormState>({
     firstName: '',
@@ -76,22 +75,19 @@ export const RegistrationForm = () => {
         if (password === confirmPassword) {
 
           // TODO: INSERT FIREBASE SIGN UP CONNECTION HERE
-        /*
-        try {
-          const validatedCredentials = SignUpSchema.parse({ email, password, confirmPassword })
-          const { email: vEmail, password: vPassword, confirmPassword: vConfirmPassword } = validatedCredentials
-          signUp(vEmail, vPassword, vConfirmPassword)
-          authStateChangeListener()
-          router.push('/')
+          try {
+            const validatedCredentials = SignUpSchema.parse({ email, password, confirmPassword, firstName, lastName })
+            const { email: vEmail, password: vPassword, confirmPassword: vConfirmPassword, lastName: vLastName, firstName: vFirstName } = validatedCredentials
+            signUp(vEmail, vPassword, vConfirmPassword, vFirstName, vLastName)
+            router.push('/')
 
-        } catch (error) {
-          if (error instanceof ZodError) {
-            console.error('Validation error:', error.errors);
-          } else {
-            console.error('Unexpected error:', error);
+          } catch (error) {
+            if (error instanceof ZodError) {
+              console.error('Validation error:', error.errors);
+            } else {
+              console.error('Unexpected error:', error);
+            }
           }
-        }
-        */
 
           router.push('/');
         } else {
