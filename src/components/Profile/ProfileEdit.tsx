@@ -1,7 +1,9 @@
+'use client'
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { Card } from 'flowbite-react';
+import Multiselect from 'multiselect-react-dropdown';
 
 const ProfileEdit = () => {
     const name = 'Jhury Kevin Lastre';
@@ -12,12 +14,9 @@ const ProfileEdit = () => {
     const email = 'jhurylastre@gmail.com'
     const school = 'University of San Carlos - Talamban Campus';
     const course = 'Bachelor of Science in Information and Communications Technology';
-    const industry = 'Bachelor of Science in Information and Communications Technology';
+    const industry = 'Lanex Corp';
     const interests = ['Web Development', 'Mobile Development', 'UI/UX Design', 'Cyber Security']
     const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'NodeJS', 'ExpressJS', 'MongoDB', 'MySQL', 'Java']
-
-    const trainings = 5;
-    const events = 2;
 
     return <form className="h-fit w-full lg:p-0 p-4">
         <div className="flex flex-col w-full lg:h-52 relative">
@@ -70,7 +69,6 @@ const ProfileEdit = () => {
                     </select>
                 </div>
             </div>
-
         </div>
         <div className="flex w-full flex-col gap-6 md:m-14 m-0">
             <h1 className="font-semibold text-lg">About Me</h1>
@@ -79,26 +77,79 @@ const ProfileEdit = () => {
                     <label htmlFor="bio" className="text-sm font-semibold">
                         Bio
                     </label>
-                    <textarea name="bio" id="bio" placeholder={aboutMe} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-4" />
+                    <textarea name="bio" id="bio" placeholder={aboutMe} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-4 h-32 resize-none" />
                 </div>
                 <div>
-                    <label htmlFor="skill" className="text-sm font-semibold">
+                    <label htmlFor="skills" className="text-sm font-semibold">
                         Skills
                     </label>
                     <p className="text-sm text-gray-600">Add skills to display your experience</p>
-                    <h5 className="text-sm text-gray-900 dark:text-gray-400">
-                        <br />
+                    <Multiselect
+                        id="skills"
+                        customCloseIcon={<svg className="hover:text-gray-600 hover:cursor-pointer ml-1 w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>}
+                        className="shadow-sm mt-4"
+                        style={{
+                            chips: { background: "#DBDEE3", color: '#000000', margin: '8px 4px 2px 4px' }, searchBox: { border: "1px solid #DBDEE3", borderRadius: '6px', padding: '0px 10px 4px 10px' }
+                        }}
+                        isObject={false}
+                        options={skills}
+                        placeholder=""
+                    />
 
-                        <span className="flex flex-wrap gap-2 mt-1">
-                            {skills.map((skill) => (<span className="font-normal px-2 py-1 border border-gray-700 rounded-full" key={skill}>{skill}<br /></span>))}
-                        </span>
-                    </h5>
-                    <input type="text" name="skill" id="skill" placeholder={skills.join(', ')} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
             </div>
-
         </div>
+        <div className="flex w-full flex-col gap-6 md:m-14 m-0">
+            <h1 className="font-semibold text-lg">Additional Information</h1>
+            <div className="flex flex-col max-w-xl w-full gap-6">
+                <div className="w-full flex items-center gap-4">
+                    <label htmlFor="email" className="text-sm font-semibold w-1/4">
+                        Email
+                    </label>
+                    <input type="email" name="email" id="email" placeholder={email} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+                <div className="w-full flex items-center gap-4">
+                    <label htmlFor="school" className="text-sm font-semibold w-1/4">
+                        School
+                    </label>
+                    <input type="text" name="school" id="school" placeholder={school} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+                <div className="w-full flex items-center gap-4">
+                    <label htmlFor="course" className="text-sm font-semibold w-1/4">
+                        Course
+                    </label>
+                    <input type="text" name="course" id="course" placeholder={course} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+                <div className="w-full flex items-center gap-4">
+                    <label htmlFor="industry" className="text-sm font-semibold w-1/4">
+                        Industry
+                    </label>
+                    <input type="text" name="industry" id="industry" placeholder={industry} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+                <div>
+                    <label htmlFor="interests" className="text-sm font-semibold">
+                        Interests
+                    </label>
+                    <p className="text-sm text-gray-600">Tell us about your hobbies and passions</p>
+                    <Multiselect
+                        id="interests"
+                        customCloseIcon={<svg className="hover:text-gray-600 hover:cursor-pointer ml-1 w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                        </svg>}
+                        className="shadow-sm mt-4"
+                        style={{
+                            chips: { background: "#DBDEE3", color: '#000000', margin: '8px 4px 2px 4px' }, searchBox: { border: "1px solid #DBDEE3", borderRadius: '6px', padding: '0px 10px 4px 10px' }
+                        }}
+                        isObject={false}
+                        options={interests}
+                        placeholder=""
+                    />
 
+                </div>
+            </div>
+        </div>
     </form>;
 };
 

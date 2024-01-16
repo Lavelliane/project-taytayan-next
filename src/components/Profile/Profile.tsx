@@ -1,10 +1,17 @@
+'use client'
 import Image from "next/image";
 import React from "react";
 import { Card } from 'flowbite-react';
 import Link from "next/link";
+import TrainingsCard from "./TrainingsCard";
+import EventsCard from "./EventsCard";
+import { useAuthStore } from "@/hooks/useAuth";
+import { User } from '@/types/types'
 
 const Profile = () => {
-    const name = 'Jhury Kevin Lastre';
+    const user = useAuthStore<User>((state) => state.user)
+    console.log(user)
+    const name = user.firstName + ' ' + user.lastName;
     const pronounce = 'He/Him';
     const address = 'Talamban, Cebu';
     const occupation = 'Student';
@@ -12,14 +19,14 @@ const Profile = () => {
     const email = 'jhurylastre@gmail.com'
     const school = 'University of San Carlos - Talamban Campus';
     const course = 'Bachelor of Science in Information and Communications Technology';
-    const industry = 'Bachelor of Science in Information and Communications Technology';
+    const industry = 'Lanex Corp';
     const interests = ['Web Development', 'Mobile Development', 'UI/UX Design', 'Cyber Security']
     const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'NodeJS', 'ExpressJS', 'MongoDB', 'MySQL', 'Java']
 
     const trainings = 5;
     const events = 2;
 
-    return <main className="h-screen w-full">
+    return <main className="h-fit w-full">
         <div className="flex flex-col w-full h-52 relative">
             <div className="absolute w-full h-32 bg-[#9B5FFC] rounded-lg">
             </div>
@@ -42,7 +49,7 @@ const Profile = () => {
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Skills</span><br />
                     <span className="flex flex-wrap gap-2 mt-1">
-                        {skills.map((skill) => (<span className="font-normal px-2 py-1 border border-gray-700 rounded-full" key={skill}>{skill}<br /></span>))}
+                        {skills.map((skill) => (<span className="font-normal px-2 py-1 border border-gray-500 rounded-full" key={skill}>{skill}<br /></span>))}
                     </span>
                 </h5>
             </div>
@@ -68,7 +75,7 @@ const Profile = () => {
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Interest</span><br />
                     <span className="flex flex-wrap gap-2 mt-1">
-                        {interests.map((interest) => (<span className="font-normal px-2 py-1 border border-gray-700 rounded-full" key={interest}>{interest}<br /></span>))}
+                        {interests.map((interest) => (<span className="font-normal px-2 py-1 border border-gray-500 rounded-full" key={interest}>{interest}<br /></span>))}
                     </span>
                 </h5>
             </Card>
@@ -77,9 +84,27 @@ const Profile = () => {
         <div className="flex gap-4">
             <div className="px-4 py-1 bg-[#00AAFF] rounded-full w-fit text-sm font-semibold text-white">
                 <span>Trainings Completed&nbsp;&nbsp;&nbsp;</span><span>{trainings}</span>
+
             </div>
             <div className="px-4 py-1 bg-[#00AAFF] rounded-full w-fit text-sm font-semibold text-white">
                 <span>Events&nbsp;&nbsp;&nbsp;</span><span>{events}</span>
+            </div>
+        </div>
+        <div className="mt-6 flex flex-col gap-4">
+            <h1 className="font-semibold text-lg">Trainings & Certifications</h1>
+            <div className="flex flex-wrap gap-6">
+                <TrainingsCard />
+                <TrainingsCard />
+                <TrainingsCard />
+                <TrainingsCard />
+            </div>
+        </div>
+        <div className="mt-6 flex flex-col gap-4">
+            <h1 className="font-semibold text-lg">Events Joined</h1>
+            <div className="flex flex-wrap gap-6">
+                <EventsCard />
+                <EventsCard />
+                <EventsCard />
             </div>
         </div>
     </main>;
