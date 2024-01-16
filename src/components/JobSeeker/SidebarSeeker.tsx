@@ -26,15 +26,26 @@ const instanceOptions: InstanceOptions = {
 
 const drawer: DrawerInterface = new Drawer($targetEl, options, instanceOptions);
 
+async function fetchData() {
+	// Simulate asynchronous data fetching
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve('Fetched data');
+		}, 1000);
+	});
+}
+
 const SidebarSeeker = () => {
 	const pathName = usePathname();
 	const router = useRouter()
 	const logout = useAuthStore((state: { logout: any; }) => state.logout)
-
+	const user = useAuthStore((state: { user: any; }) => state.user)
 	function handleLogout() {
 		logout()
 		router.push('/login')
 	}
+
+	const name = user?.firstName + ' ' + user?.lastName
 
 	return (
 		<>
@@ -143,7 +154,7 @@ const SidebarSeeker = () => {
 									<div className='flex gap-2 items-center'>
 										<Image src='/favicon.ico' className='h-8' alt='avatar icon' width={0}
 											height={0} style={{ width: 'auto', height: '30px', objectFit: 'fill' }} />
-										<span>Jhury Lastre</span>
+										<span>{name}</span>
 									</div>
 								</Link>
 							</li>

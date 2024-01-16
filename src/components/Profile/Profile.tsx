@@ -14,18 +14,6 @@ const Profile = () => {
         console.log(user)
     }, [user])
 
-    const name = user.firstName + ' ' + user.lastName;
-    const pronounce = 'He/Him';
-    const address = 'Talamban, Cebu';
-    const occupation = 'Student';
-    const aboutMe = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. ';
-    const email = 'jhurylastre@gmail.com'
-    const school = 'University of San Carlos - Talamban Campus';
-    const course = 'Bachelor of Science in Information and Communications Technology';
-    const industry = 'Lanex Corp';
-    const interests = ['Web Development', 'Mobile Development', 'UI/UX Design', 'Cyber Security']
-    const skills = ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'NodeJS', 'ExpressJS', 'MongoDB', 'MySQL', 'Java']
-
     const trainings = 5;
     const events = 2;
 
@@ -45,7 +33,7 @@ const Profile = () => {
                 <Link href='/profile/edit' className="mt-8 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-1 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400">Edit Profile</Link>
             </div>
         </div>
-        <div className="flex w-fit h-fit my-10 gap-20">
+        <div className="flex w-full h-fit my-10 gap-20">
             <div className="flex w-full flex-col gap-6">
                 <h1 className="font-semibold text-lg">About Me</h1>
                 <p>{user.aboutMe}</p>
@@ -57,7 +45,7 @@ const Profile = () => {
                 </h5>
             </div>
 
-            <Card href="#" className="max-w-2xl w-[42rem] h-fit">
+            <Card href="#" className="max-w-2xl w-[42rem] h-fit ml-auto">
                 <h5 className="text-sm text-gray-900 dark:text-gray-400">
                     <span className="font-semibold">Email</span><br />
                     {user.email}

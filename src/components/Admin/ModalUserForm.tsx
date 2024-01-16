@@ -3,7 +3,7 @@
 import { Modal, Button, Checkbox, Label, TextInput, Dropdown, Datepicker } from 'flowbite-react';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import skillSuggestion from '@/utils/TypeSuggestion';
+import { skillOptions } from '@/utils/Options';
 
 const ModalUserForm = () => {
 	const [openModal, setOpenModal] = useState(false);
@@ -16,7 +16,7 @@ const ModalUserForm = () => {
 		const value = e.target.value;
 		setSkills(value.split(','));
 
-		const filterSkillSuggestion = skillSuggestion.filter((suggestion) =>
+		const filterSkillSuggestion = skillOptions.filter((suggestion) =>
 			suggestion.toLowerCase().includes(value.toLowerCase())
 		);
 		setSkillsSuggestion(filterSkillSuggestion);

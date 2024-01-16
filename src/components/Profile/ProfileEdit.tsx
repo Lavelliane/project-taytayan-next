@@ -2,31 +2,44 @@
 import Image from "next/image";
 import React, { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
-import { Card } from 'flowbite-react';
 import { User } from '@/types/types'
 import { DefaultProfile } from '@/utils/DefaultProfile'
 import Multiselect from 'multiselect-react-dropdown';
+import { skillOptions, interestOptions } from '@/utils/Options';
+import { useAuthStore } from '@/hooks/useAuth';
+import { db } from "@/lib/firebase";
+import { collection, doc, updateDoc } from 'firebase/firestore';
 
 const ProfileEdit = () => {
     const [user, setUser] = useState<User>(DefaultProfile);
 
+    const userStore = useAuthStore<User>((state) => state.user);
+    useEffect(() => {
+        setUser(userStore);
+    }, [userStore])
 
     const handleOnChange: any = (event: ChangeEvent<HTMLInputElement>) => {
         setUser({ ...user, [event.target.name]: event.target.value })
     }
 
+    const handleOnSubmit = async (event: any) => {
+        event.preventDefault();
+
+        try {
+            const docRef = doc(db, 'users', userStore.uid);
+            await updateDoc(docRef, user);
+
+            console.log(user);
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+
+    }
+
     console.log(user);
-    const name = 'Jhury Kevin Lastre';
-    const pronounce = 'He/Him';
-    const address = 'Talamban, Cebu';
-    const occupation = 'Student';
-    const aboutMe = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. ';
-    const email = 'jhurylastre@gmail.com'
-    const school = 'University of San Carlos - Talamban Campus';
-    const course = 'Bachelor of Science in Information and Communications Technology';
-    const industry = 'Lanex Corp';
-    const interests = ['Web Development', 'Mobile Development', 'UI/UX Design', 'Cyber Security']
-    const skillOptions = ['HTML', 'CSS', 'JavaScript', 'React', 'React Native', 'NodeJS', 'ExpressJS', 'MongoDB', 'MySQL', 'Java']
+    console.log(userStore);
 
     return <form className="h-fit w-full lg:p-0 p-4">
         <div className="flex flex-col w-full lg:h-52 relative">
@@ -42,7 +55,7 @@ const ProfileEdit = () => {
                 </div>
                 <div className="flex gap-4">
                     <Link href='/profile' className="mt-8 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-1 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400">Cancel</Link>
-                    <button type="submit" className="bg-gray-700 mt-8 px-3 py-2 text-xs font-medium text-center text-white rounded-full border border-gray-600 hover:bg-gray-600 focus:ring-1 focus:outline-none focus:ring-gray-600  dark:hover:bg-gray-600 dark:focus:ring-gray-600">Save</button>
+                    <button onClick={handleOnSubmit} type="submit" className="bg-gray-700 mt-8 px-3 py-2 text-xs font-medium text-center text-white rounded-full border border-gray-600 hover:bg-gray-600 focus:ring-1 focus:outline-none focus:ring-gray-600  dark:hover:bg-gray-600 dark:focus:ring-gray-600">Save</button>
                 </div>
             </div>
         </div>
@@ -53,25 +66,25 @@ const ProfileEdit = () => {
                     <label htmlFor="firstName" className="text-sm font-semibold w-1/4">
                         First Name
                     </label>
-                    <input type="text" name="firstName" id="firstName" placeholder={'e.g. Juan'} defaultValue={''} value={user.firstName || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="firstName" id="firstName" placeholder={'e.g. Juan'} value={user.firstName || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="lastName" className="text-sm font-semibold w-1/4">
                         Last Name
                     </label>
-                    <input type="text" name="lastName" id="lastName" placeholder={'e.g. Cruz'} defaultValue={''} value={user.lastName || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="lastName" id="lastName" placeholder={'e.g. Cruz'} value={user.lastName || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="location" className="text-sm font-semibold w-1/4">
                         Address
                     </label>
-                    <input type="text" name="location" id="location" placeholder={'Street/Brgy/City/Province/Country'} defaultValue={''} value={user.location || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="location" id="location" placeholder={'Street/Brgy/City/Province/Country'} value={user.location || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="occupation" className="text-sm font-semibold w-1/4">
                         Occupation
                     </label>
-                    <input type="text" name="occupation" id="occupation" placeholder={'e.g. Construction Worker'} defaultValue={''} value={user.occupation || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="occupation" id="occupation" placeholder={'e.g. Construction Worker'} value={user.occupation || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="pronoun" className="text-sm font-semibold w-1/4">
@@ -93,7 +106,7 @@ const ProfileEdit = () => {
                     <label htmlFor="aboutMe" className="text-sm font-semibold">
                         Bio
                     </label>
-                    <textarea name="aboutMe" id="aboutMe" placeholder={'Tell us about yourself...'} defaultValue={''} value={user.aboutMe || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-4 h-32 resize-none" />
+                    <textarea name="aboutMe" id="aboutMe" placeholder={'Tell us about yourself...'} value={user.aboutMe || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-4 h-32 resize-none" />
                 </div>
                 <div>
                     <label htmlFor="skills" className="text-sm font-semibold">
@@ -113,7 +126,7 @@ const ProfileEdit = () => {
                             chips: { background: "#DBDEE3", color: '#000000', margin: '8px 4px 2px 4px' }, searchBox: { border: "1px solid #DBDEE3", borderRadius: '6px', padding: '0px 10px 4px 10px' }
                         }}
                         isObject={false}
-                        options={skillOptions}
+                        options={skillOptions.toSorted((a, b) => a.localeCompare(b))}
                         placeholder=""
                     />
 
@@ -127,25 +140,25 @@ const ProfileEdit = () => {
                     <label htmlFor="email" className="text-sm font-semibold w-1/4">
                         Email
                     </label>
-                    <input type="email" name="email" id="email" placeholder={'e.g. juancruz@gmail.com'} defaultValue={''} value={user.email || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="email" name="email" id="email" placeholder={'e.g. juancruz@gmail.com'} value={user.email || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="school" className="text-sm font-semibold w-1/4">
                         School
                     </label>
-                    <input type="text" name="school" id="school" placeholder={'Enter school if applicable'} defaultValue={''} value={user.school || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="school" id="school" placeholder={'Enter school if applicable'} value={user.school || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="course" className="text-sm font-semibold w-1/4">
                         Course
                     </label>
-                    <input type="text" name="course" id="course" placeholder={'Enter course if applicable'} defaultValue={''} value={user.course || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="course" id="course" placeholder={'Enter course if applicable'} value={user.course || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div className="w-full flex items-center gap-4">
                     <label htmlFor="industry" className="text-sm font-semibold w-1/4">
                         Industry
                     </label>
-                    <input type="text" name="industry" id="industry" placeholder={'Enter workplace if applicable'} defaultValue={''} value={user.industry || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <input type="text" name="industry" id="industry" placeholder={'Enter workplace if applicable'} value={user.industry || ''} onChange={handleOnChange} className="focus:ring-gray-500 focus:border-gray-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
                 <div>
                     <label htmlFor="interest" className="text-sm font-semibold">
@@ -165,7 +178,7 @@ const ProfileEdit = () => {
                             chips: { background: "#DBDEE3", color: '#000000', margin: '8px 4px 2px 4px' }, searchBox: { border: "1px solid #DBDEE3", borderRadius: '6px', padding: '0px 10px 4px 10px' }
                         }}
                         isObject={false}
-                        options={interests}
+                        options={interestOptions.toSorted((a, b) => a.localeCompare(b))}
                         placeholder=""
                     />
 
