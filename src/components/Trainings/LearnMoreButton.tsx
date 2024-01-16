@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Button, Modal } from "flowbite-react";
-import { Training } from "@/utils/DummyTrainings";
+import { Training } from "@/types/types";
 import { LearnMoreModal } from "./LearnMoreModal";
 
 interface LearnMoreButtonProps {

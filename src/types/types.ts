@@ -22,6 +22,19 @@ export type User = {
 	eventsHosted: string[];
 };
 
+export type Training = {
+  trainingId: number;
+  trainingName: string;
+  trainingCenter: string;
+  trainingDate: Date;
+  trainingAddress: string;
+  trainingDescription: string;
+  trainingActivities: string[];
+  trainingObjectives: string[];
+  trainingRegistration: string;
+  trainingCategory: string;
+};
+
 export type AuthStore = {
     user: User;
     signUp: (email: string, password: string, confirmPassword: string, firstName: string, lastName: string) => Promise<void>;
