@@ -7,9 +7,9 @@ export default function Registration() {
   return (
     <main className='max-h-screen max-w-screen'>
       <section className=' h-screen flex p-0 sm:p-8 lg:p-0 bg-gradient-to-b from-blue-500 via-indigo-500 to-purple-500 justify-center'>
-        <div className='z-50 w-full rounded-none sm:rounded-2xl lg:rounded-none flex flex-col h-full items-center justify-center pb-12 bg-white lg:bg-white backdrop-blur-md lg:backdrop-blur-none border-white/50 border'>
+        <div className='z-50 w-full rounded-none sm:rounded-2xl lg:rounded-none flex flex-col h-full items-center justify-center bg-white lg:bg-white backdrop-blur-md lg:backdrop-blur-none border-white/50 border'>
           <div className='w-full px-12 max-w-lg'>
-            <Link href='/admin' className=' flex font-lexendDeca mb-8 gap-1 w-fit'>
+            <Link href='/admin' className='flex font-lexendDeca mb-6 gap-1 w-fit'>
                 <Image src='/taytayan-logo.svg' className='h-6 sm:h-12' alt='Project taytayan Logo' width={0} height={0} style={{ width: 'auto', height: '50px', objectFit: 'fill' }} />
                 <span className='flex flex-col items-start justify-center'>
                     <span className='text-sm font-light whitespace-nowrap dark:text-white'>PROJECT</span>

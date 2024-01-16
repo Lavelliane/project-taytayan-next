@@ -95,7 +95,7 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
   return (
     <div className='w-full px-12'>
     <GoogleButton />
-    <h5 className='text-sm font-light text-gray-500 mb-4 text-center'>- OR -</h5>
+    <h5 className='text-sm font-light text-gray-500 my-4 text-center'>- OR -</h5>
     <form className="flex w-full flex-col gap-4">
       <div>
         <div className="mb-2 block">

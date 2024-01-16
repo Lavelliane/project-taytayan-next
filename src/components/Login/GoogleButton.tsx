@@ -20,7 +20,7 @@ export const GoogleButton = () => {
         theme={googleButton} 
         color='google' 
         size='md' 
-        className='mb-8'
+        className=''
         onClick={() => handleGoogleAuth()}
         >
         <div className='flex items-center'>

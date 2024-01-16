@@ -11,9 +11,9 @@ import SignUpSchema from '@/schemas/SignUpSchema';
 import { ZodError } from 'zod';
 import { GoogleButton } from './GoogleButton';
 
-interface RegistrationFormProps {}
-
 interface RegistrationFormState {
+  firstName: string;
+  lastName: String
   email: string;
   password: string;
   confirmPassword: string;
@@ -25,19 +25,23 @@ const buttonTheme = {
   },
 };
 
-export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
+export const RegistrationForm = () => {
   const router = useRouter();
   const signUp = useAuthStore((state) => state.signUp)
   const user = useAuthStore((state) => state.user)
   const authStateChangeListener = useAuthStore((state) => state.authStateChangeListener)
 
   const [formData, setFormData] = useState<RegistrationFormState>({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
 
   const [formErrors, setFormErrors] = useState({
+    emptyFirstName: false,
+    emptyLastName: false,
     emptyEmail: false,
     emptyPassword: false,
     emptyConfirmPassword: false,
@@ -48,9 +52,11 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const { email, password, confirmPassword } = formData;
+    const { firstName, lastName, email, password, confirmPassword } = formData;
 
     setFormErrors({
+      emptyFirstName: false,
+      emptyLastName: false,
       emptyEmail: false,
       emptyPassword: false,
       emptyConfirmPassword: false,
@@ -58,21 +64,50 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
       confirmPasswordMismatch: false,
     });
 
-    try {
-      const validatedCredentials = SignUpSchema.parse({ email, password, confirmPassword })
-      const { email: vEmail, password: vPassword, confirmPassword: vConfirmPassword } = validatedCredentials
-      signUp(vEmail, vPassword, vConfirmPassword)
-      authStateChangeListener()
-      router.push('/')
+    if (firstName && lastName && email && password && confirmPassword) {
+      setTimeout(() => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    } catch (error) {
-      if (error instanceof ZodError) {
-        console.error('Validation error:', error.errors);
-      } else {
-        console.error('Unexpected error:', error);
-      }
-    }
-    
+        if (!emailRegex.test(email)) {
+          setFormErrors((prevErrors) => ({ ...prevErrors, invalidEmail: true }));
+          return;
+        }
+
+        if (password === confirmPassword) {
+
+          // TODO: INSERT FIREBASE SIGN UP CONNECTION HERE
+        /*
+        try {
+          const validatedCredentials = SignUpSchema.parse({ email, password, confirmPassword })
+          const { email: vEmail, password: vPassword, confirmPassword: vConfirmPassword } = validatedCredentials
+          signUp(vEmail, vPassword, vConfirmPassword)
+          authStateChangeListener()
+          router.push('/')
+
+        } catch (error) {
+          if (error instanceof ZodError) {
+            console.error('Validation error:', error.errors);
+          } else {
+            console.error('Unexpected error:', error);
+          }
+        }
+        */
+
+          router.push('/');
+        } else {
+          setFormErrors((prevErrors) => ({ ...prevErrors, confirmPasswordMismatch: true }));
+        }
+      }, 1000);
+    } else {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        emptyFirstName: !firstName,
+        emptyLastName: !lastName,
+        emptyEmail: !email,
+        emptyPassword: !password,
+        emptyConfirmPassword: !confirmPassword,
+      }));
+    }    
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -89,8 +124,34 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
   return (
     <div className='w-full px-12'>
     <GoogleButton />
-    <h5 className='text-sm font-light text-gray-500 mb-4 text-center'>- OR -</h5>
+    <h5 className='text-sm font-light text-gray-500 my-4 text-center'>- OR -</h5>
     <form className="flex w-full flex-col gap-4">
+      <div className='flex gap-4'>
+        <div className="block">
+          <Label htmlFor="firstName" value="First Name" className='text-md mb-2 block' />
+          <TextInput
+          id="firstName"
+          type="text"
+          onChange={(e) => handleChange(e)}
+          placeholder="Juan"
+          required
+          sizing="md"
+          color={(formErrors.emptyFirstName) ? "failure" : undefined}
+          />
+        </div>
+        <div className="block">
+          <Label htmlFor="lastName" value="Last Name" className='text-md mb-2 block' />
+          <TextInput
+          id="lastName"
+          type="text"
+          onChange={(e) => handleChange(e)}
+          placeholder="De La Cruz"
+          required
+          sizing="md"
+          color={(formErrors.emptyLastName) ? "failure" : undefined}
+          />
+        </div>
+      </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="email" value="Email" className='text-md' />
@@ -109,10 +170,6 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
               <>
                 <span className="font-medium">Oops!</span> Not a valid email address!
               </>
-            ) : formErrors.emptyEmail ? (
-              <>
-                Email address cannot be empty.
-              </>
             ) : undefined
           }
         />
@@ -130,13 +187,6 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
           icon={HiLockClosed}
           sizing='md'
           color={(formErrors.emptyPassword) ? "failure" : undefined}
-          helperText={
-            (formErrors.emptyPassword) ? (
-              <>
-                Password cannot be empty.
-              </>
-            ) :  undefined
-          }
         />
       </div>
       <div>
@@ -157,7 +207,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
               <>
                 <span className="font-medium">Oops!</span> Password confirmation does not match!
               </>
-            ) : formErrors.emptyConfirmPassword ? (
+            ) : (formErrors.emptyConfirmPassword && !formErrors.emptyPassword ) ? (
               <>
                 Enter password again to confirm.
               </>
