@@ -11,10 +11,22 @@ import { persist, createJSONStorage } from "zustand/middleware";
 const initialUserState: User = {
     email: "",
     uid: "",
-    role: "",
+    role: "general",
+    avatarURL: "",
     firstName: "",
     lastName: "",
-    avatarURL: "",
+    pronoun: "",
+    location: "",
+    title: "",
+    school: "",
+    course: "",
+    industry: "",
+    interest: [],
+    aboutMe: "",
+    skills: [],
+    trainings: [],
+    eventsJoined: [],
+    eventsHosted: [],
 }
 
 
@@ -30,8 +42,8 @@ export const useAuthStore = create(
                 onAuthStateChanged(auth, async (user) => {
                     if(user){
                         const docRef = doc(collection(db, 'users'), user.uid)
-                        await setDoc(docRef, { ...paramsWithoutConfirm, role: "general", avatarURL: "", uid: user.uid})
-                        set({ user: { ...paramsWithoutConfirm, role: "general", avatarURL: "", uid: user.uid } });
+                        await setDoc(docRef, { ...paramsWithoutConfirm, ...initialUserState, uid: user.uid})
+                        set({ user: { ...paramsWithoutConfirm, ...initialUserState, uid: user.uid } });
                     }
                 })
             } catch (error) {
@@ -55,10 +67,23 @@ export const useAuthStore = create(
                             email: userData?.email || "",
                             uid: userData?.uid || "",
                             role: userData?.role || "",
+                            avatarURL: userData?.avatarURL || "",
                             firstName: userData?.firstName || "",
                             lastName: userData?.lastName || "",
-                            avatarURL: userData?.avatarURL || "",
+                            pronoun: userData?.pronoun || "",
+                            location: userData?.location || "",
+                            title: userData?.title || "",
+                            school: userData?.school || "",
+                            course: userData?.course || "",
+                            industry: userData?.industry || "",
+                            interest: userData?.interest || [],
+                            aboutMe: userData?.aboutMe || "",
+                            skills: userData?.skills || [],
+                            trainings: userData?.trainings || [],
+                            eventsJoined: userData?.eventsJoined || [],
+                            eventsHosted: userData?.eventsHosted || [],
                         };
+                        
         
                         set({ user: mappedUserData });
                     }

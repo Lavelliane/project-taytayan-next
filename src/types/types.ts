@@ -7,6 +7,18 @@ export type User = {
     avatarURL: string;
     firstName: string;
     lastName: string;
+    pronoun: string;
+    location: string;
+    title: string;
+    school: string;
+    course: string;
+    industry: string;
+    interest: string[];
+    aboutMe: string;
+    skills: string[];
+    trainings: string[];
+    eventsJoined: string[];
+    eventsHosted: string[];
 }
 
 export type AuthStore = {
