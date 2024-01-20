@@ -11,9 +11,11 @@ import { User } from '@/types/types'
 
 const Profile = () => {
     const user = useAuthStore<User>((state) => state.user)
+    const updateUserLatest = useAuthStore((state) => state.updateUserLatest)
     useEffect(() => {
+        updateUserLatest()
         console.log(user)
-    }, [user])
+    }, [])
 
     const trainings = 5;
     const events = 2;

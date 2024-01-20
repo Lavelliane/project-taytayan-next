@@ -46,5 +46,6 @@ export type AuthStore = {
 	) => Promise<void>;
 	signIn: (email: string, password: string) => Promise<UserCredential>;
 	updateUserState: (user: User) => void;
+	updateUserLatest: () => void;
 	logout: () => Promise<void>;
 };
