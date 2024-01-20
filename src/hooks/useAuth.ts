@@ -34,7 +34,7 @@ export const initialUserState: User = {
 
 export const useAuthStore = create(
 	persist<AuthStore>(
-		(set) => ({
+		(set, get) => ({
 			user: initialUserState,
 			signUp: async (email: string, password: string, confirmPassword: string, firstName: string, lastName: string) => {
 				const params = { email, password, confirmPassword, firstName, lastName };
@@ -97,6 +97,46 @@ export const useAuthStore = create(
         },
         updateUserState: (user: User) => {
             set({ user })
+        },
+        updateUserLatest: async () => {
+            const { user } = get()
+
+            if (user && user.uid) {
+                try {
+                    const docRef = doc(collection(db, 'users'), user.uid);
+                    const userDoc = await getDoc(docRef);
+        
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+        
+                        const mappedUserData: User = {
+                            email: userData?.email || "",
+                            uid: userData?.uid || "",
+                            role: userData?.role || "",
+                            avatarURL: userData?.avatarURL || "",
+                            firstName: userData?.firstName || "",
+                            lastName: userData?.lastName || "",
+                            pronoun: userData?.pronoun || "",
+                            location: userData?.location || "",
+                            occupation: userData?.occupation || "",
+                            title: userData?.title || "",
+                            school: userData?.school || "",
+                            course: userData?.course || "",
+                            industry: userData?.industry || "",
+                            interest: userData?.interest || [],
+                            aboutMe: userData?.aboutMe || "",
+                            skills: userData?.skills || [],
+                            trainings: userData?.trainings || [],
+                            eventsJoined: userData?.eventsJoined || [],
+                            eventsHosted: userData?.eventsHosted || [],
+                        };
+        
+                        set({ user: mappedUserData });
+                    }
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                }
+            }
         },
         logout: async () => {
             set((state) => ({ user: initialUserState }))

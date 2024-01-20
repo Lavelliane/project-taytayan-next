@@ -40,5 +40,6 @@ export type AuthStore = {
     signUp: (email: string, password: string, confirmPassword: string, firstName: string, lastName: string) => Promise<void>;
     signIn: (email: string, password: string) => Promise<UserCredential>;
     updateUserState: (user: User) => void;
+	updateUserLatest: () => void;
     logout: () => Promise<void>;
 }
