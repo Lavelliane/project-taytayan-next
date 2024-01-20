@@ -4,6 +4,7 @@ import React from 'react';
 import { Drawer, DrawerOptions, DrawerInterface, InstanceOptions } from 'flowbite';
 import Link from 'next/link';
 import Image from 'next/image';
+import avatar from '../../../public/assets/avatar.png'
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/hooks/useAuth';
 
@@ -152,7 +153,7 @@ const SidebarSeeker = () => {
 								<h1 className=' text-sm font-semibold text-gray-500 mt-4'>My Profile</h1>
 								<Link href='/profile' className={`flex items-center w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${pathName.includes('/profile') ? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]' : 'text-gray-700 dark:text-white'}`}>
 									<div className='flex gap-2 items-center'>
-										<Image src='/favicon.ico' className='h-8' alt='avatar icon' width={0}
+										<Image src={avatar} className='h-8' alt='avatar icon' width={0}
 											height={0} style={{ width: 'auto', height: '30px', objectFit: 'fill' }} />
 										<span>{name}</span>
 									</div>

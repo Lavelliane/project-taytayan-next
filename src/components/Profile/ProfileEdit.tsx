@@ -8,15 +8,22 @@ import Multiselect from 'multiselect-react-dropdown';
 import { skillOptions, interestOptions } from '@/utils/Options';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from "@/lib/firebase";
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import avatar from '../../../public/assets/avatar.png'
+import { doc, updateDoc } from 'firebase/firestore';
 
 const ProfileEdit = () => {
     const [user, setUser] = useState<User>(DefaultProfile);
 
-    const userStore = useAuthStore<User>((state) => state.user);
+    const userStore = useAuthStore((state) => state.user);
+    const updateState = useAuthStore((state) => state.updateUserState);
+
     useEffect(() => {
         setUser(userStore);
-    }, [userStore])
+    }, [])
+
+    useEffect(() => {
+        updateState(user);
+    }, [user])
 
     const handleOnChange: any = (event: ChangeEvent<HTMLInputElement>) => {
         setUser({ ...user, [event.target.name]: event.target.value })
@@ -30,6 +37,8 @@ const ProfileEdit = () => {
             await updateDoc(docRef, user);
 
             console.log(user);
+
+
         }
         catch (error) {
             console.log(error);
@@ -47,7 +56,7 @@ const ProfileEdit = () => {
             </div>
             <div className="lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between">
                 <div className="flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end">
-                    <Image src="/favicon.ico" alt="Profile" width={0} height={0} className="rounded-full" style={{ width: 'auto', height: '140px', objectFit: 'fill' }} />
+                    <Image src={avatar} alt="Profile" width={0} height={0} className="rounded-full" style={{ width: 'auto', height: '140px', objectFit: 'fill' }} />
                     <div className="flex flex-col">
                         <h1 className="text-xl font-bold">Profile</h1>
                         <h2 className="text-gray-700">Upload your photo and personal details</h2>
