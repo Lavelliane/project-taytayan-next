@@ -5,6 +5,7 @@ import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown'
 import { TrainingCard } from '../Trainings/TrainingCard';
 import trainings from '@/utils/DummyTrainings';
+import { SortDropdown } from "./SortDropdown";
 
 const TrainingsPage = () => {
     const defaultSelectedCategories = ['technical', 'certification', 'personal', 'professional', 'vocational & arts', 'other']; // Define defaults
@@ -37,16 +38,23 @@ const TrainingsPage = () => {
             <h1 className='font-inter font-semibold pb-4 text-lg text-dark'>Trainings</h1>
             <div>
                 <div className='pb-8'>
-                    <CategoryDropdown
-                        selectedCategories={selectedCategories}
-                        onCategoryChange={handleCategoryChange}
-                    />
+                    <div className="flex gap-6">
+                        <CategoryDropdown
+                            selectedCategories={selectedCategories}
+                            onCategoryChange={handleCategoryChange}
+                        />
+                        <SortDropdown
+                            selectedCategories={selectedCategories}
+                            onCategoryChange={handleCategoryChange}
+                        />
+                    </div>
                     <div className='flex flex-wrap gap-2 pt-4 '>
                         {selectedCategories.slice().sort().map((category, index) => (
                             <CategoryBadge key={index} category={category} />
                         ))}
                     </div>
                 </div>
+
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
                     {filteredTrainings.map((training) => (
                         <TrainingCard

@@ -57,11 +57,11 @@ export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ selectedCate
   };
 
   return (
-    <Dropdown 
-      label="Category" 
-      dismissOnClick={false} 
-      renderTrigger={categoryButton} 
-      theme={customTheme} 
+    <Dropdown
+      label="Category"
+      dismissOnClick={false}
+      renderTrigger={categoryButton}
+      theme={customTheme}
       placement='bottom'
       inline
       className='z-50'
