@@ -5,6 +5,7 @@ import { Card } from 'flowbite-react';
 import Link from "next/link";
 import TrainingsCard from "./TrainingsCard";
 import EventsCard from "./EventsCard";
+import avatar from '../../../public/assets/avatar.png'
 import { useAuthStore } from "@/hooks/useAuth";
 import { User } from '@/types/types'
 
@@ -25,7 +26,7 @@ const Profile = () => {
             </div>
             <div className="px-10 w-full h-fit z-10 absolute bottom-0 flex sm:flex-row flex-col items-center justify-between">
                 <div className="flex gap-6 items-end ">
-                    <Image src="/favicon.ico" alt="Profile" width={0} height={0} className="rounded-full" style={{ width: 'auto', height: '140px', objectFit: 'fill' }} />
+                    <Image src={avatar} alt="Profile" width={0} height={0} className="rounded-full" style={{ width: 'auto', height: '140px', objectFit: 'fill' }} />
                     <div className="flex flex-col ">
                         <h1 className="text-xl font-bold">{user.firstName + ' ' + user.lastName}&nbsp;<span className="text-xs font-normal">({user.pronoun})</span></h1>
                         <h2 className="text-gray-700">{user.location}</h2>
