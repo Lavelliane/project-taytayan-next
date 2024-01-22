@@ -29,6 +29,7 @@ export type Training = {
 	trainingDate: Date;
 	trainingAddress: string;
 	trainingDescription: string;
+	trainingRegistrants: string[];
 	trainingActivities: string[];
 	trainingObjectives: string[];
 	trainingRegistration: string;

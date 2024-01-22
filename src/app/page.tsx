@@ -2,7 +2,6 @@ import Dashboard from '@/components/Dashboard/Dashboard';
 import { NavbarSeeker } from '@/components/JobSeeker/NavbarSeeker';
 import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
 
-
 export default function Home() {
 	return (
 		<main className='flex flex-col min-h-screen justify-between bg-white'>
@@ -12,5 +11,4 @@ export default function Home() {
 			</div>
 		</main>
 	);
-};
-
+}
