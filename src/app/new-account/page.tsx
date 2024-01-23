@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
-import { RegistrationForm } from '@/components/Login/SignUpForm';
+import { SignUpForm } from '@/components/Login/SignUpForm';
 
 export default function Registration() {
   return (
@@ -20,7 +20,7 @@ export default function Registration() {
             <h3 className='text-sm font-medium text-gray-700 mb-4'>Bridging you to opportunities</h3>
           </div>
           <div className='w-full max-w-lg'>
-            <RegistrationForm />
+            <SignUpForm />
           </div>
         </div>
         <div className='hidden lg:block max-w-7xl w-full h-full'>

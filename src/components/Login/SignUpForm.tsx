@@ -1,12 +1,11 @@
 'use client'
 
-import React, { useState, useEffect, ChangeEvent, MouseEvent } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FieldValue, FieldValues, useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
 import { Button, Label, TextInput } from 'flowbite-react';
 import { HiMail, HiLockClosed, HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useAuthStore } from '@/hooks/useAuth';
 import SignUpSchema from '@/schemas/SignUpSchema';
 import { z, ZodError } from 'zod';

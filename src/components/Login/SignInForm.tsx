@@ -58,6 +58,8 @@ export const SignInForm = () => {
   const signIn = useAuthStore((state) => state.signIn)
   const [showPassword, setShowPassword] = useState(false)
 
+
+  // TODO: HANDLER FOR FIREBASE AUTH INVALID CREDENTIALS
   const onSubmit = async (data: FieldValues) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000))
