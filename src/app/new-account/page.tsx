@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
-import { RegistrationForm } from '@/components/Login/RegistrationForm';
+import { RegistrationForm } from '@/components/Login/SignUpForm';
 
 export default function Registration() {
   return (
