@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
-import { LoginForm } from '@/components/Login/LoginForm';
+import { SignInForm } from '@/components/Login/SignInForm';
 
 export default function Login() {
   return (
@@ -20,7 +20,7 @@ export default function Login() {
             <h3 className='text-sm font-medium text-gray-700 mb-4'>Bridging you to opportunities</h3>
           </div>
           <div className='w-full max-w-lg'>
-            <LoginForm />
+            <SignInForm />
           </div>
         </div>
         <div className='hidden lg:block max-w-7xl w-full h-full'>
