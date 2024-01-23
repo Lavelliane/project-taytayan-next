@@ -1,6 +1,5 @@
-import React from "react";
-import { trainings } from "@/utils/DummyTrainings";
 import { AddTrainingButton } from "@/components/Trainings/AddTrainingButton";
+import React from "react";
 
 const page = () => {
   return (
