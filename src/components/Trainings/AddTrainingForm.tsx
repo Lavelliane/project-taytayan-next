@@ -13,6 +13,8 @@ import {
   addTrainingFormSchema,
   AddTrainingFormType,
 } from "@/schemas/AddTrainingSchema";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 interface AddTrainingProps {
   addTrainingOpened: boolean;
@@ -59,19 +61,22 @@ export const AddTrainingForm = ({
     handleAddTrainingClose(); // Close the modal
   };
 
-  const submitAddTrainingForm = (data: AddTrainingFormType) => {
+  const submitAddTrainingForm = async (data: AddTrainingFormType) => {
     const trainingActivitiesArray = data.trainingActivities
       .split(";")
-      .map((item) => item.trim());
+      .map((item) => item.trim())
+      .filter((str) => str !== "");
     const trainingObjectivesArray = data.trainingObjectives
       .split(";")
-      .map((item) => item.trim());
+      .map((item) => item.trim())
+      .filter((str) => str !== "");
     const finalPayload = {
       ...data,
       trainingActivities: trainingActivitiesArray,
       trainingObjectives: trainingObjectivesArray,
     };
-    console.log(finalPayload); // Insert here Firestore function
+    const trainingRef = collection(db, "trainings");
+    await addDoc(trainingRef, finalPayload);
     handleAddTrainingClose();
     reset();
   };
@@ -224,6 +229,7 @@ export const AddTrainingForm = ({
                 id="trainingRegistration"
                 type="number"
                 placeholder="0.00"
+                addon="₱"
                 {...register("trainingRegistration", { valueAsNumber: true })}
               />
               {errors.trainingRegistration && (
