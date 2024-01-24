@@ -2,7 +2,7 @@ import { Training } from '@/types/types';
 
 export const trainings: Training[] = [
 	{
-		trainingId: 1,
+		trainingId: '1',
 		trainingName: 'Google Cloud Platform - Foundational',
 		trainingCenter: 'Google, Inc.',
 		trainingDate: new Date('2024-01-13'),
@@ -24,7 +24,7 @@ export const trainings: Training[] = [
 		trainingCategory: 'certification',
 	},
 	{
-		trainingId: 2,
+		trainingId: '2',
 		trainingName: 'Technical Support and Troubleshooting',
 		trainingCenter: 'University of San Carlos - Department of Computer Engineering',
 		trainingDate: new Date('2024-01-01'),
@@ -46,7 +46,7 @@ export const trainings: Training[] = [
 		trainingCategory: 'technical',
 	},
 	{
-		trainingId: 3,
+		trainingId: '3',
 		trainingName: 'CCNA: Introduction to Networks',
 		trainingCenter: 'Cisco Networking Academy',
 		trainingDate: new Date('2024-02-02'),
@@ -64,7 +64,7 @@ export const trainings: Training[] = [
 		trainingCategory: 'certification',
 	},
 	{
-		trainingId: 4,
+		trainingId: '4',
 		trainingName: 'Food and Beverage Services NC II- CBC',
 		trainingCenter: 'TESDA',
 		trainingDate: new Date('2024-04-01'),
@@ -82,7 +82,7 @@ export const trainings: Training[] = [
 		trainingCategory: 'vocational & arts',
 	},
 	{
-		trainingId: 5,
+		trainingId: '5',
 		trainingName: 'JUMP Camp',
 		trainingCenter: 'University of San Carlos - Department of Computer Engineering',
 		trainingDate: new Date('2024-05-31'),
