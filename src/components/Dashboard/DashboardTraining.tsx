@@ -4,7 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown';
 import { TrainingCard } from '../Trainings/TrainingCard';
-import trainings from '@/utils/DummyTrainings';
+import { Training } from '@/types/types';
+import { collection, getDocs, where, query } from 'firebase/firestore';
+import { useAuthStore } from '@/hooks/useAuth';
+import { db } from '@/lib/firebase';
 
 export const DashboardTraining = () => {
 	const defaultSelectedCategories = [
@@ -15,21 +18,46 @@ export const DashboardTraining = () => {
 		'vocational & arts',
 		'other',
 	]; // Define defaults
-	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
 
+	const userStore = useAuthStore((state) => state.user);
+
+	const [trainings, setTrainings] = useState<Training[]>([]);
+	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
 	const [filteredTrainings, setFilteredTrainings] = useState<any[]>(trainings);
 
 	useEffect(() => {
-		console.log(selectedCategories);
+		fetchTrainings();
+	}, []);
+
+	useEffect(() => {
+		setFilteredTrainings(trainings);
+	}, [trainings]);
+
+	useEffect(() => {
 		filterTrainings();
 	}, [selectedCategories]); // Run the effect whenever selectedCategories changes
 
-	useEffect(() => {
-		console.log(filteredTrainings);
-	}, [filteredTrainings]);
-
 	const handleCategoryChange = (newSelectedCategories: string[]) => {
 		setSelectedCategories(newSelectedCategories);
+	};
+
+	const fetchTrainings = async () => {
+		try {
+			const trainingRef = query(collection(db, 'trainings'));
+			const trainingDoc = await getDocs(trainingRef);
+
+			if (userStore.myTrainings.length > 0) {
+				const fetchedTrainings: Training[] = [];
+
+				trainingDoc.forEach((doc) => {
+					const trainingData: Training = { ...(doc.data() as Training) };
+					fetchedTrainings.push(trainingData);
+				});
+				setTrainings(fetchedTrainings);
+			}
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const filterTrainings = () => {
@@ -58,6 +86,7 @@ export const DashboardTraining = () => {
 					<TrainingCard key={training.trainingId} trainingData={training} />
 				))}
 			</div>
+			{trainings.length === 0 && <h1 className='text-center font-semibold pb-14'>No trainings created</h1>}
 		</div>
 	);
 };
