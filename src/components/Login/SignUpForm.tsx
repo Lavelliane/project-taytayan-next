@@ -158,9 +158,9 @@ export const SignUpForm = () => {
               theme={showPasswordBtnTheme}
             >
               {(!showPassword) ? 
-                <HiOutlineEye className='h-5 w-5 p-0 bg-gray-100'/> 
+                <HiOutlineEyeOff className='h-5 w-5 p-0 bg-gray-100'/> 
                 :
-                <HiOutlineEyeOff className='h-5 w-5 p-0 bg-gray-100'/>
+                <HiOutlineEye className='h-5 w-5 p-0 bg-gray-100'/>
                 }
             </Button>
           </div>

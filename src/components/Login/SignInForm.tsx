@@ -59,7 +59,7 @@ export const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false)
 
 
-  // TODO: HANDLER FOR FIREBASE AUTH INVALID CREDENTIALS
+  // TODO: HANDLER FOR FIREBASE AUTH INVALID CREDENTIALS AND REMEMBER ME
   const onSubmit = async (data: FieldValues) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -137,9 +137,9 @@ export const SignInForm = () => {
               theme={showPasswordBtnTheme}
             >
               {(!showPassword) ? 
-                <HiOutlineEye className='h-5 w-5 p-0 bg-gray-100'/> 
+                <HiOutlineEyeOff className='h-5 w-5 p-0 bg-gray-100'/> 
                 :
-                <HiOutlineEyeOff className='h-5 w-5 p-0 bg-gray-100'/>
+                <HiOutlineEye className='h-5 w-5 p-0 bg-gray-100'/>
                 }
             </Button>
           </div>
