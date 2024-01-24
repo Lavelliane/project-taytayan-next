@@ -4,14 +4,12 @@ import { CategoryDropdown } from '../Trainings/CategoryDropdown';
 import { MyTrainingCard } from '../Trainings/MyTrainingCard';
 import { Training } from '@/types/types';
 import { DefaultTraining } from '@/utils/DefaultProfile';
-// import trainings from '@/utils/DummyTrainings';
 
 import { SortDropdown } from './SortDropdown';
 import { AddTrainingButton } from './AddTrainingButton';
 import { collection, getDocs, where, query } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
-import { filter, set } from 'lodash';
 
 const TrainingsPage = () => {
 	const defaultSelectedCategories = [
@@ -34,10 +32,17 @@ const TrainingsPage = () => {
 		setFilteredTrainings(trainings);
 	}, [trainings]);
 
-	console.log(userStore);
 	const fetchTrainings = async () => {
 		try {
-			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userStore.myTrainings));
+			let userTraining: String[] = []; // Corrected to create an empty array
+
+			if (userStore.role === 'training_center') {
+				userTraining = userStore.myTrainings;
+			} else if (userStore.role === 'general') {
+				userTraining = userStore.trainings;
+			}
+
+			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userTraining));
 			const trainingDoc = await getDocs(trainingRef);
 
 			if (userStore.myTrainings.length > 0) {
@@ -53,7 +58,6 @@ const TrainingsPage = () => {
 			console.error(e);
 		}
 	};
-	console.log(trainings);
 
 	const [sortOption, setSortOption] = useState<string>('alphabetical'); // Default sorting option
 	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
@@ -115,7 +119,7 @@ const TrainingsPage = () => {
 								<CategoryDropdown selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
 								<SortDropdown onSortChange={handleSortChange} />
 							</div>
-							<AddTrainingButton />
+							{userStore.role === 'training_center' && <AddTrainingButton />}
 						</div>
 						<div className='flex flex-wrap gap-2 pt-4 '>
 							{selectedCategories
@@ -126,7 +130,6 @@ const TrainingsPage = () => {
 								))}
 						</div>
 					</div>
-
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
 						{filteredTrainings.map((training, index) => (
 							<MyTrainingCard key={training.trainingId + '_' + index} trainingData={training} />
@@ -135,7 +138,6 @@ const TrainingsPage = () => {
 					{trainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
 				</div>
 			</section>
-			<section></section>
 		</main>
 	);
 };

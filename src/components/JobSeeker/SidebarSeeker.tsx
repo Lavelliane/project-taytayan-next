@@ -197,7 +197,7 @@ const SidebarSeeker = () => {
 									</svg>
 									<Dropdown
 										label={
-											<span className='focus:outline-0 focus:ring-0 focus:border-0'>Trainings                 </span>
+											<span className='focus:outline-0 focus:ring-0 focus:border-0'>Trainings                </span>
 										}
 										color='none'
 										size='sm'
