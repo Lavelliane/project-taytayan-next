@@ -1,4 +1,4 @@
-import { UserCredential } from 'firebase/auth';
+import { Unsubscribe, UserCredential } from 'firebase/auth';
 
 export type User = {
 	email: string;
@@ -46,7 +46,7 @@ export type AuthStore = {
 		firstName: string,
 		lastName: string
 	) => Promise<void>;
-	signIn: (email: string, password: string) => Promise<UserCredential>;
+	signIn: (email: string, password: string) => Promise<{ response: UserCredential; unsubscribe: Unsubscribe; }>;
 	updateUserState: (user: User) => void;
 	updateUserLatest: () => void;
 	logout: () => Promise<void>;

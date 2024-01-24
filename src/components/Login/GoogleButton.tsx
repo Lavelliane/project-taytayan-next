@@ -9,7 +9,7 @@ import { auth, db, provider } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import { User } from '@/types/types';
 import { pick } from 'lodash';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const googleButton: CustomFlowbiteTheme['button'] = {
   color: {
@@ -25,20 +25,30 @@ export const GoogleButton = () => {
     signInWithRedirect(auth, provider)
   };
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if(user){
-        const allowed = ["photoURL", "displayName", "email", "uid"]
-        const filteredUser = pick(user, allowed)
-        const userDataToStore = { ...initialUserState, avatarURL: filteredUser.photoURL, firstName: filteredUser.displayName, uid: user.uid, email: filteredUser.email} as User
-        updateUserState({ ...userDataToStore })
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
         const docRef = doc(collection(db, 'users'), user.uid);
-        await setDoc(docRef, userDataToStore)
-        setIsSigningIn(true)
-        router.push('/')
-        setIsSigningIn(false)
+        const userDoc = await getDoc(docRef);
+  
+        if (userDoc.exists()) {
+          const userDataFromFirestore = userDoc.data();
+          updateUserState({ ...userDataFromFirestore } as User);
+        } else {
+          const allowed = ["photoURL", "displayName", "email", "uid"];
+          const filteredUser = pick(user, allowed);
+          const userDataToStore = { ...initialUserState, avatarURL: filteredUser.photoURL, firstName: filteredUser.displayName, uid: user.uid, email: filteredUser.email } as User;
+          await setDoc(docRef, userDataToStore);
+          updateUserState({ ...userDataToStore });
+        }
+  
+        setIsSigningIn(true);
+        router.push('/');
+        setIsSigningIn(false);
       }
-    })
-  }, [auth])
+    });
+
+    return () => unsubscribe();
+  }, [auth, router, updateUserState, setIsSigningIn]);
   return (
     <div>
       <Button 

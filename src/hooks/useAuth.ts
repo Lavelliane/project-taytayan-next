@@ -67,7 +67,7 @@ export const useAuthStore = create(
 			},
 			signIn: async (email: string, password: string) => {
 				const response = await signInWithEmailAndPassword(auth, email, password);
-				onAuthStateChanged(auth, async (user) => {
+				const unsubscribe = onAuthStateChanged(auth, async (user) => {
 					if (user) {
 						const docRef = doc(collection(db, 'users'), user.uid);
 						const userDoc = await getDoc(docRef);
@@ -101,7 +101,7 @@ export const useAuthStore = create(
 						}
 					}
 				});
-				return response;
+				return { response, unsubscribe };
 			},
 			updateUserState: (user: User) => {
 				set({ user });
