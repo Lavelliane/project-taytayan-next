@@ -164,13 +164,15 @@ export const SignUpForm = () => {
                 }
             </Button>
           </div>
-          {
-            (errors.password?.type === 'too_small' && !errors.email?.type) ? (
-              <p className='mt-2 text-sm text-red-600 dark:text-red-500'>
-                {errors.password.message}
-              </p>
-            ) : undefined
-          }
+          <span className='mt-2 text-sm text-red-600 dark:text-red-500'>
+            {
+              (errors.password?.type === 'too_small' && !errors.email?.type) ? (
+                <>
+                  {errors.password.message}
+                </>
+              ) : undefined
+            }
+          </span>
         </div>
       </div>
       <div>
@@ -199,23 +201,25 @@ export const SignUpForm = () => {
               theme={showPasswordBtnTheme}
             >
               {(!showConfirmPassword) ? 
-                <HiOutlineEye className='h-5 w-5 p-0 bg-gray-100'/> 
+                <HiOutlineEyeOff className='h-5 w-5 p-0 bg-gray-100'/> 
                 :
-                <HiOutlineEyeOff className='h-5 w-5 p-0 bg-gray-100'/>
+                <HiOutlineEye className='h-5 w-5 p-0 bg-gray-100'/>
                 }
             </Button>
           </div>
-          {
-            ((errors.confirmPassword?.type === 'too_small') && !errors.password) ? (
-              <>
-                {errors.confirmPassword?.message}
-              </>
-            ) : (errors.confirmPassword?.type === 'custom' && !errors.email && !errors.password) ? (
-              <>
-                <span className="font-medium">Oops!</span> {errors.confirmPassword.message}
-              </> 
-            ) : undefined
-          } 
+          <span className='mt-2 text-sm text-red-600 dark:text-red-500'>
+            {
+              ((errors.confirmPassword?.type === 'too_small') && !errors.password) ? (
+                <>
+                  {errors.confirmPassword.message}
+                </>
+              ) : (errors.confirmPassword?.type === 'custom' && !errors.email && !errors.password) ? (
+                <>
+                  <span className="font-medium">Oops!</span> {errors.confirmPassword.message}
+                </> 
+              ) : undefined
+            } 
+          </span>
         </div>
       </div>
       <Button type="submit" theme={signUpBtnTheme} color='primary' size='md' disabled={isSubmitting} onClick={() => buttonTest()} >Sign Up</Button>

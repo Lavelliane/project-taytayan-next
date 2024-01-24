@@ -13,13 +13,8 @@ export const DashboardTraining = () => {
     const [filteredTrainings, setFilteredTrainings] = useState<any[]>(trainings);
 
     useEffect(() => {
-        console.log(selectedCategories)
       filterTrainings();
-    }, [selectedCategories]); // Run the effect whenever selectedCategories changes
-
-    useEffect(() => {
-      console.log(filteredTrainings)
-    }, [filteredTrainings])
+    }, [selectedCategories]);
   
     const handleCategoryChange = (newSelectedCategories: string[]) => {
       setSelectedCategories(newSelectedCategories);
