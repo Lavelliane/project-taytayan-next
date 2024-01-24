@@ -6,7 +6,7 @@ interface FormatRegistrantsProps {
 
 export function FormatRegistrants({ names }: Readonly<FormatRegistrantsProps>) {
 	const formatNames = (nameList: string[]) => {
-		const totalNames = nameList.length;
+		const totalNames = nameList.length ?? 0;
 
 		if (totalNames === 0) {
 			return 'No names provided';
