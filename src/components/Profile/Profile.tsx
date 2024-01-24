@@ -1,13 +1,25 @@
 'use client'
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { Card } from 'flowbite-react';
+import { Avatar, Card, CustomFlowbiteTheme } from 'flowbite-react';
 import Link from "next/link";
 import TrainingsCard from "./TrainingsCard";
 import EventsCard from "./EventsCard";
 import avatar from '../../../public/assets/avatar.png'
 import { useAuthStore } from "@/hooks/useAuth";
 import { User } from '@/types/types'
+
+const avatarTheme: CustomFlowbiteTheme['avatar'] = {
+	root: {
+		bordered: 'p-1 ring-2',
+		color: {
+			info: 'ring-tertiary',
+		},
+        initials: {
+            text: 'text-5xl'
+        }
+	},
+};
 
 const Profile = () => {
     const user = useAuthStore<User>((state) => state.user)
@@ -20,13 +32,28 @@ const Profile = () => {
     const trainings = 5;
     const events = 2;
 
+	let nameInitials = '';
+
+	if (user && user.firstName && user.lastName) {
+		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0)
+	}
+
     return <main className="h-fit w-full">
         <div className="flex flex-col w-full h-52 relative">
             <div className="absolute w-full h-32 bg-[#9B5FFC] rounded-lg">
             </div>
             <div className="px-10 w-full h-fit z-10 absolute bottom-0 flex sm:flex-row flex-col items-center justify-between">
                 <div className="flex gap-6 items-end ">
-                    <Image src={avatar} alt="Profile" width={0} height={0} className="rounded-full" style={{ width: 'auto', height: '140px', objectFit: 'fill' }} />
+                    <Avatar
+                        img=''
+                        alt='avatar'
+                        rounded
+                        size='xl'
+                        placeholderInitials={nameInitials}
+                        color='info'
+                        theme={avatarTheme}
+                        className='justify-start min-w-10'
+                    />
                     <div className="flex flex-col ">
                         <h1 className="text-xl font-bold">{user.firstName + ' ' + user.lastName}&nbsp;<span className="text-xs font-normal">({user.pronoun})</span></h1>
                         <h2 className="text-gray-700">{user.location}</h2>
