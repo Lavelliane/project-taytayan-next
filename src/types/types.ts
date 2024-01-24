@@ -18,12 +18,13 @@ export type User = {
 	aboutMe: string;
 	skills: string[];
 	trainings: string[];
+	myTrainings: string[];
 	eventsJoined: string[];
 	eventsHosted: string[];
 };
 
 export type Training = {
-	trainingId: number;
+	trainingId: string;
 	trainingName: string;
 	trainingCenter: string;
 	trainingDate: Date;

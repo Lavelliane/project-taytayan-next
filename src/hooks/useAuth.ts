@@ -35,6 +35,7 @@ export const initialUserState: User = {
 	aboutMe: '',
 	skills: [],
 	trainings: [],
+	myTrainings: [],
 	eventsJoined: [],
 	eventsHosted: [],
 };
@@ -91,6 +92,7 @@ export const useAuthStore = create(
 								aboutMe: userData?.aboutMe || '',
 								skills: userData?.skills || [],
 								trainings: userData?.trainings || [],
+								myTrainings: userData?.myTrainings || [],
 								eventsJoined: userData?.eventsJoined || [],
 								eventsHosted: userData?.eventsHosted || [],
 							};
@@ -133,6 +135,7 @@ export const useAuthStore = create(
 								aboutMe: userData?.aboutMe || '',
 								skills: userData?.skills || [],
 								trainings: userData?.trainings || [],
+								myTrainings: userData?.myTrainings || [],
 								eventsJoined: userData?.eventsJoined || [],
 								eventsHosted: userData?.eventsHosted || [],
 							};

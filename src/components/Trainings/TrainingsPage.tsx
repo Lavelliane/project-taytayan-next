@@ -1,11 +1,17 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown';
 import { MyTrainingCard } from '../Trainings/MyTrainingCard';
-import trainings from '@/utils/DummyTrainings';
+import { Training } from '@/types/types';
+import { DefaultTraining } from '@/utils/DefaultProfile';
+// import trainings from '@/utils/DummyTrainings';
+
 import { SortDropdown } from './SortDropdown';
+import { AddTrainingButton } from './AddTrainingButton';
+import { collection, getDocs, where, query } from 'firebase/firestore';
+import { useAuthStore } from '@/hooks/useAuth';
+import { db } from '@/lib/firebase';
+import { filter, set } from 'lodash';
 
 const TrainingsPage = () => {
 	const defaultSelectedCategories = [
@@ -16,6 +22,38 @@ const TrainingsPage = () => {
 		'vocational & arts',
 		'other',
 	]; // Define defaults
+
+	const userStore = useAuthStore((state) => state.user);
+	const [trainings, setTrainings] = useState<Training[]>([]);
+
+	useEffect(() => {
+		fetchTrainings();
+	}, []);
+
+	useEffect(() => {
+		setFilteredTrainings(trainings);
+	}, [trainings]);
+
+	console.log(userStore);
+	const fetchTrainings = async () => {
+		try {
+			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userStore.myTrainings));
+			const trainingDoc = await getDocs(trainingRef);
+
+			if (userStore.myTrainings.length > 0) {
+				const fetchedTrainings: Training[] = [];
+
+				trainingDoc.forEach((doc) => {
+					const trainingData: Training = { ...(doc.data() as Training) };
+					fetchedTrainings.push(trainingData);
+				});
+				setTrainings(fetchedTrainings);
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	};
+	console.log(trainings);
 
 	const [sortOption, setSortOption] = useState<string>('alphabetical'); // Default sorting option
 	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
@@ -34,10 +72,10 @@ const TrainingsPage = () => {
 				sortedTrainings.sort((a, b) => a.trainingName.localeCompare(b.trainingName));
 				break;
 			case 'date':
-				sortedTrainings.sort((a, b) => new Date(b.trainingDate).getTime() - new Date(a.trainingDate).getTime());
+				sortedTrainings.sort((a, b) => b.trainingDate - a.trainingDate);
 				break;
 			case 'registrants':
-				sortedTrainings.sort((a, b) => b.trainingRegistrants.length - a.trainingRegistrants.length);
+				sortedTrainings.sort((a, b) => b.trainingRegistrants?.length - a.trainingRegistrants?.length);
 				break;
 			default:
 				break;
@@ -72,9 +110,12 @@ const TrainingsPage = () => {
 				<h1 className='font-inter font-semibold pb-4 text-lg text-dark'>My Trainings</h1>
 				<div>
 					<div className='pb-8'>
-						<div className='flex gap-6'>
-							<CategoryDropdown selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
-							<SortDropdown onSortChange={handleSortChange} />
+						<div className='flex gap-6 justify-between'>
+							<div className='flex gap-6'>
+								<CategoryDropdown selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
+								<SortDropdown onSortChange={handleSortChange} />
+							</div>
+							<AddTrainingButton />
 						</div>
 						<div className='flex flex-wrap gap-2 pt-4 '>
 							{selectedCategories
@@ -87,10 +128,11 @@ const TrainingsPage = () => {
 					</div>
 
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
-						{filteredTrainings.map((training) => (
-							<MyTrainingCard key={training.trainingId} trainingData={training} />
+						{filteredTrainings.map((training, index) => (
+							<MyTrainingCard key={training.trainingId + '_' + index} trainingData={training} />
 						))}
 					</div>
+					{trainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
 				</div>
 			</section>
 			<section></section>
