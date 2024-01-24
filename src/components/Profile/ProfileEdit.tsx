@@ -197,7 +197,7 @@ const ProfileEdit = () => {
 								searchBox: { border: '1px solid #DBDEE3', borderRadius: '6px', padding: '0px 10px 4px 10px' },
 							}}
 							isObject={false}
-							options={skillOptions.toSorted((a, b) => a.localeCompare(b))}
+							options={skillOptions.sort((a, b) => a.localeCompare(b))}
 							placeholder=''
 						/>
 					</div>
@@ -289,7 +289,7 @@ const ProfileEdit = () => {
 								searchBox: { border: '1px solid #DBDEE3', borderRadius: '6px', padding: '0px 10px 4px 10px' },
 							}}
 							isObject={false}
-							options={interestOptions.toSorted((a, b) => a.localeCompare(b))}
+							options={interestOptions.sort((a, b) => a.localeCompare(b))}
 							placeholder=''
 						/>
 					</div>
