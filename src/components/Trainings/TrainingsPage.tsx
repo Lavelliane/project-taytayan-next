@@ -10,7 +10,6 @@ import { AddTrainingButton } from './AddTrainingButton';
 import { collection, getDocs, where, query } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
-import { filter, set } from 'lodash';
 
 const TrainingsPage = () => {
 	const defaultSelectedCategories = [
@@ -32,8 +31,6 @@ const TrainingsPage = () => {
 	useEffect(() => {
 		setFilteredTrainings(trainings);
 	}, [trainings]);
-
-	console.log(userStore);
 
 	const fetchTrainings = async () => {
 		try {
@@ -61,7 +58,6 @@ const TrainingsPage = () => {
 			console.error(e);
 		}
 	};
-	console.log(trainings);
 
 	const [sortOption, setSortOption] = useState<string>('alphabetical'); // Default sorting option
 	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize

@@ -1,6 +1,7 @@
 import { Avatar, Button, CustomFlowbiteTheme, Modal } from 'flowbite-react';
 import { Training } from '@/types/types';
 import { FiMapPin } from 'react-icons/fi';
+import { Timestamp } from 'firebase/firestore';
 
 //TODO: Bind button to Firebase status of user as registered.
 
@@ -19,13 +20,21 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 	},
 };
 
-const options: Intl.DateTimeFormatOptions = {
-	weekday: 'long',
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric',
-	hour: 'numeric',
-	minute: 'numeric',
+const formatTimestamp = (timestamp: Date) => {
+	// Convert Firestore Timestamp to JavaScript Date
+	const jsDate = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
+
+	// Format the date as a string
+	const formattedDate = jsDate.toLocaleDateString('en-US', {
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+	});
+
+	return formattedDate;
 };
 
 export const LearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, trainingData }: LearnMoreProps) => {
@@ -47,9 +56,7 @@ export const LearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, training
 					<h1 className='text-sm lg:text-base font-bold'>{trainingData.trainingName}</h1>
 				</div>
 				<p className='text-xs lg:text-sm text-gray-500'>{trainingData.trainingDescription}</p>
-				<div className='text-xs lg:text-sm font-bold'>
-					{trainingData.trainingDate.toLocaleDateString('en-US', options)}
-				</div>
+				<div className='text-xs lg:text-sm font-bold'>{formatTimestamp(trainingData.trainingDate)}</div>
 				<div className='flex gap-2 items-center text-xs lg:text-sm'>
 					<FiMapPin />
 					{trainingData.trainingAddress}
