@@ -41,7 +41,7 @@ const TrainingsPage = () => {
 
 			if (userStore.role === 'training_center') {
 				userTraining = userStore.myTrainings;
-			} else if (userStore.role === 'job_seeker') {
+			} else if (userStore.role === 'general') {
 				userTraining = userStore.trainings;
 			}
 
