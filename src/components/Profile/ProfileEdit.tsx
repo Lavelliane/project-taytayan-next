@@ -27,7 +27,7 @@ const ProfileEdit = () => {
 
 	const handleOnSubmit = async (event: any) => {
 		event.preventDefault();
-
+		console.log("PROFILE EDIT SUBMIT")
 		try {
 			const docRef = doc(db, 'users', userStore.uid);
 			await updateDoc(docRef, user);
