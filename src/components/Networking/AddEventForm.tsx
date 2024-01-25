@@ -29,10 +29,13 @@ export const AddEventForm = ({
     defaultValues: {
       eventName: "",
       eventAddress: "",
+      eventCenter: "",
       eventDate: undefined,
       eventDescription: "",
       eventCategory: "",
-      eventRegistration: 0,
+      eventActivities: "",
+      eventObjectives: "",
+      eventRegistration: undefined,
     },
   });
 
@@ -43,7 +46,7 @@ export const AddEventForm = ({
     formState: { errors, isValid },
   } = form;
 
-  const handleTrainingDate = (selectedDate: Date) => {
+  const handleEventDate = (selectedDate: Date) => {
     if (selectedDate) {
       form.setValue("eventDate", selectedDate);
       form.trigger("eventDate");
@@ -56,8 +59,21 @@ export const AddEventForm = ({
   };
 
   const submitAddEventForm = async (eventPayload: AddEventFormType) => {
+    const eventActivitiesArray = eventPayload.eventActivities
+      .split(";")
+      .map((item: string) => item.trim())
+      .filter((str) => str !== "");
+    const eventObjectivesArray = eventPayload.eventObjectives
+      .split(";")
+      .map((item) => item.trim())
+      .filter((str) => str !== "");
+    const finalPayload = {
+      ...eventPayload,
+      eventActivities: eventActivitiesArray,
+      eventObjectives: eventObjectivesArray,
+    };
     const networkingRef = collection(db, "networking");
-    await addDoc(networkingRef, eventPayload);
+    await addDoc(networkingRef, finalPayload);
     handleAddEventClose();
     reset();
   };
@@ -72,7 +88,7 @@ export const AddEventForm = ({
         popup
       >
         <Modal.Header>
-          <span className="font-bold pl-3">Add Training</span>
+          <span className="font-bold pl-3">Add Networking Event</span>
         </Modal.Header>
         <Modal.Body className="flex flex-col gap-4">
           <form
@@ -97,12 +113,28 @@ export const AddEventForm = ({
             </div>
             <div>
               <div className="mb-2 block">
+                <Label htmlFor="eventCenter" value="Event Center" />
+              </div>
+              <TextInput
+                id="eventCenter"
+                type="text"
+                placeholder="Project Taytayan HQ"
+                {...register("eventCenter")}
+              />
+              {errors.eventCenter && (
+                <span className="text-xs lg:text-sm text-red-600 font-semibold">
+                  {errors.eventCenter.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <div className="mb-2 block">
                 <Label htmlFor="eventAddress" value="Event Address" />
               </div>
               <TextInput
                 id="eventAddress"
                 type="text"
-                placeholder="Project Taytayan HQ"
+                placeholder="Cebu City, Cebu"
                 {...register("eventAddress")}
               />
               {errors.eventAddress && (
@@ -120,7 +152,7 @@ export const AddEventForm = ({
                 minDate={new Date()}
                 placeholder="Select event date"
                 onSelectedDateChanged={(selectedDate) =>
-                  handleTrainingDate(selectedDate)
+                  handleEventDate(selectedDate)
                 }
                 {...register("eventDate", { required: true })}
               />
@@ -141,6 +173,42 @@ export const AddEventForm = ({
               {errors.eventDescription && (
                 <span className="text-xs lg:text-sm text-red-600 font-semibold">
                   {errors.eventDescription.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label
+                  htmlFor="eventActivities"
+                  value="Event Activities (Separate with ';')"
+                />
+              </div>
+              <Textarea
+                id="eventActivities"
+                placeholder="Activity 1; Activity 2"
+                {...register("eventActivities")}
+              />
+              {errors.eventActivities && (
+                <span className="text-xs lg:text-sm text-red-600 font-semibold">
+                  {errors.eventActivities.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label
+                  htmlFor="eventObjectives"
+                  value="Event Objectives (Separate with ';')"
+                />
+              </div>
+              <Textarea
+                id="eventObjectives"
+                placeholder="Objective 1; Objective 2"
+                {...register("eventObjectives")}
+              />
+              {errors.eventObjectives && (
+                <span className="text-xs lg:text-sm text-red-600 font-semibold">
+                  {errors.eventObjectives.message}
                 </span>
               )}
             </div>
