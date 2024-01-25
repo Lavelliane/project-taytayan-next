@@ -89,7 +89,7 @@ export const EventLearnMoreModal = ({
           )}
         </div>
         <div>
-          <span className="text-sm lg:text-base font-bold">Activities</span>
+          <span className="text-sm lg:text-base font-bold">Activities:</span>
           <ul className="list-disc text-gray-500 list-inside">
             {networkingEventData.eventActivities.map(
               (activity: string, index: number) => (
@@ -102,7 +102,7 @@ export const EventLearnMoreModal = ({
         </div>
         <div>
           <span className="text-sm lg:text-base font-bold">
-            Upon finishing this course, the student should be able to:
+            Upon finishing this event, the student should be able to:
           </span>
           <ul className="list-disc text-gray-500 list-inside">
             {networkingEventData.eventObjectives.map(

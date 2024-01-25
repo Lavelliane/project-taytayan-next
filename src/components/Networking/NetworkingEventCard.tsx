@@ -3,6 +3,7 @@ import { Avatar, Card, CustomFlowbiteTheme } from "flowbite-react";
 import { CategoryBadge } from "@/components/Trainings/CategoryBadge";
 import { EventLearnMoreButton } from "./EventLearnMoreButton";
 import { NetworkingEvent } from "@/types/types";
+import { Timestamp } from "firebase/firestore";
 
 interface EventProps {
   networkingEventData: NetworkingEvent;
@@ -33,6 +34,24 @@ const cardTheme: CustomFlowbiteTheme["card"] = {
   },
 };
 
+const formatTimestamp = (timestamp: Date) => {
+  // Convert Firestore Timestamp to JavaScript Date
+  const jsDate =
+    timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
+
+  // Format the date as a string
+  const formattedDate = jsDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  return formattedDate;
+};
+
 export const NetworkingEventCard: React.FC<EventProps> = (props) => {
   const {
     eventId,
@@ -61,9 +80,7 @@ export const NetworkingEventCard: React.FC<EventProps> = (props) => {
         />
         <div className="flex flex-col gap-0">
           <h1 className="text-sm lg:text-lg font-bold">{eventName}</h1>
-          <p className="text-xs">
-            {new Date(eventDate).toLocaleDateString("en-US", options)}
-          </p>
+          <p className="text-xs">{formatTimestamp(eventDate)}</p>
         </div>
       </div>
       <h3 className="mt-2 mb-4 lg:mt-0 lg:mb-0">
