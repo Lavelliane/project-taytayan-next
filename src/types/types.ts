@@ -37,6 +37,20 @@ export type Training = {
 	trainingCategory: string;
 };
 
+export type NetworkingEvent = {
+	eventId: string;
+	eventName: string;
+	eventAddress: string;
+	eventCenter: string;
+	eventDate: Date;
+	eventDescription: string;
+	eventRegistrants: string[];
+	eventActivities: string[];
+	eventObjectives: string[];
+	eventRegistration: string;
+	eventCategory: string;
+};
+
 export type AuthStore = {
 	user: User;
 	signUp: (
