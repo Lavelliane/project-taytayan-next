@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { DashboardMetrics } from './DashboardMetrics'
 import { DashboardTraining } from './DashboardTraining';
+import { DashboardNetworking } from './DashboardNetworking';
 import { useAuthStore } from '@/hooks/useAuth';
 
 const Dashboard = () => {
@@ -27,6 +28,10 @@ const Dashboard = () => {
         <section>
           <h1 className='font-inter font-semibold pb-4 text-lg text-dark'>Featured Trainings</h1>
           <DashboardTraining />
+        </section>
+        <section>
+          <h1 className='font-inter font-semibold pb-4 text-lg text-dark'>Featured Events</h1>
+          <DashboardNetworking />
         </section>
       </main>
     );
