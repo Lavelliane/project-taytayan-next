@@ -48,13 +48,14 @@ export const useAuthStore = create(
 				const params = { email, password, confirmPassword, firstName, lastName };
 				try {
 					const validatedParams = SignUpSchema.parse(params);
+					console.log(validatedParams)
 					const { confirmPassword, password, ...paramsWithoutConfirm } = validatedParams;
 					await createUserWithEmailAndPassword(auth, validatedParams.email, validatedParams.password);
 					onAuthStateChanged(auth, async (user) => {
 						if (user) {
 							const docRef = doc(collection(db, 'users'), user.uid);
-							await setDoc(docRef, { ...paramsWithoutConfirm, ...initialUserState, uid: user.uid });
-							set({ user: { ...paramsWithoutConfirm, ...initialUserState, uid: user.uid } });
+							await setDoc(docRef, {...initialUserState, ...paramsWithoutConfirm, uid: user.uid });
+							set({ user: { ...initialUserState, ...paramsWithoutConfirm, uid: user.uid } });
 						}
 					});
 				} catch (error) {
