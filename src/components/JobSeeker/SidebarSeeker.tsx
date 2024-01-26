@@ -1,13 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Drawer, DrawerOptions, DrawerInterface, InstanceOptions } from 'flowbite';
 import Link from 'next/link';
 import Image from 'next/image';
 import avatar from '../../../public/assets/avatar.png';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/hooks/useAuth';
-import { Avatar, Dropdown, DropdownItem, CustomFlowbiteTheme } from 'flowbite-react';
+import { Avatar, Dropdown, DropdownItem, CustomFlowbiteTheme, Sidebar } from 'flowbite-react';
+import { HiShoppingBag } from 'react-icons/hi';
 
 const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
 // options with default values
@@ -76,7 +77,12 @@ const SidebarSeeker = () => {
 		name = user?.firstName + ' ' + user?.lastName;
 		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0)
 	}
-
+	
+	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false)
+	
+	const handleTrainingsDropdownPress = () => {
+		setIsTrainingsDropdownOpen(!isTrainingsDropdownOpen)
+	}
 	return (
 		<>
 			<button
@@ -188,12 +194,14 @@ const SidebarSeeker = () => {
 								</Link>
 							</li>
 							<li>
-								<div
-									className={`flex items-center px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/mytrainings')
+								<Link
+									href=''
+									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
+										pathName.includes('/alltrainings') || pathName.includes('/mytrainings')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
+									onClick={() => handleTrainingsDropdownPress()}
 								>
 									<svg
 										className='w-4 h-4'
@@ -210,45 +218,62 @@ const SidebarSeeker = () => {
 											d='M3 1h12M3 1v16M3 1H2m13 0v16m0-16h1m-1 16H3m12 0h2M3 17H1M6 4h1v1H6V4Zm5 0h1v1h-1V4ZM6 8h1v1H6V8Zm5 0h1v1h-1V8Zm-3 4h2a1 1 0 0 1 1 1v4H7v-4a1 1 0 0 1 1-1Z'
 										/>
 									</svg>
-									<Dropdown
-										label={
-											<span className='focus:outline-0 focus:ring-0 focus:border-0'>Trainings                </span>
-										}
-										color='none'
-										size='sm'
-										placement='right-start'
-										theme={customTheme}
-									>
-										<DropdownItem>
-											<Link
-												href='/mytrainings'
-												className={`flex items-center py-2 px-6 w-full hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-													pathName.includes('/mytrainings')
-														? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
-														: 'text-gray-700 dark:text-white'
-												}`}
-											>
-												<svg
-													className='w-4 h-4'
-													aria-hidden='true'
-													xmlns='http://www.w3.org/2000/svg'
-													width='20'
-													height='20'
-													fill='none'
-													viewBox='0 0 20 20'
-												>
-													<path
-														stroke='currentColor'
-														strokeLinecap='round'
-														strokeWidth='2'
-														d='M1 10c1.5 1.5 5.25 3 9 3s7.5-1.5 9-3m-9-1h.01M2 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1ZM14 5V3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2h8Z'
-													/>
-												</svg>
-												<span className='flex-1 ms-3 whitespace-nowrap'>My Trainings</span>
-											</Link>
-										</DropdownItem>
-									</Dropdown>
-								</div>
+									<span className='flex-1 ms-3 whitespace-nowrap '>Trainings</span>
+									<svg className={`w-4 h-4 transform ${
+										(isTrainingsDropdownOpen) 
+										? 'hidden'
+										: ''
+									}`}
+									aria-hidden="true" 
+									xmlns="http://www.w3.org/2000/svg" 
+									fill="none" 
+									viewBox="0 0 24 24">
+										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+									</svg>
+									<svg className={`w-4 h-4 ${
+										(isTrainingsDropdownOpen) 
+										? ''
+										: 'hidden'
+									}`}
+									aria-hidden="true" 
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none" 
+									viewBox="0 0 24 24">
+										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+									</svg>
+								</Link>
+							</li>
+							<li className={`${
+								(isTrainingsDropdownOpen)
+									? ''
+									: 'hidden'
+							}`}>
+								<Link
+									href='/alltrainings'
+									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
+										pathName.includes('/alltrainings')
+											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
+											: 'text-gray-700 dark:text-white'
+									}`}
+								>
+									<span className='flex-1 ms-7 whitespace-nowrap '>Browse All</span>
+								</Link>
+							</li>
+							<li className={`${
+								(isTrainingsDropdownOpen)
+									? ''
+									: 'hidden'
+							}`}>
+								<Link
+									href='/mytrainings'
+									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
+										pathName.includes('/mytrainings')
+											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
+											: 'text-gray-700 dark:text-white'
+									}`}
+								>
+									<span className='flex-1 ms-7 whitespace-nowrap '>My Trainings</span>
+								</Link>
 							</li>
 							<li>
 								<Link
