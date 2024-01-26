@@ -3,6 +3,7 @@ import { Avatar, Card, CustomFlowbiteTheme } from 'flowbite-react';
 import { CategoryBadge } from './CategoryBadge';
 import { LearnMoreButton } from './LearnMoreButton';
 import { Training } from '@/types/types';
+import { formatTimestamp } from '@/utils/FormatTimestamp';
 
 interface TrainingProps {
 	trainingData: Training;
@@ -15,15 +16,6 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 			info: 'ring-tertiary',
 		},
 	},
-};
-
-const options: Intl.DateTimeFormatOptions = {
-	weekday: 'long',
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric',
-	hour: 'numeric',
-	minute: 'numeric',
 };
 
 const cardTheme: CustomFlowbiteTheme['card'] = {
@@ -57,7 +49,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 				/>
 				<div className='flex flex-col gap-0'>
 					<h1 className='text-sm lg:text-lg font-bold'>{trainingName}</h1>
-					<p className='text-xs'>{new Date(trainingDate).toLocaleDateString('en-US', options)}</p>
+					<p className='text-xs'>{formatTimestamp(trainingDate)}</p>
 				</div>
 			</div>
 			<h3 className='mt-2 mb-4 lg:mt-0 lg:mb-0'>

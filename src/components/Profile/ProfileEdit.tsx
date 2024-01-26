@@ -48,10 +48,10 @@ const ProfileEdit = () => {
 				<div className='lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between'>
 					<div className='flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end'>
 						<Image
-							src={avatar}
+							src={user.avatarURL || avatar}
 							alt='Profile'
-							width={0}
-							height={0}
+							width={200}
+							height={200}
 							className='rounded-full'
 							style={{ width: 'auto', height: '140px', objectFit: 'fill' }}
 						/>

@@ -3,7 +3,7 @@ import React from 'react';
 import { CategoryBadge } from './CategoryBadge';
 import { Training } from '@/types/types';
 import { TrainingDetails } from './TrainingDetails';
-import { Timestamp } from 'firebase/firestore';
+import { formatTimestamp } from '@/utils/FormatTimestamp';
 
 interface TrainingProps {
 	trainingData: Training;
@@ -16,23 +16,6 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 			info: 'ring-tertiary',
 		},
 	},
-};
-
-const formatTimestamp = (timestamp: Date) => {
-	// Convert Firestore Timestamp to JavaScript Date
-	const jsDate = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
-
-	// Format the date as a string
-	const formattedDate = jsDate.toLocaleDateString('en-US', {
-		weekday: 'long',
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-		hour: 'numeric',
-		minute: 'numeric',
-	});
-
-	return formattedDate;
 };
 
 const cardTheme: CustomFlowbiteTheme['card'] = {

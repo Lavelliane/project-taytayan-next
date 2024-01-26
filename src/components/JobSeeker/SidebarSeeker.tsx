@@ -305,12 +305,12 @@ const SidebarSeeker = () => {
 								>
 									<div className='flex gap-2 items-center'>
 										<Image
-											src={avatar}
+											src={user.avatarURL || avatar}
 											className='h-8'
 											alt='avatar icon'
-											width={0}
-											height={0}
-											style={{ width: 'auto', height: '30px', objectFit: 'fill' }}
+											width={200}
+											height={200}
+											style={{ width: 'auto', height: '30px', objectFit: 'fill', borderRadius: '100%' }}
 										/>
 										<span>{name}</span>
 									</div>
