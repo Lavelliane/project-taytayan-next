@@ -5,7 +5,7 @@ import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown';
 import { TrainingCard } from '../Trainings/TrainingCard';
 import { Training } from '@/types/types';
-import { collection, getDocs, where, query } from 'firebase/firestore';
+import { doc, collection, getDocs, where, query } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
 
@@ -23,7 +23,7 @@ export const DashboardTraining = () => {
 
 	const [trainings, setTrainings] = useState<Training[]>([]);
 	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
-	const [filteredTrainings, setFilteredTrainings] = useState<any[]>(trainings);
+	const [filteredTrainings, setFilteredTrainings] = useState<Training[]>(trainings);
 
 	useEffect(() => {
 		fetchTrainings();
@@ -43,22 +43,22 @@ export const DashboardTraining = () => {
 
 	const fetchTrainings = async () => {
 		try {
-			const trainingRef = query(collection(db, 'trainings'));
+			const trainingRef = collection(db, 'trainings');
 			const trainingDoc = await getDocs(trainingRef);
 
-			if (userStore.myTrainings.length > 0) {
-				const fetchedTrainings: Training[] = [];
+			const fetchedTrainings: Training[] = [];
 
-				trainingDoc.forEach((doc) => {
-					const trainingData: Training = { ...(doc.data() as Training) };
-					fetchedTrainings.push(trainingData);
-				});
-				setTrainings(fetchedTrainings);
-			}
+			trainingDoc.forEach((doc) => {
+				const trainingData: Training = { ...(doc.data() as Training) };
+				fetchedTrainings.push(trainingData);
+			});
+			setTrainings(fetchedTrainings);
 		} catch (e) {
 			console.error(e);
 		}
 	};
+
+	console.log(trainings);
 
 	const filterTrainings = () => {
 		if (selectedCategories.length > 0) {
@@ -82,8 +82,8 @@ export const DashboardTraining = () => {
 				</div>
 			</div>
 			<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
-				{filteredTrainings.map((training) => (
-					<TrainingCard key={training.trainingId} trainingData={training} />
+				{filteredTrainings.map((training: Training) => (
+					<TrainingCard key={training.trainingId} trainingData={training as Training} />
 				))}
 			</div>
 			{trainings.length === 0 && <h1 className='text-center font-semibold pb-14'>No trainings created</h1>}

@@ -75,7 +75,7 @@ const SidebarSeeker = () => {
 
 	if (user && user.firstName && user.lastName) {
 		name = user?.firstName + ' ' + user?.lastName;
-		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0)
+		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
 	}
 	
 	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false)
@@ -345,15 +345,21 @@ const SidebarSeeker = () => {
 								>
 									<div className='flex gap-2 items-center'>
 										<Avatar
-											img=''
-											alt='avatar'
-											rounded
-											size='sm'
-											placeholderInitials={nameInitials}
 											color='info'
+											size='md'
 											theme={avatarTheme}
-											bordered
-											className='justify-start min-w-10'
+											placeholderInitials={nameInitials}
+											className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
+											img={(props) => (
+												<Image
+													alt='avatar'
+													src={user?.avatarURL ?? ''}
+													width={200}
+													height={200}
+													{...props}
+													style={{ borderRadius: '100%' }}
+												/>
+											)}
 										/>
 										<span>{name}</span>
 									</div>

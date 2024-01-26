@@ -30,25 +30,16 @@ export type Training = {
 	trainingDate: Date;
 	trainingAddress: string;
 	trainingDescription: string;
-	trainingRegistrants: string[];
+	trainingRegistrants: Registrant[];
 	trainingActivities: string[];
 	trainingObjectives: string[];
 	trainingRegistration: string;
 	trainingCategory: string;
 };
 
-export type NetworkingEvent = {
-	eventId: string;
-	eventName: string;
-	eventAddress: string;
-	eventCenter: string;
-	eventDate: Date;
-	eventDescription: string;
-	eventRegistrants: string[];
-	eventActivities: string[];
-	eventObjectives: string[];
-	eventRegistration: string;
-	eventCategory: string;
+export type Registrant = {
+	registrantId: string;
+	attended: boolean;
 };
 
 export type AuthStore = {
@@ -60,7 +51,7 @@ export type AuthStore = {
 		firstName: string,
 		lastName: string
 	) => Promise<void>;
-	signIn: (email: string, password: string) => Promise<{ response: UserCredential; unsubscribe: Unsubscribe; }>;
+	signIn: (email: string, password: string) => Promise<{ response: UserCredential; unsubscribe: Unsubscribe }>;
 	updateUserState: (user: User) => void;
 	updateUserLatest: () => void;
 	logout: () => Promise<void>;

@@ -55,6 +55,7 @@ export const addTrainingFormSchema = z.object({
 		.min(2, {
 			message: 'Training objectives must be 2 or more characters long.',
 		}),
+
 	trainingRegistration: z.coerce
 		.number({
 			invalid_type_error:
