@@ -14,6 +14,16 @@ export const addEventFormSchema = z.object({
   eventDate: z.date({
     required_error: "An event date is required.",
   }),
+  eventCenter: z
+		.string({
+			required_error: 'An event center is required.',
+		})
+		.min(2, {
+			message: 'Event center must be 2 or more characters long.',
+		})
+		.max(50, {
+			message: 'Event center must be 50 or less characters long.',
+		}),
   eventAddress: z
     .string({
       required_error: "An event address is required.",
@@ -40,6 +50,20 @@ export const addEventFormSchema = z.object({
     })
     .nonnegative({
       message: "Please enter an amount greater than or equal to zero.",
+    }),
+  eventActivities: z
+    .string({
+      required_error: "Event activities are required.",
+    })
+    .min(2, {
+      message: "Event activities must be 2 or more characters long.",
+    }),
+  eventObjectives: z
+    .string({
+      required_error: "Event objectives are required.",
+    })
+    .min(2, {
+      message: "Event objectives must be 2 or more characters long.",
     }),
   eventCategory: z
     .string({

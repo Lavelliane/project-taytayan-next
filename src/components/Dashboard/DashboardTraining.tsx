@@ -23,7 +23,7 @@ export const DashboardTraining = () => {
 
 	const [trainings, setTrainings] = useState<Training[]>([]);
 	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
-	const [filteredTrainings, setFilteredTrainings] = useState<any[]>(trainings);
+	const [filteredTrainings, setFilteredTrainings] = useState<Training[]>(trainings);
 
 	useEffect(() => {
 		fetchTrainings();
@@ -82,8 +82,8 @@ export const DashboardTraining = () => {
 				</div>
 			</div>
 			<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
-				{filteredTrainings.map((training) => (
-					<TrainingCard key={training.trainingId} trainingData={training} />
+				{filteredTrainings.map((training: Training) => (
+					<TrainingCard key={training.trainingId} trainingData={training as Training} />
 				))}
 			</div>
 			{trainings.length === 0 && <h1 className='text-center font-semibold pb-14'>No trainings created</h1>}

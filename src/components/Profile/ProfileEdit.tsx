@@ -10,6 +10,19 @@ import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
 import avatar from '../../../public/assets/avatar.png';
 import { doc, updateDoc } from 'firebase/firestore';
+import { Avatar, CustomFlowbiteTheme } from 'flowbite-react';
+
+const avatarTheme: CustomFlowbiteTheme['avatar'] = {
+	root: {
+		bordered: 'p-1 ring-2',
+		color: {
+			info: 'ring-tertiary',
+		},
+		initials: {
+			text: 'text-5xl',
+		},
+	},
+};
 
 const ProfileEdit = () => {
 	const [user, setUser] = useState<User>(DefaultProfile);
@@ -21,13 +34,18 @@ const ProfileEdit = () => {
 		setUser(userStore);
 	}, []);
 
+	let nameInitials = '';
+	if (user && user.firstName && user.lastName) {
+		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
+	}
+
 	const handleOnChange: any = (event: ChangeEvent<HTMLInputElement>) => {
 		setUser({ ...user, [event.target.name]: event.target.value });
 	};
 
 	const handleOnSubmit = async (event: any) => {
 		event.preventDefault();
-
+		console.log('PROFILE EDIT SUBMIT');
 		try {
 			const docRef = doc(db, 'users', userStore.uid);
 			await updateDoc(docRef, user);
@@ -47,13 +65,15 @@ const ProfileEdit = () => {
 				<div className='absolute w-full h-32 bg-[#9B5FFC] rounded-lg'></div>
 				<div className='lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between'>
 					<div className='flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end'>
-						<Image
-							src={user.avatarURL || avatar}
-							alt='Profile'
-							width={200}
-							height={200}
-							className='rounded-full'
-							style={{ width: 'auto', height: '140px', objectFit: 'fill' }}
+						<Avatar
+							img=''
+							alt='avatar'
+							rounded
+							size='xl'
+							placeholderInitials={nameInitials}
+							color='info'
+							theme={avatarTheme}
+							className='justify-start min-w-10'
 						/>
 						<div className='flex flex-col'>
 							<h1 className='text-xl font-bold'>Profile</h1>

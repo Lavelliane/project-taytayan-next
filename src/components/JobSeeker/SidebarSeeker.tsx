@@ -7,7 +7,7 @@ import Image from 'next/image';
 import avatar from '../../../public/assets/avatar.png';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/hooks/useAuth';
-import { Dropdown, DropdownItem, CustomFlowbiteTheme } from 'flowbite-react';
+import { Avatar, Dropdown, DropdownItem, CustomFlowbiteTheme } from 'flowbite-react';
 
 const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
 // options with default values
@@ -23,6 +23,15 @@ const options: DrawerOptions = {
 const instanceOptions: InstanceOptions = {
 	id: 'logo-sidebar',
 	override: true,
+};
+
+const avatarTheme: CustomFlowbiteTheme['avatar'] = {
+	root: {
+		bordered: 'p-1 ring-2',
+		color: {
+			info: 'ring-tertiary',
+		},
+	},
 };
 
 const customTheme: CustomFlowbiteTheme['dropdown'] = {
@@ -60,7 +69,13 @@ const SidebarSeeker = () => {
 		router.push('/login');
 	}
 
-	const name = user?.firstName + ' ' + user?.lastName;
+	let name = '';
+	let nameInitials = '';
+
+	if (user && user.firstName && user.lastName) {
+		name = user?.firstName + ' ' + user?.lastName;
+		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0)
+	}
 
 	return (
 		<>
@@ -304,6 +319,7 @@ const SidebarSeeker = () => {
 									}`}
 								>
 									<div className='flex gap-2 items-center'>
+<<<<<<< HEAD
 										<Image
 											src={user.avatarURL || avatar}
 											className='h-8'
@@ -311,6 +327,18 @@ const SidebarSeeker = () => {
 											width={200}
 											height={200}
 											style={{ width: 'auto', height: '30px', objectFit: 'fill', borderRadius: '100%' }}
+=======
+										<Avatar
+											img=''
+											alt='avatar'
+											rounded
+											size='sm'
+											placeholderInitials={nameInitials}
+											color='info'
+											theme={avatarTheme}
+											bordered
+											className='justify-start min-w-10'
+>>>>>>> 7f3fa0665dd46476979b5e752b8322907766f280
 										/>
 										<span>{name}</span>
 									</div>

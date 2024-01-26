@@ -7,13 +7,13 @@ import { CategoryBadge } from './CategoryBadge';
 const customTheme: CustomFlowbiteTheme['dropdown'] = {
 	content: '',
 	floating: {
-		base: 'backdrop-blur-sm rounded-xl',
+		base: 'rounded-xl',
 		item: {
 			base:
 				'rounded-xl flex items-center justify-start py-0 px-0 text-sm text-gray-700 cursor-pointer w-full hover:bg-gray-100/50 focus:bg-gray-100/50 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white',
 		},
 		style: {
-			auto: 'bg-gray-50/80 border border-gray-100',
+			auto: 'bg-gray-50 border border-gray-100',
 		},
 	},
 };
@@ -62,14 +62,15 @@ export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ selectedCate
 					<div className='bg-gray-200/50 w-fit p-2'>
 						<Checkbox
 							className='h-4 w-4 rounded focus:ring-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 bg-gray-100'
-							color='gray'
+							color='cyan'
 							checked={internalSelectedCategories.includes(category.value)}
 							onChange={() => handleCategoryChange(category.value)}
 							onClick={() => handleCategoryChange(category.value)}
 						/>
 					</div>
-					<div className='py-1 px-2'>
-						<CategoryBadge category={category.value} />
+					<div className='py-1 px-2 capitalize'>
+						{category.value}
+						{/* <CategoryBadge category={category.value} /> */}
 					</div>
 				</DropdownItem>
 			))}
