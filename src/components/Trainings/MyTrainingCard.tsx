@@ -4,25 +4,11 @@ import { CategoryBadge } from './CategoryBadge';
 import { Training } from '@/types/types';
 import { TrainingDetails } from './TrainingDetails';
 import { formatTimestamp } from '@/utils/FormatTimestamp';
+import { avatarTheme, cardTheme } from '@/utils/ComponentThemes';
 
 interface TrainingProps {
 	trainingData: Training;
 }
-
-const avatarTheme: CustomFlowbiteTheme['avatar'] = {
-	root: {
-		bordered: 'p-1 ring-2',
-		color: {
-			info: 'ring-tertiary',
-		},
-	},
-};
-
-const cardTheme: CustomFlowbiteTheme['card'] = {
-	root: {
-		children: 'flex h-full flex-col justify-between gap-2 lg:gap-3 xl:gap-4 p-6',
-	},
-};
 
 export const MyTrainingCard: React.FC<TrainingProps> = (props) => {
 	const {

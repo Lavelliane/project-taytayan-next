@@ -66,14 +66,14 @@ const ProfileEdit = () => {
 				<div className='lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between'>
 					<div className='flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end'>
 						<Avatar
-							img=''
+							img={user?.avatarURL.toString() ?? ''}
 							alt='avatar'
 							rounded
-							size='xl'
+							size='sm'
 							placeholderInitials={nameInitials}
 							color='info'
 							theme={avatarTheme}
-							className='justify-start min-w-10'
+							className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
 						/>
 						<div className='flex flex-col'>
 							<h1 className='text-xl font-bold'>Profile</h1>

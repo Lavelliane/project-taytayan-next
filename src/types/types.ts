@@ -37,24 +37,9 @@ export type Training = {
 	trainingCategory: string;
 };
 
-<<<<<<< HEAD
 export type Registrant = {
 	registrantId: string;
 	attended: boolean;
-=======
-export type NetworkingEvent = {
-	eventId: string;
-	eventName: string;
-	eventAddress: string;
-	eventCenter: string;
-	eventDate: Date;
-	eventDescription: string;
-	eventRegistrants: string[];
-	eventActivities: string[];
-	eventObjectives: string[];
-	eventRegistration: string;
-	eventCategory: string;
->>>>>>> 7f3fa0665dd46476979b5e752b8322907766f280
 };
 
 export type AuthStore = {

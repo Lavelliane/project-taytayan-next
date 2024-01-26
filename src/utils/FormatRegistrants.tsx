@@ -5,7 +5,10 @@ import { User } from '@/types/types';
 import { db } from '@/lib/firebase';
 import { Registrant } from '@/types/types';
 import Image from 'next/image';
-import Avatar from '../../public/assets/avatar.png';
+import { Avatar } from 'flowbite-react';
+import { DefaultProfile } from '@/utils/DefaultProfile';
+import { avatarTheme } from '@/utils/ComponentThemes';
+import SeeRegistrantsModal from '@/components/Trainings/SeeRegistrantsModal';
 
 interface FormatRegistrantsProps {
 	registrant: Registrant[];
@@ -15,31 +18,49 @@ export const FormatRegistrants = ({ registrant }: FormatRegistrantsProps) => {
 	const [registrants, setRegistrants] = useState<String[]>([]);
 	const [registrantAvatar, setRegistrantAvatar] = useState<String[]>([]);
 
+	const [user, setUser] = useState<User>(DefaultProfile);
+
+	const userStore = useAuthStore((state: { user: User }) => state.user);
+	const updateState = useAuthStore((state) => state.updateUserState);
+
+	useEffect(() => {
+		setUser(userStore);
+	}, []);
+
 	useEffect(() => {
 		fetchRegistrants();
 	}, []);
 
-	const fetchRegistrants = async () => {
-		const registrantRef = query(
-			collection(db, 'users'),
-			where(
-				'uid',
-				'in',
-				registrant.map((r) => r.registrantId)
-			)
-		);
-		const registrantDoc = await getDocs(registrantRef);
+	let nameInitials = '';
+	if (user && user.firstName && user.lastName) {
+		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
+	}
 
-		if (!registrantDoc.empty) {
-			const fetchedRegistrants: string[] = [];
-			const fetchedRegistrantAvatar: string[] = [];
-			registrantDoc.forEach((doc) => {
-				const registrantData: User = { ...(doc.data() as User) };
-				fetchedRegistrants.push(registrantData.firstName);
-				fetchedRegistrantAvatar.push(registrantData.avatarURL);
-			});
-			setRegistrants(fetchedRegistrants);
-			setRegistrantAvatar(fetchedRegistrantAvatar);
+	const fetchRegistrants = async () => {
+		if (!registrant || registrant?.length === 0) {
+			console.log('No registrants');
+		} else if (registrant?.length > 0) {
+			const registrantRef = query(
+				collection(db, 'users'),
+				where(
+					'uid',
+					'in',
+					registrant?.map((r) => r.registrantId)
+				)
+			);
+			const registrantDoc = await getDocs(registrantRef);
+
+			if (!registrantDoc.empty) {
+				const fetchedRegistrants: string[] = [];
+				const fetchedRegistrantAvatar: string[] = [];
+				registrantDoc.forEach((doc) => {
+					const registrantData: User = { ...(doc.data() as User) };
+					fetchedRegistrants.push(registrantData.firstName);
+					fetchedRegistrantAvatar.push(registrantData.avatarURL);
+				});
+				setRegistrants(fetchedRegistrants);
+				setRegistrantAvatar(fetchedRegistrantAvatar);
+			}
 		}
 	};
 
@@ -63,39 +84,42 @@ export const FormatRegistrants = ({ registrant }: FormatRegistrantsProps) => {
 
 	const formattedNames = formatNames(registrants);
 
+	const [modalOpened, setModalOpened] = useState(false);
+
+	const handleModalOpen = () => {
+		setModalOpened(true);
+	};
+
+	const handleModalClose = () => {
+		setModalOpened(false);
+	};
 	return (
 		<div className='flex flex-col gap-2'>
 			<div className='flex gap-1'>
-				{registrantAvatar?.slice(registrantAvatar?.length > 5 ? 0 - 2 : 0 - 5).map((avatar, index) => (
-					<Image
-						key={index}
-						src={avatar.toString() || Avatar}
-						alt='avatar icon'
-						width={200}
-						height={200}
-						style={{ width: '30px', height: '30px', objectFit: 'fill', borderRadius: '100%' }}
-					/>
-				))}
-				{registrantAvatar?.length > 5 && (
-					<div className='relative items-center flex justify-center'>
-						<Image
-							src={registrantAvatar[2]?.toString()}
-							alt='avatar icon'
-							width={200}
-							height={200}
-							style={{
-								filter: 'brightness(0.5)',
-								width: '30px',
-								height: '30px',
-								objectFit: 'fill',
-								borderRadius: '100%',
-							}}
+				<Avatar.Group>
+					{registrantAvatar?.slice(registrantAvatar?.length > 8 ? 0 - 5 : 0 - 8).map((avatar, index) => (
+						<Avatar
+							onClick={handleModalOpen}
+							key={index + '_' + avatar}
+							rounded
+							stacked
+							size='md'
+							placeholderInitials={nameInitials}
+							color='info'
+							theme={avatarTheme}
+							className='justify-center bg-white rounded-full border-2 border-[#0090D8] hover:cursor-pointer'
+							img={avatar?.toString()}
 						/>
-						<h1 className='text-white shadow-md absolute text-center font-normal'>{registrantAvatar?.length - 2}+</h1>
-					</div>
-				)}
+					))}
+					{registrantAvatar?.length > 8 && <Avatar.Counter total={registrantAvatar?.length - 5} />}
+				</Avatar.Group>
 			</div>
 			<p className='text-xs lg:text-sm text-gray-600'>{formattedNames}</p>
+			<SeeRegistrantsModal
+				registrant={registrant}
+				seeRegistrantOpened={modalOpened}
+				handleSeeRegistrantClose={handleModalClose}
+			/>
 		</div>
 	);
 };

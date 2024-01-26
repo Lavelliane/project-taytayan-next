@@ -45,14 +45,21 @@ const Profile = () => {
 				<div className='px-10 w-full h-fit z-10 absolute bottom-0 flex sm:flex-row flex-col items-center justify-between'>
 					<div className='flex gap-6 items-end '>
 						<Avatar
-							img=''
-							alt='avatar'
-							rounded
-							size='xl'
-							placeholderInitials={nameInitials}
 							color='info'
+							size='xl'
 							theme={avatarTheme}
-							className='justify-start min-w-10'
+							placeholderInitials={nameInitials}
+							className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
+							img={(props) => (
+								<Image
+									alt='avatar'
+									src={user?.avatarURL ?? ''}
+									width={1000}
+									height={1000}
+									{...props}
+									style={{ borderRadius: '100%' }}
+								/>
+							)}
 						/>
 						<div className='flex flex-col '>
 							<h1 className='text-xl font-bold'>

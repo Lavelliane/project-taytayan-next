@@ -5,7 +5,7 @@ import { FiMapPin } from 'react-icons/fi';
 import { formatTimestamp } from '@/utils/FormatTimestamp';
 import { FormatRegistrants } from '@/utils/FormatRegistrants';
 import { Registrant } from '@/types/types';
-import SeeRegistrantsModal from './SeeRegistrantsModal';
+import SeeRegistrantsButton from './SeeRegistrantsButton';
 
 //TODO: Bind button to Firebase status of user as registered.
 
@@ -103,7 +103,7 @@ export const TrainingDetails = ({ trainingData }: TrainingDetailsProps) => {
 							<h1 className='text-xs lg:text-sm font-semibold'>
 								{trainingData?.trainingRegistrants?.length} Participants
 							</h1>
-							<SeeRegistrantsModal registrant={trainingData?.trainingRegistrants} />
+							<SeeRegistrantsButton registrant={trainingData?.trainingRegistrants} />
 						</div>
 						<FormatRegistrants registrant={trainingData?.trainingRegistrants} />
 					</div>
