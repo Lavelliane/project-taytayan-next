@@ -53,7 +53,9 @@ export const LearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, training
 					{parseFloat(trainingData.trainingRegistration) === 0 ? (
 						<span className='text-green-400 font-bold'>Free</span>
 					) : (
-						<span className='text-red-600 font-bold'>{trainingData.trainingRegistration}</span>
+						<span className='text-red-500 font-bold'>
+							{`₱${Number(trainingData.trainingRegistration).toLocaleString('en-US', { minimumFractionDigits: 2 })}`}
+						</span>
 					)}
 				</div>
 				<div>

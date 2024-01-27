@@ -9,17 +9,9 @@ import { AddEventButton } from "./AddEventButton";
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { useAuthStore } from "@/hooks/useAuth";
 import { db } from "@/lib/firebase";
+import { defaultSelectedCategories } from '@/utils/TrainingCategories';
 
 const NetworkingPage = () => {
-  const defaultSelectedCategories = [
-    "technical",
-    "certification",
-    "personal",
-    "professional",
-    "vocational & arts",
-    "other",
-  ]; // Define defaults
-
   const userStore = useAuthStore((state) => state.user);
   const [networkingEvents, setNetworkingEvents] = useState<NetworkingEvent[]>(
     []

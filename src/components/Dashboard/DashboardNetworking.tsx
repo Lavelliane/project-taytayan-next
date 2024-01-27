@@ -11,12 +11,12 @@ import { db } from "@/lib/firebase";
 
 export const DashboardNetworking = () => {
   const defaultSelectedCategories = [
-    "technical",
-    "certification",
-    "personal",
-    "professional",
-    "vocational & arts",
-    "other",
+    "Technical",
+    "Certification",
+    "Personal",
+    "Professional",
+    "Vocational & Arts",
+    "Other",
   ]; // Define defaults
 
   const userStore = useAuthStore((state) => state.user);
