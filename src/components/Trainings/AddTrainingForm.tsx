@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -29,22 +30,19 @@ import { DefaultProfile } from "@/utils/DefaultProfile";
 import Autocomplete from "react-google-autocomplete";
 
 interface AddTrainingProps {
-  addTrainingOpened: boolean;
-  handleAddTrainingClose: () => void;
+	addTrainingOpened: boolean;
+	handleAddTrainingClose: () => void;
 }
 
-export const AddTrainingForm = ({
-  addTrainingOpened,
-  handleAddTrainingClose,
-}: AddTrainingProps) => {
-  const [user, setUser] = useState<User>(DefaultProfile);
+export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: AddTrainingProps) => {
+	const [user, setUser] = useState<User>(DefaultProfile);
 
-  const userStore = useAuthStore((state) => state.user);
-  const updateState = useAuthStore((state) => state.updateUserState);
+	const userStore = useAuthStore((state) => state.user);
+	const updateState = useAuthStore((state) => state.updateUserState);
 
-  useEffect(() => {
-    setUser(userStore);
-  }, []);
+	useEffect(() => {
+		setUser(userStore);
+	}, []);
 
   // Define form
   const form = useForm<AddTrainingFormType>({
@@ -63,19 +61,19 @@ export const AddTrainingForm = ({
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isValid },
-  } = form;
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors, isValid },
+	} = form;
 
-  const handleTrainingDate = (selectedDate: Date) => {
-    if (selectedDate) {
-      form.setValue("trainingDate", selectedDate);
-      form.trigger("trainingDate");
-    }
-  };
+	const handleTrainingDate = (selectedDate: Date) => {
+		if (selectedDate) {
+			form.setValue('trainingDate', selectedDate);
+			form.trigger('trainingDate');
+		}
+	};
 
   const handleTrainingAddress = (selectedLocation: any) => {
     if (selectedLocation) {
@@ -95,38 +93,40 @@ export const AddTrainingForm = ({
     handleAddTrainingClose(); // Close the modal
   };
 
-  const submitAddTrainingForm = async (data: AddTrainingFormType) => {
-    const trainingActivitiesArray = data.trainingActivities
-      .split(";")
-      .map((item: string) => item.trim())
-      .filter((str) => str !== "");
-    const trainingObjectivesArray = data.trainingObjectives
-      .split(";")
-      .map((item) => item.trim())
-      .filter((str) => str !== "");
-    const finalPayload = {
-      ...data,
-      trainingActivities: trainingActivitiesArray,
-      trainingObjectives: trainingObjectivesArray,
-    };
-    const trainingRef = collection(db, "trainings");
-    const trainingCreated = await addDoc(trainingRef, finalPayload);
 
-    try {
-      //	const docRef = doc(db, 'users', userStore.uid);
-      updateState({
-        ...user,
-        myTrainings: [...userStore.myTrainings, trainingCreated.id],
-      });
-      const updateTrainingId = doc(trainingRef, trainingCreated.id);
-      await updateDoc(updateTrainingId, { trainingId: trainingCreated.id });
-    } catch (error) {
-      console.log(error);
-    }
+	const submitAddTrainingForm = async (data: AddTrainingFormType) => {
+		const trainingActivitiesArray = data.trainingActivities
+			.split(';')
+			.map((item: string) => item.trim())
+			.filter((str) => str !== '');
+		const trainingObjectivesArray = data.trainingObjectives
+			.split(';')
+			.map((item) => item.trim())
+			.filter((str) => str !== '');
+		const finalPayload = {
+			...data,
+			trainingActivities: trainingActivitiesArray,
+			trainingObjectives: trainingObjectivesArray,
+		};
+		const trainingRef = collection(db, 'trainings');
+		const trainingCreated = await addDoc(trainingRef, finalPayload);
 
-    handleAddTrainingClose();
-    reset();
-  };
+		try {
+			//	const docRef = doc(db, 'users', userStore.uid);
+			updateState({
+				...user,
+				myTrainings: [...userStore.myTrainings, trainingCreated.id],
+			});
+			const updateTrainingId = doc(trainingRef, trainingCreated.id);
+			await updateDoc(updateTrainingId, { trainingId: trainingCreated.id, trainingRegistrants: [] });
+		} catch (error) {
+			console.log(error);
+		}
+
+		handleAddTrainingClose();
+		reset();
+	};
+
 
   return (
     <Modal
@@ -316,10 +316,8 @@ export const AddTrainingForm = ({
       </Modal.Body>
     </Modal>
   );
+
 };
-function add(
-  trainingRef: CollectionReference<DocumentData, DocumentData>,
-  id: string
-) {
-  throw new Error("Function not implemented.");
+function add(trainingRef: CollectionReference<DocumentData, DocumentData>, id: string) {
+	throw new Error('Function not implemented.');
 }

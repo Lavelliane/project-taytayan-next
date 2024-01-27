@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Avatar, Button, CustomFlowbiteTheme, Modal } from 'flowbite-react';
 import { Training } from '@/types/types';
 import { FiMapPin } from 'react-icons/fi';
-import { FormatRegistrants } from './FormatRegistrants';
-import { Timestamp } from 'firebase/firestore';
+import { formatTimestamp } from '@/utils/FormatTimestamp';
+import { FormatRegistrants } from '@/utils/FormatRegistrants';
+import { Registrant } from '@/types/types';
+import SeeRegistrantsButton from './SeeRegistrantsButton';
 
 //TODO: Bind button to Firebase status of user as registered.
 
@@ -18,23 +20,6 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 			info: 'ring-tertiary',
 		},
 	},
-};
-
-const formatTimestamp = (timestamp: Date) => {
-	// Convert Firestore Timestamp to JavaScript Date
-	const jsDate = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
-
-	// Format the date as a string
-	const formattedDate = jsDate.toLocaleDateString('en-US', {
-		weekday: 'long',
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-		hour: 'numeric',
-		minute: 'numeric',
-	});
-
-	return formattedDate;
 };
 
 export const TrainingDetails = ({ trainingData }: TrainingDetailsProps) => {
@@ -113,11 +98,14 @@ export const TrainingDetails = ({ trainingData }: TrainingDetailsProps) => {
 							))}
 						</ul>
 					</div>
-					<div>
-						<span className='text-sm lg:text-base font-bold'>
-							{trainingData?.trainingRegistrants?.length} Participants
-						</span>
-						<FormatRegistrants names={trainingData.trainingRegistrants} />
+					<div className='flex flex-col gap-2'>
+						<div className='flex gap-2 items-center'>
+							<h1 className='text-xs lg:text-sm font-semibold'>
+								{trainingData?.trainingRegistrants?.length} Participants
+							</h1>
+							<SeeRegistrantsButton registrant={trainingData?.trainingRegistrants} />
+						</div>
+						<FormatRegistrants registrant={trainingData?.trainingRegistrants} />
 					</div>
 				</Modal.Body>
 				<Modal.Footer />

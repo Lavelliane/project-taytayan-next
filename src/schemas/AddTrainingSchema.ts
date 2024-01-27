@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const addTrainingFormSchema = z.object({
+
   trainingName: z
     .string({
       required_error: "A training name is required.",

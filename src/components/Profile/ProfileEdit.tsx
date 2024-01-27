@@ -18,9 +18,9 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 		color: {
 			info: 'ring-tertiary',
 		},
-        initials: {
-            text: 'text-5xl'
-        }
+		initials: {
+			text: 'text-5xl',
+		},
 	},
 };
 
@@ -36,7 +36,7 @@ const ProfileEdit = () => {
 
 	let nameInitials = '';
 	if (user && user.firstName && user.lastName) {
-		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0)
+		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
 	}
 
 	const handleOnChange: any = (event: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ const ProfileEdit = () => {
 
 	const handleOnSubmit = async (event: any) => {
 		event.preventDefault();
-		console.log("PROFILE EDIT SUBMIT")
+		console.log('PROFILE EDIT SUBMIT');
 		try {
 			const docRef = doc(db, 'users', userStore.uid);
 			await updateDoc(docRef, user);
@@ -66,14 +66,14 @@ const ProfileEdit = () => {
 				<div className='lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between'>
 					<div className='flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end'>
 						<Avatar
-							img=''
+							img={user?.avatarURL.toString() ?? ''}
 							alt='avatar'
 							rounded
-							size='xl'
+							size='sm'
 							placeholderInitials={nameInitials}
 							color='info'
 							theme={avatarTheme}
-							className='justify-start min-w-10'
+							className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
 						/>
 						<div className='flex flex-col'>
 							<h1 className='text-xl font-bold'>Profile</h1>

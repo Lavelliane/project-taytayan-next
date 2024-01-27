@@ -24,6 +24,7 @@ export type User = {
 };
 
 export type Training = {
+
   trainingId: string;
   trainingName: string;
   trainingCenter: string;
