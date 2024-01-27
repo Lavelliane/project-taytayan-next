@@ -66,7 +66,7 @@ export const TrainingDetails = ({ trainingData }: TrainingDetailsProps) => {
 					<div className='text-xs lg:text-sm font-bold'>{formatTimestamp(trainingData.trainingDate)}</div>
 					<div className='flex gap-2 items-center text-xs lg:text-sm'>
 						<FiMapPin />
-						{trainingData.trainingAddress}
+						{trainingData.trainingAddress.formattedAddress}
 					</div>
 					<div className='text-sm lg:text-base font-bold'>
 						Registration Fee:{' '}

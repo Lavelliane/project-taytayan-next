@@ -28,16 +28,16 @@ export type Training = {
 	trainingName: string;
 	trainingCenter: string;
 	trainingDate: Date;
-	trainingAddress: string;
+	trainingAddress: GoogleLocation;
 	trainingDescription: string;
-	trainingRegistrants: Registrants[];
+	trainingRegistrants: Registrant[];
 	trainingActivities: string[];
 	trainingObjectives: string[];
 	trainingRegistration: string;
 	trainingCategory: string;
 };
 
-export type Registrants = {
+export type Registrant = {
 	registrantId: string;
 	attended: boolean;
 };
@@ -49,7 +49,7 @@ export type NetworkingEvent = {
 	eventCenter: string;
 	eventDate: Date;
 	eventDescription: string;
-	eventRegistrants: Registrants[];
+	eventRegistrants: Registrant[];
 	eventActivities: string[];
 	eventObjectives: string[];
 	eventRegistration: string;
