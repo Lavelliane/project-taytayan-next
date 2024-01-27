@@ -76,7 +76,7 @@ export const EventLearnMoreModal = ({
         </div>
         <div className="flex gap-2 items-center text-xs lg:text-sm">
           <FiMapPin />
-          {networkingEventData.eventAddress}
+          {networkingEventData.eventAddress.formattedAddress || 'Project Taytayan HQ'}
         </div>
         <div className="text-sm lg:text-base font-bold">
           Registration Fee:{" "}
