@@ -66,44 +66,6 @@ export const useAuthStore = create(
 					}
 				}
 			},
-			signIn: async (email: string, password: string) => {
-				const response = await signInWithEmailAndPassword(auth, email, password);
-				const unsubscribe = onAuthStateChanged(auth, async (user) => {
-					if (user) {
-						const docRef = doc(collection(db, 'users'), user.uid);
-						const userDoc = await getDoc(docRef);
-						if (userDoc.exists()) {
-							const userData = userDoc.data();
-
-							const mappedUserData: User = {
-								email: userData?.email || '',
-								uid: userData?.uid || '',
-								role: userData?.role || '',
-								avatarURL: userData?.avatarURL || '',
-								firstName: userData?.firstName || '',
-								lastName: userData?.lastName || '',
-								pronoun: userData?.pronoun || '',
-								location: userData?.location || '',
-								occupation: userData?.occupation || '',
-								title: userData?.title || '',
-								school: userData?.school || '',
-								course: userData?.course || '',
-								industry: userData?.industry || '',
-								interest: userData?.interest || [],
-								aboutMe: userData?.aboutMe || '',
-								skills: userData?.skills || [],
-								trainings: userData?.trainings || [],
-								myTrainings: userData?.myTrainings || [],
-								eventsJoined: userData?.eventsJoined || [],
-								eventsHosted: userData?.eventsHosted || [],
-							};
-
-							set({ user: mappedUserData });
-						}
-					}
-				});
-				return { response, unsubscribe };
-			},
 			updateUserState: (user: User) => {
 				set({ user });
 			},
