@@ -24,8 +24,9 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuthStore } from "@/hooks/useAuth";
-import { User } from "@/types/types";
+import { GoogleLocation, User } from "@/types/types";
 import { DefaultProfile } from "@/utils/DefaultProfile";
+import Autocomplete from "react-google-autocomplete";
 
 interface AddTrainingProps {
   addTrainingOpened: boolean;
@@ -53,7 +54,7 @@ export const AddTrainingForm = ({
       trainingName: "",
       trainingCenter: "",
       trainingDate: undefined,
-      trainingAddress: "",
+      trainingAddress: undefined,
       trainingDescription: "",
       trainingActivities: "",
       trainingObjectives: "",
@@ -73,6 +74,19 @@ export const AddTrainingForm = ({
     if (selectedDate) {
       form.setValue("trainingDate", selectedDate);
       form.trigger("trainingDate");
+    }
+  };
+
+  const handleTrainingAddress = (selectedLocation: any) => {
+    if (selectedLocation) {
+      const selectedFormattedAddress = selectedLocation.formatted_address;
+      const selectedGeometry = JSON.parse(JSON.stringify(selectedLocation.geometry.location));
+      const finalLocation: GoogleLocation = {
+        formattedAddress: selectedFormattedAddress,
+        geometry: selectedGeometry,
+      };
+      form.setValue("trainingAddress", finalLocation);
+      form.trigger("trainingAddress");
     }
   };
 
@@ -114,7 +128,6 @@ export const AddTrainingForm = ({
     reset();
   };
 
-  console.log(userStore.uid, userStore.myTrainings);
   return (
     <Modal
       show={addTrainingOpened}
@@ -167,10 +180,14 @@ export const AddTrainingForm = ({
             <div className="mb-2 block">
               <Label htmlFor="trainingAddress" value="Training Address" />
             </div>
-            <TextInput
+            <Autocomplete
+              className="p-3 w-full inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400"
               id="trainingAddress"
-              type="text"
-              placeholder="Cebu City, Cebu"
+              apiKey={process.env.NEXT_PUBLIC_PLACES_API_KEY}
+              onPlaceSelected={(place) => {
+                handleTrainingAddress(place);
+              }}
+              defaultValue={undefined}
               {...register("trainingAddress")}
             />
             {errors.trainingAddress && (

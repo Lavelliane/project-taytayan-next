@@ -15,22 +15,24 @@ export const addEventFormSchema = z.object({
     required_error: "An event date is required.",
   }),
   eventCenter: z
-		.string({
-			required_error: 'An event center is required.',
-		})
-		.min(2, {
-			message: 'Event center must be 2 or more characters long.',
-		})
-		.max(50, {
-			message: 'Event center must be 50 or less characters long.',
-		}),
-  eventAddress: z
     .string({
-      required_error: "An event address is required.",
+      required_error: "An event center is required.",
     })
     .min(2, {
-      message: "Event address must be 2 or more characters long.",
+      message: "Event center must be 2 or more characters long.",
+    })
+    .max(50, {
+      message: "Event center must be 50 or less characters long.",
     }),
+  eventAddress: z.object({
+    formattedAddress: z
+      .string()
+      .min(2, "Event address must be 2 or more characters long."), // Make formatted_address required and non-empty
+    geometry: z.object({
+      lat: z.number().optional(), // lat and lng are optional as they have default values
+      lng: z.number().optional(),
+    }),
+  }),
   eventDescription: z
     .string({
       required_error: "An event description is required.",
