@@ -1,4 +1,4 @@
-import { User } from '../types/types';
+import { GoogleLocation, User } from '../types/types';
 import { Training } from '../types/types';
 
 export const DefaultProfile: User = {
@@ -24,12 +24,20 @@ export const DefaultProfile: User = {
 	eventsHosted: [],
 };
 
+export const DefaultTrainingAddress: GoogleLocation = {
+	formattedAddress: '',
+	geometry: {
+		lat: 0,
+		lng: 0,
+	},
+};
+
 export const DefaultTraining: Training = {
 	trainingId: '',
 	trainingName: '',
 	trainingCenter: '',
 	trainingDate: new Date(),
-	trainingAddress: '',
+	trainingAddress: DefaultTrainingAddress,
 	trainingDescription: '',
 	trainingRegistrants: [],
 	trainingActivities: [],

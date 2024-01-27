@@ -77,12 +77,12 @@ const SidebarSeeker = () => {
 		name = user?.firstName + ' ' + user?.lastName;
 		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
 	}
-	
-	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false)
-	
+
+	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false);
+
 	const handleTrainingsDropdownPress = () => {
-		setIsTrainingsDropdownOpen(!isTrainingsDropdownOpen)
-	}
+		setIsTrainingsDropdownOpen(!isTrainingsDropdownOpen);
+	};
 	return (
 		<>
 			<button
@@ -219,51 +219,51 @@ const SidebarSeeker = () => {
 										/>
 									</svg>
 									<span className='flex-1 ms-3 whitespace-nowrap '>Trainings</span>
-									<svg className={`w-4 h-4 transform ${
-										(isTrainingsDropdownOpen) 
-										? 'hidden'
-										: ''
-									}`}
-									aria-hidden="true" 
-									xmlns="http://www.w3.org/2000/svg" 
-									fill="none" 
-									viewBox="0 0 24 24">
-										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+									<svg
+										className={`w-4 h-4 transform ${isTrainingsDropdownOpen ? 'hidden' : ''}`}
+										aria-hidden='true'
+										xmlns='http://www.w3.org/2000/svg'
+										fill='none'
+										viewBox='0 0 24 24'
+									>
+										<path
+											stroke='currentColor'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth='2'
+											d='m9 5 7 7-7 7'
+										/>
 									</svg>
-									<svg className={`w-4 h-4 ${
-										(isTrainingsDropdownOpen) 
-										? ''
-										: 'hidden'
-									}`}
-									aria-hidden="true" 
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none" 
-									viewBox="0 0 24 24">
-										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+									<svg
+										className={`w-4 h-4 ${isTrainingsDropdownOpen ? '' : 'hidden'}`}
+										aria-hidden='true'
+										xmlns='http://www.w3.org/2000/svg'
+										fill='none'
+										viewBox='0 0 24 24'
+									>
+										<path
+											stroke='currentColor'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth='2'
+											d='m19 9-7 7-7-7'
+										/>
 									</svg>
 								</Link>
 							</li>
-							<li className={`${
-								(isTrainingsDropdownOpen)
-									? ''
-									: 'hidden'
-							}`}>
+							<li className={`${isTrainingsDropdownOpen ? '' : 'hidden'}`}>
 								<Link
 									href='/alltrainings'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
 										pathName.includes('/alltrainings')
-											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
+											? 'bg-[#E3F6F5] dark:bg-[#1e2222] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
 								>
 									<span className='flex-1 ms-7 whitespace-nowrap '>Browse All</span>
 								</Link>
 							</li>
-							<li className={`${
-								(isTrainingsDropdownOpen)
-									? ''
-									: 'hidden'
-							}`}>
+							<li className={`${isTrainingsDropdownOpen ? '' : 'hidden'}`}>
 								<Link
 									href='/mytrainings'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
