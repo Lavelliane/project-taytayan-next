@@ -45,7 +45,7 @@ export type Registrant = {
 export type NetworkingEvent = {
 	eventId: string;
 	eventName: string;
-	eventAddress: string;
+	eventAddress: GoogleLocation;
 	eventCenter: string;
 	eventDate: Date;
 	eventDescription: string;
