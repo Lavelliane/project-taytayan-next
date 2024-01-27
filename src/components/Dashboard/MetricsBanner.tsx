@@ -6,7 +6,7 @@ import TaytayanLogoText from '../TaytayanLogoText';
 
 export const MetricsBanner = () => {
  	return (
-        <div className='col-span-1 lg:col-span-3'>
+        <div className='col-span-1 lg:col-span-3 max-h-[285px]'>
             <div className='flex h-full bg-gradient-to-b from-blue-500 via-indigo-500 to-purple-500 rounded-2xl justify-center lg:justify-between overflow-hidden'>
                 <div className='flex flex-col p-6 justify-between'>
                     <h1 className='hidden sm:block font-bold mb-4 text-lg sm:text-xl md:text-2xl lg:text-3xl '>Your Bridge to Opportunities.</h1>
@@ -18,11 +18,12 @@ export const MetricsBanner = () => {
                         My Events
                     </Button> 
                     </div>
-                <div className='hidden lg:block'>
+                <div className='hidden lg:block self-center mr-8'>
                     <Image
                         src={flavorImage}
                         alt='flavor-image'
-                        height={285}
+                        height={250}
+                        style={{ objectFit: 'fill', width: 'auto'}}
                     />
                 </div>
             </div>

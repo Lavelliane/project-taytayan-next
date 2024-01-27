@@ -349,16 +349,9 @@ const SidebarSeeker = () => {
 											theme={avatarTheme}
 											placeholderInitials={user?.firstName.charAt(0) + user?.lastName.charAt(0)}
 											className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
-											img={(props) => (
-												<Image
-													alt='avatar'
-													src={user?.avatarURL ?? ''}
-													width={200}
-													height={200}
-													{...props}
-													style={{ borderRadius: '100%' }}
-												/>
-											)}
+											img={user?.avatarURL ?? ''}
+											alt='avatar image for taytayan'
+											rounded
 										/>
 										<span>{name}</span>
 									</div>
