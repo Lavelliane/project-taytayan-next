@@ -4,23 +4,14 @@ import { CategoryDropdown } from "../Trainings/CategoryDropdown";
 import { TrainingCard } from "../Trainings/TrainingCard";
 import { Training } from "@/types/types";
 import { DefaultTraining } from "@/utils/DefaultProfile";
-
 import { SortDropdown } from "./SortDropdown";
 import { AddTrainingButton } from "./AddTrainingButton";
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { useAuthStore } from "@/hooks/useAuth";
 import { db } from "@/lib/firebase";
+import { defaultSelectedCategories } from '@/utils/TrainingCategories';
 
 const AllTrainingsPage = () => {
-  const defaultSelectedCategories = [
-    "technical",
-    "certification",
-    "personal",
-    "professional",
-    "vocational & arts",
-    "other",
-  ]; // Define defaults
-
   const userStore = useAuthStore((state) => state.user);
   const [trainings, setTrainings] = useState<Training[]>([]);
 
