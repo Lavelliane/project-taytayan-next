@@ -10,8 +10,13 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addEventFormSchema, AddEventFormType } from "@/schemas/AddEventSchema";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import Autocomplete from "react-google-autocomplete";
+import { GoogleLocation, User } from "@/types/types";
+import { useAuthStore } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { DefaultProfile } from "@/utils/DefaultProfile";
 
 interface AddEventProps {
   addEventOpened: boolean;
@@ -22,13 +27,21 @@ export const AddEventForm = ({
   addEventOpened,
   handleAddEventClose,
 }: AddEventProps) => {
+  const [user, setUser] = useState<User>(DefaultProfile);
+
+  const userStore = useAuthStore((state) => state.user);
+  const updateState = useAuthStore((state) => state.updateUserState);
+
+  useEffect(() => {
+    setUser(userStore);
+  }, []);
   // Define form
   const form = useForm<AddEventFormType>({
     resolver: zodResolver(addEventFormSchema),
     mode: "onChange",
     defaultValues: {
       eventName: "",
-      eventAddress: "",
+      eventAddress: undefined,
       eventCenter: "",
       eventDate: undefined,
       eventDescription: "",
@@ -53,6 +66,22 @@ export const AddEventForm = ({
     }
   };
 
+  const handleEventAddress = (selectedLocation: any) => {
+    if (selectedLocation) {
+      const selectedFormattedAddress = selectedLocation.formatted_address;
+      const selectedGeometry = JSON.parse(
+        JSON.stringify(selectedLocation.geometry.location)
+      );
+      console.log(selectedGeometry);
+      const finalLocation: GoogleLocation = {
+        formattedAddress: selectedFormattedAddress,
+        geometry: selectedGeometry,
+      };
+      form.setValue("eventAddress", finalLocation);
+      form.trigger("eventAddress");
+    }
+  };
+
   const resetForm = () => {
     reset(); // Reset the form to its default values
     handleAddEventClose(); // Close the modal
@@ -73,7 +102,18 @@ export const AddEventForm = ({
       eventObjectives: eventObjectivesArray,
     };
     const networkingRef = collection(db, "networking");
-    await addDoc(networkingRef, finalPayload);
+    const eventCreated = await addDoc(networkingRef, finalPayload);
+    try {
+      //	const docRef = doc(db, 'users', userStore.uid);
+      updateState({
+        ...user,
+        myTrainings: [...userStore.myTrainings, eventCreated.id],
+      });
+      const updateEventId = doc(networkingRef, eventCreated.id);
+      await updateDoc(updateEventId, { eventId: eventCreated.id });
+    } catch (error) {
+      console.log(error);
+    }
     handleAddEventClose();
     reset();
   };
@@ -131,10 +171,14 @@ export const AddEventForm = ({
               <div className="mb-2 block">
                 <Label htmlFor="eventAddress" value="Event Address" />
               </div>
-              <TextInput
+              <Autocomplete
+                className="p-3 w-full inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400"
                 id="eventAddress"
-                type="text"
-                placeholder="Cebu City, Cebu"
+                apiKey={process.env.NEXT_PUBLIC_PLACES_API_KEY}
+                onPlaceSelected={(place) => {
+                  handleEventAddress(place);
+                }}
+                defaultValue={undefined}
                 {...register("eventAddress")}
               />
               {errors.eventAddress && (
