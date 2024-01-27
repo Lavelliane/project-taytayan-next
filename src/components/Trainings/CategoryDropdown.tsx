@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Badge, Button, Checkbox, CustomFlowbiteTheme, Dropdown, DropdownItem } from 'flowbite-react';
-import trainingCategories from '@/utils/TrainingCategories';
+import { trainingCategories } from '@/utils/TrainingCategories';
 import { IoIosArrowDown } from 'react-icons/io';
 import { CategoryBadge } from './CategoryBadge';
 
@@ -68,7 +68,7 @@ export const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ selectedCate
 							onClick={() => handleCategoryChange(category.value)}
 						/>
 					</div>
-					<div className='py-1 px-2 capitalize'>
+					<div className='py-1 px-2'>
 						{category.value}
 						{/* <CategoryBadge category={category.value} /> */}
 					</div>

@@ -8,19 +8,10 @@ import { Training } from '@/types/types';
 import { doc, collection, getDocs, where, query } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
+import { defaultSelectedCategories } from '@/utils/TrainingCategories';
 
 export const DashboardTraining = () => {
-	const defaultSelectedCategories = [
-		'technical',
-		'certification',
-		'personal',
-		'professional',
-		'vocational & arts',
-		'other',
-	]; // Define defaults
-
 	const userStore = useAuthStore((state) => state.user);
-
 	const [trainings, setTrainings] = useState<Training[]>([]);
 	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
 	const [filteredTrainings, setFilteredTrainings] = useState<Training[]>(trainings);
