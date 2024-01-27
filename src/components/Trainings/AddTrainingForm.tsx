@@ -21,6 +21,7 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 
 	const userStore = useAuthStore((state) => state.user);
 	const updateState = useAuthStore((state) => state.updateUserState);
+	const updateUserLatest = useAuthStore((state) => state.updateUserLatest)
 
 	useEffect(() => {
 		setUser(userStore);
@@ -100,7 +101,13 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 				myTrainings: [...userStore.myTrainings, trainingCreated.id],
 			});
 			const updateTrainingId = doc(trainingRef, trainingCreated.id);
-			await updateDoc(updateTrainingId, { trainingId: trainingCreated.id, trainingRegistrants: [] });
+			Promise.all([
+				await updateDoc(updateTrainingId, { trainingId: trainingCreated.id, trainingRegistrants: [] }),
+				await updateDoc(doc(collection(db, 'users'), user.uid), { ...user, myTrainings: [...userStore.myTrainings, trainingCreated.id],}),
+				await updateUserLatest()
+			]).then((result) => {
+				console.log("success: ", result)
+			}).catch((e) => console.error(e))
 		} catch (error) {
 			console.log(error);
 		}

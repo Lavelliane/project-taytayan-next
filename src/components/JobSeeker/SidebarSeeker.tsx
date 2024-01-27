@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Drawer, DrawerOptions, DrawerInterface, InstanceOptions } from 'flowbite';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -65,18 +65,17 @@ const SidebarSeeker = () => {
 	const router = useRouter();
 	const logout = useAuthStore((state: { logout: any }) => state.logout);
 	const user = useAuthStore((state: { user: any }) => state.user);
+	const [name, setName] = useState<string>('')
 	function handleLogout() {
 		logout();
 		router.push('/login');
 	}
 
-	let name = '';
-	let nameInitials = '';
-
-	if (user && user.firstName && user.lastName) {
-		name = user?.firstName + ' ' + user?.lastName;
-		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
-	}
+	useEffect(() => {
+		if (user && user.firstName || user.lastName) {
+			setName(user?.firstName + ' ' + user?.lastName);
+		}
+	}, [user])
 
 	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false);
 
@@ -348,7 +347,7 @@ const SidebarSeeker = () => {
 											color='info'
 											size='md'
 											theme={avatarTheme}
-											placeholderInitials={nameInitials}
+											placeholderInitials={user?.firstName.charAt(0) + user?.lastName.charAt(0)}
 											className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
 											img={(props) => (
 												<Image
