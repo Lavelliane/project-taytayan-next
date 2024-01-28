@@ -9,6 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/hooks/useAuth';
 import { Avatar, Dropdown, DropdownItem, CustomFlowbiteTheme, Sidebar } from 'flowbite-react';
 import { HiShoppingBag } from 'react-icons/hi';
+import UserAvatar from '../Profile/UserAvatar';
 
 const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
 // options with default values
@@ -28,9 +29,14 @@ const instanceOptions: InstanceOptions = {
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 	root: {
-		bordered: 'p-1 ring-2',
+		bordered: 'p-1 ring-2 justify-center items-center',
 		color: {
-			info: 'ring-tertiary',
+			info: 'ring-[#0090D8]',
+			success: 'ring-[#429445]',
+			warning: 'ring-[#F6C951]',
+		},
+		img: {
+			placeholder: 'text-gray-400 w-auto h-auto',
 		},
 	},
 };
@@ -66,6 +72,8 @@ const SidebarSeeker = () => {
 	const logout = useAuthStore((state: { logout: any }) => state.logout);
 	const user = useAuthStore((state: { user: any }) => state.user);
 	const [name, setName] = useState<string>('');
+	const [nameInitials, setNameInitials] = useState<string>('');
+
 	function handleLogout() {
 		logout();
 		router.push('/login');
@@ -74,6 +82,7 @@ const SidebarSeeker = () => {
 	useEffect(() => {
 		if ((user && user.firstName) || user.lastName) {
 			setName(user?.firstName + ' ' + user?.lastName);
+			setNameInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0));
 		}
 	}, [user]);
 
@@ -142,7 +151,7 @@ const SidebarSeeker = () => {
 									${
 										pathName.includes('jobs') ||
 										pathName.includes('trainings') ||
-										pathName.includes('network') ||
+										pathName.includes('events') ||
 										pathName.includes('contact-us') ||
 										pathName.includes('profile') ||
 										pathName.includes('settings') ||
@@ -283,7 +292,7 @@ const SidebarSeeker = () => {
 								<Link
 									href=''
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/allnetworks') || pathName.includes('/mynetworks')
+										pathName.includes('/allevents') || pathName.includes('/myevents')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
@@ -306,7 +315,7 @@ const SidebarSeeker = () => {
 									</svg>
 									<span className='flex-1 ms-3 whitespace-nowrap '>Networks</span>
 									<svg
-										className={`w-4 h-4 transform ${isTrainingsDropdownOpen ? 'hidden' : ''}`}
+										className={`w-4 h-4 transform ${isNetworksDropdownOpen ? 'hidden' : ''}`}
 										aria-hidden='true'
 										xmlns='http://www.w3.org/2000/svg'
 										fill='none'
@@ -321,7 +330,7 @@ const SidebarSeeker = () => {
 										/>
 									</svg>
 									<svg
-										className={`w-4 h-4 ${isTrainingsDropdownOpen ? '' : 'hidden'}`}
+										className={`w-4 h-4 ${isNetworksDropdownOpen ? '' : 'hidden'}`}
 										aria-hidden='true'
 										xmlns='http://www.w3.org/2000/svg'
 										fill='none'
@@ -339,9 +348,9 @@ const SidebarSeeker = () => {
 							</li>
 							<li className={`${isNetworksDropdownOpen ? '' : 'hidden'}`}>
 								<Link
-									href='/allnetworks'
+									href='/allevents'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/allnetworks')
+										pathName.includes('/allevents')
 											? 'bg-[#E3F6F5] dark:bg-[#1e2222] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
@@ -351,14 +360,14 @@ const SidebarSeeker = () => {
 							</li>
 							<li className={`${isNetworksDropdownOpen ? '' : 'hidden'}`}>
 								<Link
-									href='/mynetworks'
+									href='/myevents'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/mynetworks')
+										pathName.includes('/myevents')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
 								>
-									<span className='flex-1 ms-7 whitespace-nowrap '>My Networks</span>
+									<span className='flex-1 ms-7 whitespace-nowrap '>My Events</span>
 								</Link>
 							</li>
 							<li>
@@ -403,15 +412,12 @@ const SidebarSeeker = () => {
 									}`}
 								>
 									<div className='flex gap-2 items-center'>
-										<Avatar
-											color='info'
-											size='md'
-											theme={avatarTheme}
-											placeholderInitials={user?.firstName.charAt(0) + user?.lastName.charAt(0)}
-											className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
-											img={user?.avatarURL ?? ''}
-											alt='avatar image for taytayan'
-											rounded
+										<UserAvatar
+											firstName={user?.firstName}
+											lastName={user?.lastName}
+											avatarURL={user?.avatarURL}
+											role={user?.role}
+											size='sm'
 										/>
 										<span>{name}</span>
 									</div>

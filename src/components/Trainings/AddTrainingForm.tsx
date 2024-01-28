@@ -263,7 +263,7 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 							<option>Personal</option>
 							<option>Professional</option>
 							<option>Vocational & Arts</option>
-							<option>Others</option>
+							<option>Other</option>
 						</Select>
 						{errors.trainingCategory && (
 							<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.trainingCategory.message}</span>
