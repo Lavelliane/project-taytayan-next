@@ -2,8 +2,9 @@ import { Avatar, Button, CustomFlowbiteTheme, Modal } from "flowbite-react";
 import { NetworkingEvent } from "@/types/types";
 import { FiMapPin } from "react-icons/fi";
 import { Timestamp } from "firebase/firestore";
-
-//TODO: Bind button to Firebase status of user as registered.
+import { RegisterEventButton } from "./RegisterEventButton";
+import SeeRegistrantsButton from "../Trainings/SeeRegistrantsButton";
+import { FormatRegistrants } from "@/utils/FormatRegistrants";
 
 interface LearnMoreProps {
   learnMoreOpened: boolean;
@@ -76,7 +77,8 @@ export const EventLearnMoreModal = ({
         </div>
         <div className="flex gap-2 items-center text-xs lg:text-sm">
           <FiMapPin />
-          {networkingEventData.eventAddress.formattedAddress || 'Project Taytayan HQ'}
+          {networkingEventData.eventAddress.formattedAddress ||
+            "Project Taytayan HQ"}
         </div>
         <div className="text-sm lg:text-base font-bold">
           Registration Fee:{" "}
@@ -114,15 +116,23 @@ export const EventLearnMoreModal = ({
             )}
           </ul>
         </div>
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-2 items-center">
+            <h1 className="text-xs lg:text-sm font-semibold">
+              {networkingEventData?.eventRegistrants?.length} Participants
+            </h1>
+            <SeeRegistrantsButton
+              registrant={networkingEventData?.eventRegistrants}
+            />
+          </div>
+          <FormatRegistrants
+            registrant={networkingEventData?.eventRegistrants}
+          />
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <div className="flex justify-end w-full">
-          <Button
-            className="w-fit bg-tertiary border-none text-white px-5"
-            size="lg"
-          >
-            Register
-          </Button>
+          <RegisterEventButton eventId={networkingEventData?.eventId} />
         </div>
       </Modal.Footer>
     </Modal>

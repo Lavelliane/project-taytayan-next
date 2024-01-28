@@ -57,7 +57,8 @@ export const DashboardNetworking = () => {
         console.log(eventData);
         fetchedEvents.push(eventData);
       });
-      setNetworkingEvents(fetchedEvents);
+      const recentEvents = fetchedEvents.slice(0, 4);
+      setNetworkingEvents(recentEvents);
     } catch (e) {
       console.error(e);
     }
