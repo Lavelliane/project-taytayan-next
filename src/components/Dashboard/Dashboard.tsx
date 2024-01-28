@@ -12,17 +12,16 @@ const Dashboard = () => {
     const [jobsAvailable, setJobsAvailable] = useState<number>(0)
     const [upcomingEvents, setUpcomingEvents] = useState<number>(0)
     const user = useAuthStore((state) => state.user)
+    const [firstNameOnly, setFirstNameOnly] = useState<string>('')
+
     useEffect(() => {
-      console.log(user)
-    }, [user])
-    let firstNameOnly = ''
-    if (user && user.firstName) {
-      firstNameOnly= user.firstName.split(' ')[0];
-    }
+      setFirstNameOnly(user.firstName.split(' ')[0])
+    }, [user]);
 
     useEffect(() => {
       fetchDashboardMetrics();
     }, []);
+    
 
     const fetchDashboardMetrics = async () => {
       try {

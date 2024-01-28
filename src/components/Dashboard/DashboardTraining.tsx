@@ -8,12 +8,11 @@ import { Training } from '@/types/types';
 import { doc, collection, getDocs, where, query } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
-import { defaultSelectedCategories } from '@/utils/TrainingCategories';
 
 export const DashboardTraining = () => {
 	const userStore = useAuthStore((state) => state.user);
 	const [trainings, setTrainings] = useState<Training[]>([]);
-	const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelectedCategories); // Initialize
+	const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Initialize
 	const [filteredTrainings, setFilteredTrainings] = useState<Training[]>(trainings);
 
 	useEffect(() => {
@@ -77,7 +76,9 @@ export const DashboardTraining = () => {
 					<TrainingCard key={training.trainingId} trainingData={training as Training} />
 				))}
 			</div>
-			{trainings.length === 0 && <h1 className='text-center font-semibold pb-14'>No trainings created</h1>}
+			{trainings.length === 0 || filteredTrainings.length === 0 && (
+				<h1 className="text-center font-semibold pb-14">No trainings found</h1>
+			)}
 		</div>
 	);
 };

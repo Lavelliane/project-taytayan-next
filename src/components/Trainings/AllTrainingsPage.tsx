@@ -9,7 +9,6 @@ import { AddTrainingButton } from "./AddTrainingButton";
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { useAuthStore } from "@/hooks/useAuth";
 import { db } from "@/lib/firebase";
-import { defaultSelectedCategories } from '@/utils/TrainingCategories';
 
 const AllTrainingsPage = () => {
   const userStore = useAuthStore((state) => state.user);
@@ -41,9 +40,7 @@ const AllTrainingsPage = () => {
   };
 
   const [sortOption, setSortOption] = useState<string>("alphabetical"); // Default sorting option
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    defaultSelectedCategories
-  ); // Initialize
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Initialize
   const [filteredTrainings, setFilteredTrainings] = useState<any[]>(trainings);
 
   const handleSortChange = (newSortOption: string) => {
@@ -77,8 +74,8 @@ const AllTrainingsPage = () => {
   };
 
   useEffect(() => {
-    console.log(filteredTrainings);
-  }, [filteredTrainings]);
+		filterTrainings();
+	}, [selectedCategories]); // Run the effect whenever selectedCategories changes
 
   useEffect(() => {
     sortTrainings(sortOption);
@@ -137,9 +134,9 @@ const AllTrainingsPage = () => {
               />
             ))}
           </div>
-          {trainings.length === 0 && (
-            <h1 className="text-center font-semibold">No trainings created</h1>
-          )}
+					{trainings.length === 0 || filteredTrainings.length === 0 && (
+						<h1 className="text-center font-semibold pb-14">No trainings found</h1>
+					)}
         </div>
       </section>
     </main>
