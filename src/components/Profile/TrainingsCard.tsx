@@ -2,17 +2,22 @@ import React from 'react';
 import { Card } from 'flowbite-react';
 import Image from 'next/image';
 import CertificateIcon from '../../../public/assets/certificationIcon.png';
+import { Training } from '@/types/types';
 
-const TrainingsCard = () => {
-	const certName = 'Web Development';
-	const typeOfCertification = 'Certification';
-	const organization = 'Google';
-	const location = '2/F Park Centrale Bldg., IT Park, Apas, Lahug, Cebu City';
-	const registrationFee = 'No Registration Fee';
+interface TrainingsCardProps {
+	trainings: Training;
+}
+
+const TrainingsCard = ({ trainings }: TrainingsCardProps) => {
+	const certName = trainings.trainingName;
+	const typeOfCertification = trainings.trainingCategory;
+	const organization = trainings.trainingCenter;
+	const location = trainings.trainingAddress.formattedAddress;
+	const registrationFee = trainings.trainingRegistration;
 	const Status = 'Completed';
 
 	return (
-		<Card className='max-w-2xl w-[30%] h-fit mr-auto'>
+		<Card className='max-w-2xl w-[21rem] h-fit mr-auto'>
 			<div className='flex gap-2 items-center'>
 				<Image
 					src={CertificateIcon}
@@ -76,7 +81,7 @@ const TrainingsCard = () => {
 							d='M11.905 1.316 15.633 6M18 10h-5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h5m0-5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1m0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1v-3m-6.367-9L7.905 1.316 2.352 6h9.281Z'
 						/>
 					</svg>
-					<h1 className='text-xs'>{registrationFee}</h1>
+					<h1 className='text-xs'>{Number(registrationFee) >= 0 ? registrationFee.toString() : 'Free'}</h1>
 				</div>
 			</div>
 			<h1 className='text-sm text-white font-semibold bg-[#009639] rounded-lg px-6 py-2 w-fit'>{Status}</h1>

@@ -34,17 +34,19 @@ const TrainingsPage = () => {
 				userTraining = userStore.trainings;
 			}
 
-			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userTraining));
-			const trainingDoc = await getDocs(trainingRef);
+			if (userTraining && userTraining.length > 0) {
+				const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userTraining));
+				const trainingDoc = await getDocs(trainingRef);
 
-			if (userStore.myTrainings.length > 0) {
-				const fetchedTrainings: Training[] = [];
+				if (userStore.myTrainings.length > 0) {
+					const fetchedTrainings: Training[] = [];
 
-				trainingDoc.forEach((doc) => {
-					const trainingData: Training = { ...(doc.data() as Training) };
-					fetchedTrainings.push(trainingData);
-				});
-				setTrainings(fetchedTrainings);
+					trainingDoc.forEach((doc) => {
+						const trainingData: Training = { ...(doc.data() as Training) };
+						fetchedTrainings.push(trainingData);
+					});
+					setTrainings(fetchedTrainings);
+				}
 			}
 		} catch (e) {
 			console.error(e);
@@ -92,14 +94,6 @@ const TrainingsPage = () => {
 		setSelectedCategories(newSelectedCategories);
 	};
 
-	const filterTrainings = () => {
-		if (selectedCategories.length > 0) {
-			setFilteredTrainings(trainings.filter((training) => selectedCategories.includes(training.trainingCategory)));
-		} else {
-			setFilteredTrainings(trainings);
-		}
-	};
-
 	return (
 		<main className='flex flex-col w-full px-4 md:px-8 lg:px-12 xl:px-24'>
 			<section className='py-8'>
@@ -127,7 +121,7 @@ const TrainingsPage = () => {
 							<MyTrainingCard key={training.trainingId + '_' + index} trainingData={training} />
 						))}
 					</div>
-					{trainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
+					{userStore.myTrainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
 				</div>
 			</section>
 		</main>

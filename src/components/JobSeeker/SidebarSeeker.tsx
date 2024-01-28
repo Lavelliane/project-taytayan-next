@@ -283,7 +283,7 @@ const SidebarSeeker = () => {
 								<Link
 									href=''
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/allnetworks') || pathName.includes('/mytrainings')
+										pathName.includes('/allnetworks') || pathName.includes('/mynetworks')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
