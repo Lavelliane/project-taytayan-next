@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'flowbite-react';
 import RegisterTrainingModal from './RegisterTrainingModal';
+import { User } from '@/types/types';
+import { useAuthStore } from '@/hooks/useAuth';
+import { DefaultProfile } from '@/utils/DefaultProfile';
 
 interface RegisterTrainingButtonProps {
 	trainingId: string;
@@ -10,6 +13,13 @@ interface RegisterTrainingButtonProps {
 
 export const RegisterTrainingButton = ({ trainingId }: RegisterTrainingButtonProps) => {
 	const [registerTrainingOpened, setRegisterTrainingOpened] = useState(false);
+	const [user, setUser] = useState<User>(DefaultProfile);
+
+	const userStore = useAuthStore((state: { user: User }) => state.user);
+
+	useEffect(() => {
+		setUser(userStore);
+	}, []);
 
 	const handleRegisterTrainingOpen = () => {
 		setRegisterTrainingOpened(true);
@@ -20,9 +30,21 @@ export const RegisterTrainingButton = ({ trainingId }: RegisterTrainingButtonPro
 	};
 	return (
 		<>
-			<Button className='w-fit bg-tertiary border-none text-white px-5' size='lg' onClick={handleRegisterTrainingOpen}>
-				Register
-			</Button>
+			{!userStore?.trainings.includes(trainingId) ? (
+				<Button
+					className='w-fit bg-tertiary hover:bg-tertiary/70 border-none text-white'
+					color='transparent'
+					size='lg'
+					onClick={handleRegisterTrainingOpen}
+				>
+					Register
+				</Button>
+			) : (
+				<Button color='red' size='lg' onClick={handleRegisterTrainingOpen}>
+					Unregister
+				</Button>
+			)}
+
 			<RegisterTrainingModal
 				trainingId={trainingId}
 				registerTrainingOpened={registerTrainingOpened}

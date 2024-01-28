@@ -12,8 +12,8 @@ const roboto = Roboto({
 const lexendDeca = Lexend_Deca({ subsets: ['latin'], variable: '--font-lexendDeca' })
 
 export const metadata: Metadata = {
-  title: 'PROJECT Taytayan',
-  description: 'Your Bridge To Opportunities',
+  title: 'Project Taytayan',
+  description: 'Your Bridge to Opportunities',
 }
 
 export default function RootLayout({

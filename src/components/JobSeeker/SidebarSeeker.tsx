@@ -72,27 +72,30 @@ const SidebarSeeker = () => {
 	const user = useAuthStore((state: { user: any }) => state.user);
 	const [name, setName] = useState<string>('')
 	const [nameInitials, setNameInitials] = useState<string>('')
+  
 	function handleLogout() {
 		logout();
 		router.push('/login');
 	}
 
 	useEffect(() => {
-		if (user && user.firstName || user.lastName) {
+		if ((user && user.firstName) || user.lastName) {
 			setName(user?.firstName + ' ' + user?.lastName);
 			setNameInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0))
 		}
 	}, [user])
-	
-	useEffect(() => {
-		console.log(user)
-	}, [user])
+
 
 	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false);
+	const [isNetworksDropdownOpen, setIsNetworksDropdownOpen] = useState<boolean>(false);
 
 	const handleTrainingsDropdownPress = () => {
 		setIsTrainingsDropdownOpen(!isTrainingsDropdownOpen);
 	};
+	const handleNetworksDropdownPress = () => {
+		setIsNetworksDropdownOpen(!isNetworksDropdownOpen);
+	};
+
 	return (
 		<>
 			<button
@@ -289,10 +292,11 @@ const SidebarSeeker = () => {
 								<Link
 									href='/allevents'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/network')
+										pathName.includes('/allevents') || pathName.includes('/allevents')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
+									onClick={() => handleNetworksDropdownPress()}
 								>
 									<svg
 										className='w-4 h-4'
@@ -309,7 +313,61 @@ const SidebarSeeker = () => {
 											d='M6 1v4a1 1 0 0 1-1 1H1m4 10v-2m3 2v-6m3 6v-4m4-10v16a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2Z'
 										/>
 									</svg>
-									<span className='flex-1 ms-3 whitespace-nowrap'>Network</span>
+									<span className='flex-1 ms-3 whitespace-nowrap '>Networks</span>
+									<svg
+										className={`w-4 h-4 transform ${isTrainingsDropdownOpen ? 'hidden' : ''}`}
+										aria-hidden='true'
+										xmlns='http://www.w3.org/2000/svg'
+										fill='none'
+										viewBox='0 0 24 24'
+									>
+										<path
+											stroke='currentColor'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth='2'
+											d='m9 5 7 7-7 7'
+										/>
+									</svg>
+									<svg
+										className={`w-4 h-4 ${isTrainingsDropdownOpen ? '' : 'hidden'}`}
+										aria-hidden='true'
+										xmlns='http://www.w3.org/2000/svg'
+										fill='none'
+										viewBox='0 0 24 24'
+									>
+										<path
+											stroke='currentColor'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth='2'
+											d='m19 9-7 7-7-7'
+										/>
+									</svg>
+								</Link>
+							</li>
+							<li className={`${isNetworksDropdownOpen ? '' : 'hidden'}`}>
+								<Link
+									href='/allnetworks'
+									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
+										pathName.includes('/allnetworks')
+											? 'bg-[#E3F6F5] dark:bg-[#1e2222] text-[#0090D8] dark:text-[#0090D8]'
+											: 'text-gray-700 dark:text-white'
+									}`}
+								>
+									<span className='flex-1 ms-7 whitespace-nowrap '>Browse All</span>
+								</Link>
+							</li>
+							<li className={`${isNetworksDropdownOpen ? '' : 'hidden'}`}>
+								<Link
+									href='/mynetworks'
+									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
+										pathName.includes('/mynetworks')
+											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
+											: 'text-gray-700 dark:text-white'
+									}`}
+								>
+									<span className='flex-1 ms-7 whitespace-nowrap '>My Networks</span>
 								</Link>
 							</li>
 							<li>
