@@ -21,7 +21,7 @@ export const MyTrainingCard: React.FC<TrainingProps> = (props) => {
 		trainingCategory,
 	} = props.trainingData;
 	return (
-		<Card className='max-w-full p-0 shadow-none border-[1px] md:border-[3px] justify-between' theme={cardTheme}>
+		<Card className='max-w-full p-0 shadow-none border-[1px] md:border-[1px] justify-between' theme={cardTheme}>
 			<div className='flex items-center'>
 				<Avatar
 					img='/institution.svg'
@@ -91,7 +91,11 @@ export const MyTrainingCard: React.FC<TrainingProps> = (props) => {
 					/>
 				</svg>
 				<span className='font-base text-xs lg:text-sm'>
-					{`₱${Number(trainingRegistration).toLocaleString('en-US', { minimumFractionDigits: 2 })}`}
+					{parseFloat(trainingRegistration) === 0
+						? 'Free'
+						: `₱${Number(trainingRegistration).toLocaleString('en-US', {
+								minimumFractionDigits: 2,
+						  })}`}
 				</span>
 			</h5>
 			<TrainingDetails key={trainingId} trainingData={props.trainingData} />

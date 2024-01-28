@@ -41,12 +41,12 @@ const Dashboard = () => {
     };
     
     return (
-      <main className='flex flex-col w-full px-4 md:px-8 lg:px-12 xl:px-24'>
-        <section className='py-8'>
+      <main className='flex flex-col w-full p-4 md:p-6 lg:p-8 xl:p-10'>
+        <section className='pb-8'>
           <h1 className='font-inter font-semibold pb-8 text-2xl text-dark'>Welcome back, {firstNameOnly}.</h1>
           <DashboardMetrics activeTrainings={activeTrainings} jobsAvailable={jobsAvailable} upcomingEvents={upcomingEvents} />
         </section>
-        <section>
+        <section className='pb-8'>
           <h1 className='font-inter font-semibold pb-4 text-lg text-dark'>Featured Trainings</h1>
           <DashboardTraining />
         </section>

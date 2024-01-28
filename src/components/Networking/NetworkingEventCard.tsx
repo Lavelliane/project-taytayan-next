@@ -64,7 +64,7 @@ export const NetworkingEventCard: React.FC<EventProps> = (props) => {
   } = props.networkingEventData;
   return (
     <Card
-      className="max-w-full p-0 shadow-none border-[1px] md:border-[3px] justify-between"
+      className="max-w-full p-0 shadow-none border-[1px] md:border-[1px] justify-between"
       theme={cardTheme}
     >
       <div className="flex items-center">
