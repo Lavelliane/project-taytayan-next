@@ -11,8 +11,7 @@ import { db } from "@/lib/firebase";
 import { defaultSelectedCategories } from "@/utils/TrainingCategories";
 import { NetworkingEventCard } from "./NetworkingEventCard";
 
-const NetworkingPage = () => {
-  const userStore = useAuthStore((state) => state.user);
+const AllEventsPage = () => {
   const [networkingEvents, setNetworkingEvents] = useState<NetworkingEvent[]>(
     []
   );
@@ -40,24 +39,18 @@ const NetworkingPage = () => {
 
   const fetchEvents = async () => {
     try {
-      const userEvents = userStore.eventsJoined;
-      const eventsRef = query(
-        collection(db, "networking"),
-        where("eventId", "in", userEvents)
-      );
+      const eventsRef = query(collection(db, "networking"));
       const eventsDoc = await getDocs(eventsRef);
-
-      if (userStore.eventsJoined.length > 0) {
-        const fetchedEvents: NetworkingEvent[] = [];
-
-        eventsDoc.forEach((doc) => {
-          const eventData: NetworkingEvent = {
-            ...(doc.data() as NetworkingEvent),
-          };
-          fetchedEvents.push(eventData);
-        });
-        setNetworkingEvents(fetchedEvents);
-      }
+      const fetchedEvents: NetworkingEvent[] = [];
+      eventsDoc.forEach((doc) => {
+        const eventData: NetworkingEvent = {
+          ...(doc.data() as NetworkingEvent),
+        };
+        console.log(eventData);
+        fetchedEvents.push(eventData);
+      });
+      const recentEvents = fetchedEvents.slice(0, 4);
+      setNetworkingEvents(recentEvents);
     } catch (e) {
       console.error(e);
     }
@@ -113,7 +106,7 @@ const NetworkingPage = () => {
     <main className="flex flex-col w-full px-4 md:px-8 lg:px-12 xl:px-24">
       <section className="py-8">
         <h1 className="font-inter font-semibold pb-4 text-lg text-dark">
-          My Events
+          All Events
         </h1>
         <div>
           <div className="pb-8">
@@ -145,7 +138,9 @@ const NetworkingPage = () => {
             ))}
           </div>
           {networkingEvents.length === 0 && (
-            <h1 className="text-center font-semibold">No events created</h1>
+            <h1 className="text-center font-semibold pb-14">
+              No events created
+            </h1>
           )}
         </div>
       </section>
@@ -153,4 +148,4 @@ const NetworkingPage = () => {
   );
 };
 
-export default NetworkingPage;
+export default AllEventsPage;
