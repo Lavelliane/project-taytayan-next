@@ -9,6 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/hooks/useAuth';
 import { Avatar, Dropdown, DropdownItem, CustomFlowbiteTheme, Sidebar } from 'flowbite-react';
 import { HiShoppingBag } from 'react-icons/hi';
+import UserAvatar from '../Profile/UserAvatar';
 
 const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
 // options with default values
@@ -151,7 +152,7 @@ const SidebarSeeker = () => {
 									${
 										pathName.includes('jobs') ||
 										pathName.includes('trainings') ||
-										pathName.includes('network') ||
+										pathName.includes('events') ||
 										pathName.includes('contact-us') ||
 										pathName.includes('profile') ||
 										pathName.includes('settings') ||
@@ -290,9 +291,9 @@ const SidebarSeeker = () => {
 							</li>
 							<li>
 								<Link
-									href='/allevents'
+									href=''
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/allevents') || pathName.includes('/allevents')
+										pathName.includes('/allevents') || pathName.includes('/myevents')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
@@ -315,7 +316,7 @@ const SidebarSeeker = () => {
 									</svg>
 									<span className='flex-1 ms-3 whitespace-nowrap '>Networks</span>
 									<svg
-										className={`w-4 h-4 transform ${isTrainingsDropdownOpen ? 'hidden' : ''}`}
+										className={`w-4 h-4 transform ${isNetworksDropdownOpen ? 'hidden' : ''}`}
 										aria-hidden='true'
 										xmlns='http://www.w3.org/2000/svg'
 										fill='none'
@@ -330,7 +331,7 @@ const SidebarSeeker = () => {
 										/>
 									</svg>
 									<svg
-										className={`w-4 h-4 ${isTrainingsDropdownOpen ? '' : 'hidden'}`}
+										className={`w-4 h-4 ${isNetworksDropdownOpen ? '' : 'hidden'}`}
 										aria-hidden='true'
 										xmlns='http://www.w3.org/2000/svg'
 										fill='none'
@@ -348,9 +349,9 @@ const SidebarSeeker = () => {
 							</li>
 							<li className={`${isNetworksDropdownOpen ? '' : 'hidden'}`}>
 								<Link
-									href='/allnetworks'
+									href='/allevents'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/allnetworks')
+										pathName.includes('/allevents')
 											? 'bg-[#E3F6F5] dark:bg-[#1e2222] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
@@ -360,14 +361,14 @@ const SidebarSeeker = () => {
 							</li>
 							<li className={`${isNetworksDropdownOpen ? '' : 'hidden'}`}>
 								<Link
-									href='/mynetworks'
+									href='/myevents'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
-										pathName.includes('/mynetworks')
+										pathName.includes('/myevents')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
 									}`}
 								>
-									<span className='flex-1 ms-7 whitespace-nowrap '>My Networks</span>
+									<span className='flex-1 ms-7 whitespace-nowrap '>My Events</span>
 								</Link>
 							</li>
 							<li>
@@ -412,19 +413,12 @@ const SidebarSeeker = () => {
 									}`}
 								>
 									<div className='flex gap-2 items-center'>
-										<Avatar
-											color={
-												user.role === 'training_center' ? 'success' :
-												user.role === 'employer' ? 'warning' :
-												user.role === 'general' ? 'info' : 'light'
-											}
-											theme={avatarTheme}
+										<UserAvatar 
+											firstName={user?.firstName} 
+											lastName={user?.lastName} 
+											avatarURL={user?.avatarURL}
+											role={user?.role}
 											size='sm'
-											placeholderInitials={nameInitials}
-											img={user?.avatarURL ?? ''}
-											alt='user'
-											rounded
-											bordered
 										/>
 										<span>{name}</span>
 									</div>

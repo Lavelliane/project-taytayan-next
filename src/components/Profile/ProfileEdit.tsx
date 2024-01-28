@@ -11,6 +11,7 @@ import { db } from '@/lib/firebase';
 import avatar from '../../../public/assets/avatar.png';
 import { doc, updateDoc } from 'firebase/firestore';
 import { Avatar, CustomFlowbiteTheme } from 'flowbite-react';
+import UserAvatar from './UserAvatar';
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 	root: {
@@ -65,15 +66,12 @@ const ProfileEdit = () => {
 				<div className='absolute w-full h-32 bg-[#9B5FFC] rounded-lg'></div>
 				<div className='lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between'>
 					<div className='flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end'>
-						<Avatar
-							img={user?.avatarURL.toString() ?? ''}
-							alt='avatar'
-							rounded
-							size='sm'
-							placeholderInitials={nameInitials}
-							color='info'
-							theme={avatarTheme}
-							className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
+						<UserAvatar 
+							firstName={user?.firstName} 
+							lastName={user?.lastName} 
+							avatarURL={user?.avatarURL}
+							role={user?.role}
+							size='xl'
 						/>
 						<div className='flex flex-col'>
 							<h1 className='text-xl font-bold'>Profile</h1>

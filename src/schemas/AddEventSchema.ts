@@ -40,7 +40,7 @@ export const addEventFormSchema = z.object({
     .min(2, {
       message: "Event description must be 2 or more characters long.",
     })
-    .max(100, {
+    .max(500, {
       message: "Event description must be 100 or less characters long.",
     }),
   eventRegistration: z.coerce

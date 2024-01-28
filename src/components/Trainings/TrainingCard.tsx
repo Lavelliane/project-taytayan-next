@@ -39,7 +39,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 		trainingCategory,
 	} = props.trainingData;
 	return (
-		<Card className='max-w-full p-0 shadow-none border-[1px] md:border-[3px] justify-between' theme={cardTheme}>
+		<Card className='max-w-full p-0 shadow-none border-[1px] md:border-[1px] justify-between' theme={cardTheme}>
 			<div className='flex items-center'>
 				<Avatar
 					img='/institution.svg'

@@ -41,7 +41,7 @@ export const addTrainingFormSchema = z.object({
     .min(2, {
       message: "Training description must be 2 or more characters long.",
     })
-    .max(100, {
+    .max(500, {
       message: "Training description must be 100 or less characters long.",
     }),
   trainingActivities: z
