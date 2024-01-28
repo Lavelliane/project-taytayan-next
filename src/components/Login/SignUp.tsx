@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import { SignUpForm } from '@/components/Login/SignUpForm';
-import flavorImage from '../../../public/assets/stock-login.png'
 
 export default function SignUp() {
   return (
@@ -28,18 +27,9 @@ export default function SignUp() {
           <div className='fixed rounded-full bg-green-300 w-36 h-36 translate-x-2 translate-y-1 top-0'></div>
           <div className='fixed rounded-full bg-pink-300 w-36 h-36 -translate-x-10 translate-y-44 right-0'></div>
           <div className='fixed rounded-full bg-yellow-100 w-48 h-48 translate-x-14 translate-y-24 bottom-0'></div>
+
           <div className='w-full h-full px-8 py-8'>
             <div className='z-50 w-auto h-full rounded-[4rem] flex flex-col items-center justify-start bg-white/40 backdrop-blur-sm border border-white/20'>
-              <div className='hidden lg:block self-center mr-8'>
-              </div>
-              <div className='translate-y-24'>
-                <Image
-                  src={flavorImage}
-                  alt='flavor-image'
-                  height={10000}
-                  style={{ objectFit: 'fill', width: 'auto'}}
-                />
-              </div>
             </div>
           </div>
         </div>
