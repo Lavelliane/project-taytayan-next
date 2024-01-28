@@ -289,7 +289,7 @@ export const AddEventForm = ({
                 <option>Personal</option>
                 <option>Professional</option>
                 <option>Vocational & Arts</option>
-                <option>Others</option>
+                <option>Other</option>
               </Select>
               {errors.eventCategory && (
                 <span className="text-xs lg:text-sm text-red-600 font-semibold">

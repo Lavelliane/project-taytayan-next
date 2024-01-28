@@ -42,7 +42,8 @@ export const DashboardTraining = () => {
 				const trainingData: Training = { ...(doc.data() as Training) };
 				fetchedTrainings.push(trainingData);
 			});
-			setTrainings(fetchedTrainings);
+			const recentTrainings = fetchedTrainings.slice(0, 4);
+			setTrainings(recentTrainings);
 		} catch (e) {
 			console.error(e);
 		}
@@ -71,14 +72,14 @@ export const DashboardTraining = () => {
 						))}
 				</div>
 			</div>
-			<div className='grid grid-cols-1 lg:grid-cols-2 gap-8 w-full pb-8'>
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
 				{filteredTrainings.map((training: Training) => (
 					<TrainingCard key={training.trainingId} trainingData={training as Training} />
 				))}
+				{trainings.length === 0 || filteredTrainings.length === 0 && (
+					<h1 className="justify-center font-semibold text-center col-span-full py-24">No trainings found</h1>
+				)}
 			</div>
-			{trainings.length === 0 || filteredTrainings.length === 0 && (
-				<h1 className="text-center font-semibold pb-14">No trainings found</h1>
-			)}
 		</div>
 	);
 };

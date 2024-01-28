@@ -8,6 +8,7 @@ import EventsCard from './EventsCard';
 import avatar from '../../../public/assets/avatar.png';
 import { useAuthStore } from '@/hooks/useAuth';
 import { User } from '@/types/types';
+import UserAvatar from './UserAvatar';
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 	root: {
@@ -44,22 +45,12 @@ const Profile = () => {
 				<div className='absolute w-full h-32 bg-[#9B5FFC] rounded-lg'></div>
 				<div className='px-10 w-full h-fit z-10 absolute bottom-0 flex sm:flex-row flex-col items-center justify-between'>
 					<div className='flex gap-6 items-end '>
-						<Avatar
-							color='info'
+						<UserAvatar 
+							firstName={user?.firstName} 
+							lastName={user?.lastName} 
+							avatarURL={user?.avatarURL}
+							role={user?.role}
 							size='xl'
-							theme={avatarTheme}
-							placeholderInitials={nameInitials}
-							className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
-							img={(props) => (
-								<Image
-									alt='avatar'
-									src={user?.avatarURL ?? ''}
-									width={1000}
-									height={1000}
-									{...props}
-									style={{ borderRadius: '100%' }}
-								/>
-							)}
 						/>
 						<div className='flex flex-col '>
 							<h1 className='text-xl font-bold'>

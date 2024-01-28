@@ -14,6 +14,9 @@ const lexendDeca = Lexend_Deca({ subsets: ['latin'], variable: '--font-lexendDec
 export const metadata: Metadata = {
   title: 'Project Taytayan',
   description: 'Your Bridge to Opportunities',
+  icons: {
+    icon: "/taytayan-main-logo.svg",
+  },
 }
 
 export default function RootLayout({
@@ -24,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${roboto.variable} ${lexendDeca.variable}`}>
+        <link rel="icon" href="/taytayan-logo.svg" sizes="any" />
         {children}
       </body>
     </html>
