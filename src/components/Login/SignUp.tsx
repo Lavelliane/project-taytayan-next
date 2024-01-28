@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import { SignUpForm } from '@/components/Login/SignUpForm';
+import flavorImage from '../../../public/assets/stock-login.png'
 
 export default function SignUp() {
   return (
@@ -30,6 +31,16 @@ export default function SignUp() {
 
           <div className='w-full h-full px-8 py-8'>
             <div className='z-50 w-auto h-full rounded-[4rem] flex flex-col items-center justify-start bg-white/40 backdrop-blur-sm border border-white/20'>
+              <div className='hidden lg:block self-center mr-8'>
+              </div>
+              <div className='translate-y-24'>
+                  <Image
+                    src={flavorImage}
+                    alt='flavor-image'
+                    height={10000}
+                    style={{ objectFit: 'fill', width: 'auto'}}
+                  />
+              </div>    
             </div>
           </div>
         </div>

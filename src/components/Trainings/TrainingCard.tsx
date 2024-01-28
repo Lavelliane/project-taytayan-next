@@ -26,7 +26,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 	} = props.trainingData;
 	return (
 		<Card className='max-w-full p-0 shadow-none border-[1px] md:border-[1px] justify-between' theme={cardTheme}>
-			<div className='flex items-center px-6 pt-6'>
+			<div className='flex items-center mx-6 mt-6 mb-4'>
 				<Avatar
 					img='/institution.svg'
 					alt='avatar'
@@ -42,10 +42,10 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 					<p className='text-xs'>{formatTimestamp(trainingDate)}</p>
 				</div>
 			</div>
-			<h3 className='mt-2 mb-4 lg:mt-0 lg:mb-0'>
+			<h3 className='mb-4'>
 				<CategoryBadge style='banner' category={trainingCategory} />
 			</h3>
-			<div className='flex flex-col gap-2 px-6 mb-4'>
+			<div className='flex flex-col gap-2 mx-6 mb-4'>
 				<h5 className='flex gap-3 items-center'>
 					<svg
 						className='min-w-4 w-4 h-4 text-gray-800 dark:text-white'
@@ -105,7 +105,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 				</h5>		
 			</div>
 
-			<div className='flex justify-between items-center px-6 pb-6'>
+			<div className='flex justify-between items-center mx-6 mb-6'>
 				<LearnMoreButton key={trainingId} trainingData={props.trainingData} />
 				{userStore?.trainings.includes(trainingId) && (
 					<Tooltip content='You are registered here' style='light'>
