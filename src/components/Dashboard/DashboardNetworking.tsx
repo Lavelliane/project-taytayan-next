@@ -10,23 +10,12 @@ import { useAuthStore } from "@/hooks/useAuth";
 import { db } from "@/lib/firebase";
 
 export const DashboardNetworking = () => {
-  const defaultSelectedCategories = [
-    "Technical",
-    "Certification",
-    "Personal",
-    "Professional",
-    "Vocational & Arts",
-    "Other",
-  ]; // Define defaults
-
   const userStore = useAuthStore((state) => state.user);
 
   const [networkingEvents, setNetworkingEvents] = useState<NetworkingEvent[]>(
     []
   );
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    defaultSelectedCategories
-  ); // Initialize
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<any[]>(networkingEvents);
 
   useEffect(() => {
@@ -36,6 +25,10 @@ export const DashboardNetworking = () => {
   useEffect(() => {
     setFilteredEvents(networkingEvents);
   }, [networkingEvents]);
+
+  useEffect(() => {
+    console.log(filteredEvents)
+  }, [filteredEvents]);
 
   useEffect(() => {
     filterEvents();
@@ -100,8 +93,8 @@ export const DashboardNetworking = () => {
           />
         ))}
       </div>
-      {networkingEvents.length === 0 && (
-        <h1 className="text-center font-semibold pb-14">No events created</h1>
+      {networkingEvents.length === 0 || filteredEvents.length === 0 && (
+        <h1 className="text-center font-semibold pb-14">No events found</h1>
       )}
     </div>
   );

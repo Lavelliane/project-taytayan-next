@@ -28,10 +28,15 @@ const instanceOptions: InstanceOptions = {
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 	root: {
-		bordered: 'p-1 ring-2',
+		bordered: 'p-1 ring-2 justify-center items-center',
 		color: {
-			info: 'ring-tertiary',
+			info: 'ring-[#0090D8]',
+			success: 'ring-[#429445]',
+			warning: 'ring-[#F6C951]',
 		},
+		img: {
+			placeholder: 'text-gray-400 w-auto h-auto'
+		}
 	},
 };
 
@@ -66,6 +71,7 @@ const SidebarSeeker = () => {
 	const logout = useAuthStore((state: { logout: any }) => state.logout);
 	const user = useAuthStore((state: { user: any }) => state.user);
 	const [name, setName] = useState<string>('')
+	const [nameInitials, setNameInitials] = useState<string>('')
 	function handleLogout() {
 		logout();
 		router.push('/login');
@@ -74,7 +80,12 @@ const SidebarSeeker = () => {
 	useEffect(() => {
 		if (user && user.firstName || user.lastName) {
 			setName(user?.firstName + ' ' + user?.lastName);
+			setNameInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0))
 		}
+	}, [user])
+	
+	useEffect(() => {
+		console.log(user)
 	}, [user])
 
 	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false);
@@ -276,7 +287,7 @@ const SidebarSeeker = () => {
 							</li>
 							<li>
 								<Link
-									href='/network'
+									href='/allevents'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
 										pathName.includes('/network')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
@@ -344,14 +355,18 @@ const SidebarSeeker = () => {
 								>
 									<div className='flex gap-2 items-center'>
 										<Avatar
-											color='info'
-											size='md'
+											color={
+												user.role === 'training_center' ? 'success' :
+												user.role === 'employer' ? 'warning' :
+												user.role === 'general' ? 'info' : 'light'
+											}
 											theme={avatarTheme}
-											placeholderInitials={user?.firstName.charAt(0) + user?.lastName.charAt(0)}
-											className='justify-center bg-white rounded-full border-2 border-[#0090D8]'
+											size='sm'
+											placeholderInitials={nameInitials}
 											img={user?.avatarURL ?? ''}
-											alt='avatar image for taytayan'
+											alt='user'
 											rounded
+											bordered
 										/>
 										<span>{name}</span>
 									</div>

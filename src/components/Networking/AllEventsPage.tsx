@@ -8,7 +8,6 @@ import { AddEventButton } from "./AddEventButton";
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { useAuthStore } from "@/hooks/useAuth";
 import { db } from "@/lib/firebase";
-import { defaultSelectedCategories } from "@/utils/TrainingCategories";
 import { NetworkingEventCard } from "./NetworkingEventCard";
 
 const AllEventsPage = () => {
@@ -16,9 +15,7 @@ const AllEventsPage = () => {
     []
   );
   const [sortOption, setSortOption] = useState<string>("alphabetical"); // Default sorting option
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    defaultSelectedCategories
-  ); // Initialize
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Initialize
   const [filteredEvents, setFilteredEvents] = useState<any[]>(networkingEvents);
 
   useEffect(() => {
@@ -137,10 +134,8 @@ const AllEventsPage = () => {
               />
             ))}
           </div>
-          {networkingEvents.length === 0 && (
-            <h1 className="text-center font-semibold pb-14">
-              No events created
-            </h1>
+          {networkingEvents.length === 0 || filteredEvents.length === 0 && (
+            <h1 className="text-center font-semibold pb-14">No events found</h1>
           )}
         </div>
       </section>
