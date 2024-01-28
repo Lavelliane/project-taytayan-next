@@ -2,6 +2,7 @@ import React from 'react';
 import { Badge } from 'flowbite-react';
 
 interface BadgeProps {
+	style: string;
 	category: string;
 }
 
@@ -16,14 +17,16 @@ const trainingCategories = [
 	
 ];
 
-export const CategoryBadge: React.FC<BadgeProps> = ({ category }) => {
+export const CategoryBadge: React.FC<BadgeProps> = ({ style, category }) => {
 	const matchingCategory = trainingCategories.find((cat) => cat.value === category);
 
 	const badgeClass = matchingCategory?.className || 'hidden bg-gray-500/50 text-gray-500 border-gray-500'; // Fallback to gray if not found
 
 	return (
 		<Badge
-			className={`${badgeClass} w-fit justify-center border-[0] rounded-xl px-5 py-1.5 uppercase font-base text-xs`}
+			className={`${badgeClass} justify-center border-[0] px-5 py-1.5 uppercase font-base text-xs ${
+				style === 'banner' ? 'rounded-none w-full' : 'rounded-xl w-fit'
+			}`}
 		>
 			{category}
 		</Badge>

@@ -82,7 +82,7 @@ const TrainingsPage = () => {
 	};
 
 	useEffect(() => {
-		filterTrainings();
+	 	filterTrainings();
 	}, [selectedCategories]); // Run the effect whenever selectedCategories changes
 
 	useEffect(() => {
@@ -92,6 +92,15 @@ const TrainingsPage = () => {
 	const handleCategoryChange = (newSelectedCategories: string[]) => {
 		setSelectedCategories(newSelectedCategories);
 	};
+
+	const filterTrainings = () => {
+		if (selectedCategories.length > 0) {
+			setFilteredTrainings(trainings.filter((training) => selectedCategories.includes(training.trainingCategory)));
+		} else {
+			setFilteredTrainings(trainings);
+		}
+	};
+
 
 	return (
 		<main className='flex flex-col w-full p-4 md:p-6 lg:p-8 xl:p-10'>
