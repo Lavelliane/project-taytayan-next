@@ -153,7 +153,20 @@ const RegisterTrainingModal = ({
 					</svg>
 					<h1 className='font-bold'>Registration</h1>
 				</div>
-				<h1>Welcome {userStore.firstName}! To join the training, please click attend below.</h1>
+				{!userStore?.trainings.includes(trainingId) ? (
+					<h1>
+						Welcome {userStore.firstName}! To join the <span className='font-semibold'>{training?.trainingName}</span>,
+						please click <span className='font-semibold text-tertiary'>Attend.</span>
+					</h1>
+				) : (
+					<h1>
+						You are registered for <span className='font-semibold'>{training?.trainingName}</span>.
+						<br />
+						<br />
+						If you wish to cancel, please click{' '}
+						<span className='font-semibold text-yellow-500'>Cancel Registration.</span>
+					</h1>
+				)}
 				<div className='flex gap-4 items-center'>
 					<Avatar
 						color='info'
@@ -177,14 +190,15 @@ const RegisterTrainingModal = ({
 			</Modal.Body>
 			<Modal.Footer>
 				<div className='flex gap-4 justify-end w-full'>
-					<Button color='red' size='sm' onClick={() => handleRegisterTrainingClose()}>
+					<Button color='light' size='sm' onClick={() => handleRegisterTrainingClose()}>
 						Close
 					</Button>
 					{!userStore?.trainings.includes(trainingId) ? (
 						<Button
 							disabled={userStore?.trainings.includes(trainingId)}
 							type='submit'
-							className='w-fit bg-tertiary hover:bg-opacity-60 border-none text-white'
+							className='w-fit bg-tertiary hover:bg-tertiary/70 border-none text-white'
+							color='transparent'
 							size='sm'
 							isProcessing={isLoading}
 							processingSpinner={
@@ -214,8 +228,7 @@ const RegisterTrainingModal = ({
 						<Button
 							disabled={!userStore?.trainings.includes(trainingId)}
 							type='submit'
-							color='failure'
-							className='w-fit border-none text-white'
+							color='warning'
 							size='sm'
 							isProcessing={isLoading}
 							processingSpinner={
