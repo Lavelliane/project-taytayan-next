@@ -4,11 +4,11 @@ import Image from 'next/image';
 import CertificateIcon from '../../../public/assets/certificationIcon.png';
 import { Training } from '@/types/types';
 
-interface TrainingsCardProps {
+interface MyTrainingsCardProps {
 	trainings: Training;
 }
 
-const TrainingsCard = ({ trainings }: TrainingsCardProps) => {
+const MyTrainingsCard = ({ trainings }: MyTrainingsCardProps) => {
 	const certName = trainings.trainingName;
 	const typeOfCertification = trainings.trainingCategory;
 	const organization = trainings.trainingCenter;
@@ -89,4 +89,4 @@ const TrainingsCard = ({ trainings }: TrainingsCardProps) => {
 	);
 };
 
-export default TrainingsCard;
+export default MyTrainingsCard;

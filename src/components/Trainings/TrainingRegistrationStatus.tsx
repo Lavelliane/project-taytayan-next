@@ -4,11 +4,11 @@ import { Badge } from 'flowbite-react';
 
 interface RegistrationStatusProps {
     trainingId: string;
-	trainingRegistration: string;
+	  trainingRegistration: string;
     userStore: User;
 }
 
-const RegistrationStatus: React.FC<RegistrationStatusProps> = (props) => {
+const TrainingRegistrationStatus: React.FC<RegistrationStatusProps> = (props) => {
   const { trainingId, trainingRegistration, userStore } = props
   return (
     <div>
@@ -36,4 +36,4 @@ const RegistrationStatus: React.FC<RegistrationStatusProps> = (props) => {
   )
 }
 
-export default RegistrationStatus
+export default TrainingRegistrationStatus;

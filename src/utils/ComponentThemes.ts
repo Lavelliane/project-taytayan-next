@@ -11,6 +11,6 @@ export const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 
 export const cardTheme: CustomFlowbiteTheme['card'] = {
 	root: {
-		children: 'flex h-full flex-col justify-between gap-2 lg:gap-3 xl:gap-4 p-6',
+		children: 'flex h-full flex-col justify-between gap-2 lg:gap-3 xl:gap-4 p-0',
 	},
 };

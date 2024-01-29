@@ -4,7 +4,7 @@ import { Card } from "flowbite-react";
 import Image from "next/image";
 import EventIcon from '../../../public/assets/eventsIcon.png'
 
-const EventsCard = () => {
+const MyEventsCard = () => {
     const certName = 'Web Development';
     const eventDate = 'June 20, 2021';
     const Status = 'Completed';
@@ -30,4 +30,4 @@ const EventsCard = () => {
     </Card>;
 };
 
-export default EventsCard;
+export default MyEventsCard;

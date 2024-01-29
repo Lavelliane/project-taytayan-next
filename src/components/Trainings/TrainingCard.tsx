@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Card, CustomFlowbiteTheme, Tooltip, Button } from 'flowbite-react';
+import { Card } from 'flowbite-react';
 import { CategoryBadge } from './CategoryBadge';
 import { LearnMoreButton } from './LearnMoreButton';
 import { Training } from '@/types/types';
 import { formatTimestamp } from '@/utils/FormatTimestamp';
 import { useAuthStore } from '@/hooks/useAuth';
 import { User } from '@/types/types';
-import { avatarTheme, cardTheme } from '@/utils/ComponentThemes';
-import RegistrationStatus from './RegistrationStatus';
-import { Timestamp } from 'firebase/firestore';
+import { cardTheme } from '@/utils/ComponentThemes';
+import TrainingRegistrationStatus from './TrainingRegistrationStatus';
 import Image from 'next/image';
 import flavorImage from '../../../public/assets/stock_2.jpg'
 
@@ -22,13 +21,12 @@ const trainingCategories = [
     { key: 3, value: 'Personal', color: 'text-lime-500' },
     { key: 4, value: 'Professional', color: 'text-amber-400' },
     { key: 5, value: 'Vocational & Arts', color: 'text-red-400' },
-    { key: 0, value: 'Other', color: 'text-gray-700' },   
+    { key: 0, value: 'Other', color: 'text-gray-500' },   
 ]
 
 export const TrainingCard: React.FC<TrainingProps> = (props) => {
 	const userStore = useAuthStore((state: { user: User }) => state.user);
 	const [categoryColor, setCategoryColor] = useState<string>('gray')
-
 	const {
 		trainingId,
 		trainingName,
@@ -110,7 +108,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 
 			<div className='flex justify-start items-center mx-6 mb-6 gap-2'>
 				<LearnMoreButton key={trainingId} trainingData={props.trainingData} />
-				<RegistrationStatus trainingId={trainingId} trainingRegistration={trainingRegistration} userStore={userStore} />
+				<TrainingRegistrationStatus trainingId={trainingId} trainingRegistration={trainingRegistration} userStore={userStore} />
 			</div>
 		</Card>
 	);
