@@ -8,7 +8,7 @@ export const DefaultProfile: User = {
 	avatarURL: '',
 	firstName: '',
 	lastName: '',
-	pronoun: '',
+	pronoun: 'He/Him',
 	location: '',
 	occupation: '',
 	title: '',

@@ -3,8 +3,6 @@ import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown';
 import { MyTrainingCard } from '../Trainings/MyTrainingCard';
 import { Training } from '@/types/types';
-import { DefaultTraining } from '@/utils/DefaultProfile';
-
 import { SortDropdown } from './SortDropdown';
 import { AddTrainingButton } from './AddTrainingButton';
 import { collection, getDocs, where, query } from 'firebase/firestore';
@@ -25,7 +23,7 @@ const TrainingsPage = () => {
 
 	const fetchTrainings = async () => {
 		try {
-			let userTraining: String[] = []; // Corrected to create an empty array
+			let userTraining: string[] = []; // Corrected to create an empty array
 
 			if (userStore.role === 'training_center') {
 				userTraining = userStore.myTrainings;
@@ -82,7 +80,7 @@ const TrainingsPage = () => {
 	};
 
 	useEffect(() => {
-	 	filterTrainings();
+		filterTrainings();
 	}, [selectedCategories]); // Run the effect whenever selectedCategories changes
 
 	useEffect(() => {
@@ -100,7 +98,6 @@ const TrainingsPage = () => {
 			setFilteredTrainings(trainings);
 		}
 	};
-
 
 	return (
 		<main className='flex flex-col w-full p-4 md:p-6 lg:p-8 xl:p-10'>
@@ -131,7 +128,7 @@ const TrainingsPage = () => {
 						{trainings.length === 0 ||
 							(filteredTrainings.length === 0 && (
 								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No trainings found</h1>
-						))}
+							))}
 					</div>
 					{userStore.myTrainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
 				</div>

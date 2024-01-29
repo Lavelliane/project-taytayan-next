@@ -57,6 +57,33 @@ export type NetworkingEvent = {
 	eventCategory: string;
 };
 
+export type Employment = {
+	employmentId: string;
+	employmentTitle: string;
+	employmentDescription: string;
+	employmentCompany: string;
+	employmentCompanyDescription: string;
+	employmentContactInformation: string;
+	employmentType: string; // Full-time, Part-time, Internship, Contract
+	employmentLocationType: string; // Remote, On-site, Hybrid
+	employmentAddress: GoogleLocation;
+	employmentDatePosted: Date;
+	employmentKeyRoles: string;
+	employmentEducation: string;
+	employmentExperience: string;
+	employmentInstructions: string;
+	employmentBenefits: string;
+	employmentSalary: string;
+	displayJob: boolean;
+	employmentApplicants: Applicant[];
+};
+
+type Applicant = {
+	applicantId: string;
+	pending: boolean;
+	accepted: boolean;
+};
+
 export type AuthStore = {
 	user: User;
 	signUp: (

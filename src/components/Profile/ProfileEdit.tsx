@@ -40,6 +40,7 @@ const ProfileEdit = () => {
 		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
 	}
 
+	console.log(user);
 	const handleOnChange: any = (event: ChangeEvent<HTMLInputElement>) => {
 		setUser({ ...user, [event.target.name]: event.target.value });
 	};
@@ -66,9 +67,9 @@ const ProfileEdit = () => {
 				<div className='absolute w-full h-32 bg-[#9B5FFC] rounded-lg'></div>
 				<div className='lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between'>
 					<div className='flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end'>
-						<UserAvatar 
-							firstName={user?.firstName} 
-							lastName={user?.lastName} 
+						<UserAvatar
+							firstName={user?.firstName}
+							lastName={user?.lastName}
 							avatarURL={user?.avatarURL}
 							role={user?.role}
 							size='xl'
