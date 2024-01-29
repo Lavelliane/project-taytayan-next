@@ -23,7 +23,7 @@ const EventRegistrationStatus: React.FC<RegistrationStatusProps> = (props) => {
           </div>
         </Badge>
         ) : (
-        <Badge className='bg-zinc-200/70 text-zinc-700 px-5 py-2.5 rounded-lg text-center font-bold text-sm'>  
+        <Badge className='bg-zinc-100 text-zinc-500 px-5 py-2.5 rounded-lg text-center font-bold text-sm'>  
             {parseFloat(eventRegistration) === 0
                 ? 'FREE'
                 : `₱${Number(eventRegistration).toLocaleString('en-US', {

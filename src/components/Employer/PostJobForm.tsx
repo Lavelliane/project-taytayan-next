@@ -201,64 +201,70 @@ const PostJobForm = () => {
 					</span>
 				)}
 			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentAddress' value='Job Address' />
+			<div className='flex gap-4 w-full md:flex-row flex-col'>
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employmentAddress' value='Job Address' />
+					</div>
+					<Autocomplete
+						className='p-3 w-full inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400'
+						id='employmentAddress'
+						apiKey={process.env.NEXT_PUBLIC_PLACES_API_KEY}
+						onPlaceSelected={(place) => {
+							handleEmploymentAddress(place);
+						}}
+						defaultValue={undefined}
+						{...register('employmentAddress')}
+					/>
+					{errors.employmentAddress && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentAddress.message}</span>
+					)}
 				</div>
-				<Autocomplete
-					className='p-3 w-full inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400'
-					id='employmentAddress'
-					apiKey={process.env.NEXT_PUBLIC_PLACES_API_KEY}
-					onPlaceSelected={(place) => {
-						handleEmploymentAddress(place);
-					}}
-					defaultValue={undefined}
-					{...register('employmentAddress')}
-				/>
-				{errors.employmentAddress && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentAddress.message}</span>
-				)}
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employmentDatePosted' value='Job Posting Date' />
+					</div>
+					<Datepicker
+						id='employmentDatePosted'
+						minDate={new Date()}
+						placeholder='Select training date'
+						onSelectedDateChanged={(selectedDate) => handleEmploymentDate(selectedDate)}
+						{...register('employmentDatePosted', { required: true })}
+					/>
+					{errors.employmentDatePosted && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentDatePosted.message}</span>
+					)}
+				</div>
 			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentDatePosted' value='Job Posting Date' />
+			<div className='flex gap-4 w-full md:flex-row flex-col'>
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employmentType' value='Job Type' />
+					</div>
+					<Select id='employmentType' {...register('employmentType', { required: true })}>
+						<option>Full-time</option>
+						<option>Part-time</option>
+						<option>Contract</option>
+					</Select>
+					{errors.employmentType && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentType.message}</span>
+					)}
 				</div>
-				<Datepicker
-					id='employmentDatePosted'
-					minDate={new Date()}
-					placeholder='Select training date'
-					onSelectedDateChanged={(selectedDate) => handleEmploymentDate(selectedDate)}
-					{...register('employmentDatePosted', { required: true })}
-				/>
-				{errors.employmentDatePosted && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentDatePosted.message}</span>
-				)}
-			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentType' value='Job Type' />
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employment' value='Training Category' />
+					</div>
+					<Select id='employmentLocationType' {...register('employmentLocationType', { required: true })}>
+						<option>On-site</option>
+						<option>Work-from-home</option>
+						<option>Hybrid</option>
+					</Select>
+					{errors.employmentLocationType && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>
+							{errors.employmentLocationType.message}
+						</span>
+					)}
 				</div>
-				<Select id='employmentType' {...register('employmentType', { required: true })}>
-					<option>Full-time</option>
-					<option>Part-time</option>
-					<option>Contract</option>
-				</Select>
-				{errors.employmentType && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentType.message}</span>
-				)}
-			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employment' value='Training Category' />
-				</div>
-				<Select id='employmentLocationType' {...register('employmentLocationType', { required: true })}>
-					<option>On-site</option>
-					<option>Work-from-home</option>
-					<option>Hybrid</option>
-				</Select>
-				{errors.employmentLocationType && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentLocationType.message}</span>
-				)}
 			</div>
 			<div>
 				<div className='mb-2 block'>
@@ -271,12 +277,12 @@ const PostJobForm = () => {
 			</div>
 			<div>
 				<div className='mb-2 block'>
-					<Label htmlFor='employmentEducation' value='Educational Requirements (optional)' />
+					<Label htmlFor='employmentEducation' value='Education Requirement (optional)' />
 				</div>
 				<TextInput
 					id='employmentEducation'
 					type='text'
-					placeholder='What educational requirements are needed?'
+					placeholder='What is the required educational attainment?'
 					{...register('employmentEducation')}
 				/>
 				{errors.employmentEducation && (
@@ -285,7 +291,7 @@ const PostJobForm = () => {
 			</div>
 			<div>
 				<div className='mb-2 block'>
-					<Label htmlFor='employmentExperience' value='Experience Requirements (optional)' />
+					<Label htmlFor='employmentExperience' value='Experience (optional)' />
 				</div>
 				<TextInput
 					id='employmentExperience'
@@ -301,9 +307,8 @@ const PostJobForm = () => {
 				<div className='mb-2 block'>
 					<Label htmlFor='employmentInstructions' value='Employment Instructions' />
 				</div>
-				<TextInput
+				<Textarea
 					id='employmentInstructions'
-					type='text'
 					placeholder='What procedures do they need to follow?'
 					{...register('employmentInstructions')}
 				/>
@@ -315,9 +320,8 @@ const PostJobForm = () => {
 				<div className='mb-2 block'>
 					<Label htmlFor='employmentBenefits' value='Job Benefits (optional)' />
 				</div>
-				<TextInput
+				<Textarea
 					id='employmentBenefits'
-					type='text'
 					placeholder='What benefits will they have?'
 					{...register('employmentBenefits')}
 				/>
