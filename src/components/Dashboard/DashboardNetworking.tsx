@@ -25,7 +25,6 @@ export const DashboardNetworking = () => {
 	}, [networkingEvents]);
 
 	useEffect(() => {
-		console.log(filteredEvents);
 	}, [filteredEvents]);
 
 	useEffect(() => {
@@ -45,7 +44,6 @@ export const DashboardNetworking = () => {
 				const eventData: NetworkingEvent = {
 					...(doc.data() as NetworkingEvent),
 				};
-				console.log(eventData);
 				fetchedEvents.push(eventData);
 			});
 			const recentEvents = fetchedEvents.slice(0, 4);
