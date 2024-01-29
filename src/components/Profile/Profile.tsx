@@ -3,8 +3,8 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { Avatar, Card, CustomFlowbiteTheme } from 'flowbite-react';
 import Link from 'next/link';
-import TrainingsCard from './TrainingsCard';
-import EventsCard from './EventsCard';
+import MyTrainingsCard from './MyTrainingsCard';
+import MyEventsCard from './MyEventsCard';
 import avatar from '../../../public/assets/avatar.png';
 import { collection, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -173,7 +173,7 @@ const Profile = () => {
 				<div className='flex flex-wrap gap-6'>
 					{user.trainings.map((tr, index) => (
 						<div key={training[index]?.trainingId}>
-							{checkAttendance(index) ? <TrainingsCard trainings={training[index]} /> : null}
+							{checkAttendance(index) ? <MyTrainingsCard trainings={training[index]} /> : null}
 						</div>
 					))}
 				</div>
@@ -181,9 +181,9 @@ const Profile = () => {
 			<div className='mt-6 flex flex-col gap-4'>
 				<h1 className='font-semibold text-lg'>Events Joined</h1>
 				<div className='flex flex-wrap gap-6'>
-					<EventsCard />
-					<EventsCard />
-					<EventsCard />
+					<MyEventsCard />
+					<MyEventsCard />
+					<MyEventsCard />
 				</div>
 			</div>
 		</main>
