@@ -120,7 +120,7 @@ const TrainingsPage = () => {
 								.slice()
 								.sort((a, b) => a.localeCompare(b))
 								.map((category, index) => (
-									<CategoryBadge key={index} category={category} />
+									<CategoryBadge key={index} category={category} style={''} />
 								))}
 						</div>
 					</div>
@@ -133,6 +133,7 @@ const TrainingsPage = () => {
 								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No trainings found</h1>
 						))}
 					</div>
+					{userStore.myTrainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
 				</div>
 			</section>
 		</main>

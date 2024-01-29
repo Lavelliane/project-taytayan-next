@@ -68,7 +68,7 @@ export const DashboardTraining = () => {
 						.slice()
 						.sort()
 						.map((category, index) => (
-							<CategoryBadge key={index} category={category} />
+							<CategoryBadge key={index} style='badge' category={category} />
 						))}
 				</div>
 			</div>

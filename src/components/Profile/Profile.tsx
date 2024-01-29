@@ -9,9 +9,8 @@ import avatar from '../../../public/assets/avatar.png';
 import { collection, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuthStore } from '@/hooks/useAuth';
-import { User } from '@/types/types';
+import { Training, User } from '@/types/types';
 import UserAvatar from './UserAvatar';
-import { Training } from '@/types/types';
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 	root: {
@@ -84,9 +83,9 @@ const Profile = () => {
 				<div className='absolute w-full h-32 bg-[#9B5FFC] rounded-lg'></div>
 				<div className='px-10 w-full h-fit z-10 absolute bottom-0 flex sm:flex-row flex-col items-center justify-between'>
 					<div className='flex gap-6 items-end '>
-						<UserAvatar 
-							firstName={user?.firstName} 
-							lastName={user?.lastName} 
+						<UserAvatar
+							firstName={user?.firstName}
+							lastName={user?.lastName}
 							avatarURL={user?.avatarURL}
 							role={user?.role}
 							size='xl'

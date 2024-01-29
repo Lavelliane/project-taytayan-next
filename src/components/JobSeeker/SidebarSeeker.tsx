@@ -36,8 +36,8 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 			warning: 'ring-[#F6C951]',
 		},
 		img: {
-			placeholder: 'text-gray-400 w-auto h-auto'
-		}
+			placeholder: 'text-gray-400 w-auto h-auto',
+		},
 	},
 };
 
@@ -71,9 +71,9 @@ const SidebarSeeker = () => {
 	const router = useRouter();
 	const logout = useAuthStore((state: { logout: any }) => state.logout);
 	const user = useAuthStore((state: { user: any }) => state.user);
-	const [name, setName] = useState<string>('')
-	const [nameInitials, setNameInitials] = useState<string>('')
-  
+	const [name, setName] = useState<string>('');
+	const [nameInitials, setNameInitials] = useState<string>('');
+
 	function handleLogout() {
 		logout();
 		router.push('/login');
@@ -82,10 +82,9 @@ const SidebarSeeker = () => {
 	useEffect(() => {
 		if ((user && user.firstName) || user.lastName) {
 			setName(user?.firstName + ' ' + user?.lastName);
-			setNameInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0))
+			setNameInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0));
 		}
-	}, [user])
-
+	}, [user]);
 
 	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false);
 	const [isNetworksDropdownOpen, setIsNetworksDropdownOpen] = useState<boolean>(false);
@@ -413,9 +412,9 @@ const SidebarSeeker = () => {
 									}`}
 								>
 									<div className='flex gap-2 items-center'>
-										<UserAvatar 
-											firstName={user?.firstName} 
-											lastName={user?.lastName} 
+										<UserAvatar
+											firstName={user?.firstName}
+											lastName={user?.lastName}
 											avatarURL={user?.avatarURL}
 											role={user?.role}
 											size='sm'
