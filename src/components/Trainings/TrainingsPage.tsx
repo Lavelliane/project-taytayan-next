@@ -124,13 +124,14 @@ const TrainingsPage = () => {
 								))}
 						</div>
 					</div>
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
+					<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
 						{filteredTrainings.map((training, index) => (
 							<MyTrainingCard key={training.trainingId + '_' + index} trainingData={training} />
 						))}
-						{trainings.length === 0 || filteredTrainings.length === 0 && (
-							<h1 className="justify-center font-semibold text-center col-span-full py-24">No trainings found</h1>
-						)}
+						{trainings.length === 0 ||
+							(filteredTrainings.length === 0 && (
+								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No trainings found</h1>
+						))}
 					</div>
 				</div>
 			</section>
