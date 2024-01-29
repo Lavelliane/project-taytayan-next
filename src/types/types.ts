@@ -35,6 +35,7 @@ export type Training = {
 	trainingObjectives: string[];
 	trainingRegistration: string;
 	trainingCategory: string;
+	createdBy: string;
 };
 
 export type Registrant = {

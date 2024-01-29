@@ -1,14 +1,17 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Card, CustomFlowbiteTheme } from 'flowbite-react';
 import Link from 'next/link';
 import TrainingsCard from './TrainingsCard';
 import EventsCard from './EventsCard';
 import avatar from '../../../public/assets/avatar.png';
+import { collection, doc, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import { useAuthStore } from '@/hooks/useAuth';
 import { User } from '@/types/types';
 import UserAvatar from './UserAvatar';
+import { Training } from '@/types/types';
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 	root: {
@@ -23,21 +26,57 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 };
 
 const Profile = () => {
+	const [training, setTraining] = useState<Training[]>([]);
+	const [trainingsCompleted, setTrainingsCompleted] = useState<number>(0);
+
 	const user = useAuthStore<User>((state) => state.user);
 	const updateUserLatest = useAuthStore((state) => state.updateUserLatest);
+
 	useEffect(() => {
 		updateUserLatest();
 		console.log(user);
 	}, []);
 
-	const trainings = 5;
-	const events = 2;
+	useEffect(() => {
+		fetchTrainings();
+	}, []);
+
+	const fetchTrainings = async () => {
+		if (user) {
+			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', user.trainings));
+
+			try {
+				const trainingDoc = await getDocs(trainingRef);
+				const trainingData = trainingDoc.docs.map((doc) => doc.data()) as Training[];
+
+				setTraining(trainingData);
+
+				// Calculate the number of completed trainings
+				const completedTrainingsCount = trainingData.reduce((count, training) => {
+					const attendedRegistrants = training.trainingRegistrants.filter((registrant) => registrant.attended === true);
+					return attendedRegistrants.length > 0 ? count + 1 : count;
+				}, 0);
+
+				setTrainingsCompleted(completedTrainingsCount);
+			} catch (error) {
+				console.error('Error fetching trainings:', error);
+			}
+		}
+	};
+
+	const events = user?.eventsJoined.length ?? 0;
 
 	let nameInitials = '';
 
 	if (user && user.firstName && user.lastName) {
 		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
 	}
+
+	const checkAttendance = (index: number) => {
+		return training[index]?.trainingRegistrants[
+			training[index].trainingRegistrants.findIndex((id) => id.registrantId === user.uid)
+		].attended;
+	};
 
 	return (
 		<main className='h-fit w-full'>
@@ -123,7 +162,7 @@ const Profile = () => {
 			<div className='flex gap-4'>
 				<div className='px-4 py-1 bg-[#00AAFF] rounded-full w-fit text-sm font-semibold text-white'>
 					<span>Trainings Completed&nbsp;&nbsp;&nbsp;</span>
-					<span>{trainings}</span>
+					<span>{trainingsCompleted}</span>
 				</div>
 				<div className='px-4 py-1 bg-[#00AAFF] rounded-full w-fit text-sm font-semibold text-white'>
 					<span>Events&nbsp;&nbsp;&nbsp;</span>
@@ -133,10 +172,11 @@ const Profile = () => {
 			<div className='mt-6 flex flex-col gap-4'>
 				<h1 className='font-semibold text-lg'>Trainings & Certifications</h1>
 				<div className='flex flex-wrap gap-6'>
-					<TrainingsCard />
-					<TrainingsCard />
-					<TrainingsCard />
-					<TrainingsCard />
+					{user.trainings.map((tr, index) => (
+						<div key={training[index]?.trainingId}>
+							{checkAttendance(index) ? <TrainingsCard trainings={training[index]} /> : null}
+						</div>
+					))}
 				</div>
 			</div>
 			<div className='mt-6 flex flex-col gap-4'>

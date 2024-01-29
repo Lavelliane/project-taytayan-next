@@ -44,4 +44,5 @@ export const DefaultTraining: Training = {
 	trainingObjectives: [],
 	trainingRegistration: '',
 	trainingCategory: '',
+	createdBy: '',
 };

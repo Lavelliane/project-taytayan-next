@@ -33,17 +33,19 @@ const TrainingsPage = () => {
 				userTraining = userStore.trainings;
 			}
 
-			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userTraining));
-			const trainingDoc = await getDocs(trainingRef);
+			if (userTraining && userTraining.length > 0) {
+				const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userTraining));
+				const trainingDoc = await getDocs(trainingRef);
 
-			if (userStore.myTrainings.length > 0) {
-				const fetchedTrainings: Training[] = [];
+				if (userStore.myTrainings.length > 0) {
+					const fetchedTrainings: Training[] = [];
 
-				trainingDoc.forEach((doc) => {
-					const trainingData: Training = { ...(doc.data() as Training) };
-					fetchedTrainings.push(trainingData);
-				});
-				setTrainings(fetchedTrainings);
+					trainingDoc.forEach((doc) => {
+						const trainingData: Training = { ...(doc.data() as Training) };
+						fetchedTrainings.push(trainingData);
+					});
+					setTrainings(fetchedTrainings);
+				}
 			}
 		} catch (e) {
 			console.error(e);
@@ -89,14 +91,6 @@ const TrainingsPage = () => {
 
 	const handleCategoryChange = (newSelectedCategories: string[]) => {
 		setSelectedCategories(newSelectedCategories);
-	};
-
-	const filterTrainings = () => {
-		if (selectedCategories.length > 0) {
-			setFilteredTrainings(trainings.filter((training) => selectedCategories.includes(training.trainingCategory)));
-		} else {
-			setFilteredTrainings(trainings);
-		}
 	};
 
 	return (

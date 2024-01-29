@@ -57,7 +57,7 @@ const RegisterTrainingModal = ({
 			const updatedRegistrants = Array.isArray(training?.trainingRegistrants) ? training.trainingRegistrants : [];
 			const newRegistrants = {
 				registrantId: userStore.uid,
-				attended: true,
+				attended: false,
 			};
 
 			updatedRegistrants.push(newRegistrants);
@@ -82,6 +82,7 @@ const RegisterTrainingModal = ({
 			);
 			updateState(user);
 			setIsLoading(false);
+			handleRegisterTrainingClose();
 			window.location.reload();
 		}
 	};
