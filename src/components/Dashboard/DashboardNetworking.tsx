@@ -76,7 +76,7 @@ export const DashboardNetworking = () => {
 						))}
 				</div>
 			</div>
-			<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
+			<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full pb-8'>
 				{filteredEvents.map((event) => (
 					<NetworkingEventCard key={event.eventId} networkingEventData={event} />
 				))}
