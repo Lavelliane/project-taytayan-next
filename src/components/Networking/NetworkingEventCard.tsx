@@ -67,7 +67,7 @@ export const NetworkingEventCard: React.FC<EventProps> = (props) => {
 					<div className="absolute inset-0 text-white z-10 w-full flex h-full items-start justify-between bg-black/40 rounded-t-lg">
 						<div className='flex w-full items-start justify-between mx-6 mb-4 mt-6 gap-4'>
 							<div className='flex flex-col gap-0'>
-								<h1 className='text-sm lg:text-lg font-bold'>{eventName}</h1>
+								<h1 className='text-xl font-bold'>{eventName}</h1>
 							</div>
 							<div className='bg-neutral-50 flex flex-col px-3 py-1 rounded-lg items-center'>
 								<span className={`${categoryColor} uppercase font-bold text-sm`}>{formatTimestamp(eventDate).split(' ')[1].slice(0, 3)}</span>

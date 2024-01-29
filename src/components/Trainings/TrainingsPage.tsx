@@ -124,7 +124,7 @@ const TrainingsPage = () => {
 								))}
 						</div>
 					</div>
-					<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
+					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
 						{filteredTrainings.map((training, index) => (
 							<TrainingCard key={training.trainingId + '_' + index} trainingData={training} />
 						))}
