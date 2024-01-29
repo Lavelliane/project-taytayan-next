@@ -42,7 +42,7 @@ export const GoogleButton = () => {
         }
   
         setIsSigningIn(true);
-        router.push('/');
+        router.push('/dashboard');
         setIsSigningIn(false);
       }
     });
