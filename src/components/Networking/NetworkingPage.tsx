@@ -114,14 +114,14 @@ const NetworkingPage = () => {
 								))}
 						</div>
 					</div>
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
+					<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
 						{filteredEvents.map((event) => (
 							<NetworkingEventCard key={event.eventId} networkingEventData={event} />
 						))}
 						{networkingEvents.length === 0 ||
 							(filteredEvents.length === 0 && (
 								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No events created</h1>
-							))}
+						))}
 					</div>
 				</div>
 			</section>
