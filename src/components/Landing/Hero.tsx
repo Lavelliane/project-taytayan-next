@@ -74,26 +74,26 @@ const Hero = () => {
           </svg>
       </div>
       <div className='w-full h-full flex justify-center items-center'>
-        <div className='w-full h-full flex flex-col gap-4 px-20 justify-center'>
-          <div className='text-7xl text-[82px] font-lexendDeca flex flex-col'>
+        <div className='w-full h-full flex flex-col gap-4 px-20 justify-center pt-14'>
+          <div className='text-7xl font-lexendDeca flex flex-col'>
             <span className='text-dark font-semibold'>Learn Today,</span>
             <span className='bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-300 bg-clip-text text-transparent font-semibold'>Lead Tomorrow</span>
           </div>
-          <p className='text-lg text-gray-700 font-lexendDeca mb-20'>
+          <p className='text-base text-gray-700 font-lexendDeca mb-20'>
               &nbsp;&nbsp;Be part of building the bridge to a better future. Project Taytayan is &nbsp;&nbsp;dedicated to centralizing platforms for opportunities.
           </p>
           <div className='flex gap-4'>
             <Link href='/new-account'>
               <button
                 type="button"
-                className="text-white font-medium rounded-full text-lg px-10 py-5 text-center anim-bg-gradient focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80"
+                className="text-white font-medium rounded-full text-md px-10 py-5 text-center anim-bg-gradient focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80"
               >
                 Join Today
               </button>
             </Link>
-            <div className="text-white font-base rounded-full text-lg px-8 py-5 text-center border-2 backdrop-blur bg-white/20">
+            <div className="text-white font-base rounded-full text-md px-8 py-5 text-center border-2 backdrop-blur bg-white/20">
               {countedActiveTrainings} active trainings open or happening right now
-            L</div>
+            </div>
           </div>
         </div>
         <div className='text-5xl w-full font-lexendDeca'>

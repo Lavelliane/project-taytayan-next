@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Navbar } from 'flowbite-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -16,19 +16,31 @@ const NavbarLanding = () => {
   const pathName = usePathname();
 	const router = useRouter();
 
-  window.addEventListener('scroll', function() {
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
       if (window.scrollY > 0) {
-        navbar.classList.add('scrolled');
+        setIsScrolled(true);
       } else {
-        navbar.classList.remove('scrolled');
+        setIsScrolled(false);
       }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+
+      // Clean up the event listener when the component is unmounted
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
     }
-  });
+  }, []);
   
   return (
-    <nav id='navbar' className="bg-white/0 dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200/0 dark:border-gray-600">
+    <nav id='navbar' className={`dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200/0 dark:border-gray-600
+      ${isScrolled ? 'bg-white' : 'bg-transparent'}
+    `}>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
         <Link href='/dashboard' className=' flex font-lexendDeca items-center justify-center gap-1'>
