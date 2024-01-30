@@ -21,6 +21,8 @@ export type User = {
 	myTrainings: string[];
 	eventsJoined: string[];
 	eventsHosted: string[];
+	jobsPosted: string[];
+	jobsApplied: string[];
 };
 
 export type Training = {
@@ -63,12 +65,12 @@ export type Employment = {
 	employmentDescription: string;
 	employmentCompany: string;
 	employmentCompanyDescription: string;
-	employmentContactInformation: string;
+	employmentContactInformation: string[];
 	employmentType: string; // Full-time, Part-time, Internship, Contract
 	employmentLocationType: string; // Remote, On-site, Hybrid
 	employmentAddress: GoogleLocation;
 	employmentDatePosted: Date;
-	employmentKeyRoles: string;
+	employmentKeyRoles: string[];
 	employmentEducation: string;
 	employmentExperience: string;
 	employmentInstructions: string;

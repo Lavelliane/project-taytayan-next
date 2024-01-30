@@ -60,3 +60,29 @@ li.option:hover{
 div.optionListContainer {
   margin-top: 6px !important;
 }
+
+.jobPostScroll {
+  scrollbar-width: thin;          /* "auto" or "thin" */
+  scrollbar-color: #7f7f7f rgb(248 250 252 / var(--tw-bg-opacity));   /* scroll thumb and track */
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #7f7f7f rgb(248 250 252 / var(--tw-bg-opacity));
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(248 250 252 / var(--tw-bg-opacity));
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #7f7f7f;
+  border-radius: 20px;
+  border: 2px solid rgb(248 250 252 / var(--tw-bg-opacity));
+}

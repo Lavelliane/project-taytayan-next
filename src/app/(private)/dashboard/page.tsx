@@ -1,6 +1,5 @@
 import Dashboard from '@/components/Dashboard/Dashboard';
 import { NavbarSeeker } from '@/components/JobSeeker/NavbarSeeker';
-import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
 import React from 'react';
 
 function Home() {
@@ -14,4 +13,4 @@ function Home() {
 	);
 }
 
-export default Home
+export default Home;

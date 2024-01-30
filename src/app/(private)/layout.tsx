@@ -20,15 +20,17 @@ const lexendDeca = Lexend_Deca({
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   const router = useRouter()
+
   useEffect(() => {
     if (!auth.currentUser) {
         router.push('/login')
     }
-  }, [auth]);
+  }, [auth.currentUser]);
+
   return (
     <html lang="en">
       <body
