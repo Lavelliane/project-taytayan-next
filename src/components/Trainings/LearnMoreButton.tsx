@@ -22,7 +22,7 @@ export const LearnMoreButton: React.FC<LearnMoreButtonProps> = ({ trainingData }
 
 	return (
 		<>
-			<Button className='w-fit bg-tertiary border-none text-white' size='lg' onClick={handleModalOpen}>
+			<Button className='w-fit bg-tertiary border-none text-white shrink-0' size='md' onClick={handleModalOpen}>
 				Learn more
 				<svg className='-mr-1 ml-2 h-4 w-4' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
 					<path

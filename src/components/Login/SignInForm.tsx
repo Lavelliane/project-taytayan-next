@@ -66,7 +66,7 @@ export const SignInForm = () => {
       const validatedCredentials = SignInSchema.parse(data)
       const { email: vEmail, password: vPassword, rememberMe: vRememberMe} = validatedCredentials
       signIn(vEmail, vPassword)
-      router.push('/')
+      router.push('/dashboard')
       reset()
     } catch (error) {
       if (error instanceof ZodError) {

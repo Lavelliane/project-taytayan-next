@@ -59,7 +59,7 @@ export const SignUpForm = () => {
       const validatedCredentials = SignUpSchema.parse(data)
       const { email: vEmail, password: vPassword, confirmPassword: vConfirmPassword, lastName: vLastName, firstName: vFirstName } = validatedCredentials
       signUp(vEmail, vPassword, vConfirmPassword, vFirstName, vLastName)
-      router.push('/')
+      router.push('/dashboard')
       reset()
     } catch (error) {
       if (error instanceof ZodError) {

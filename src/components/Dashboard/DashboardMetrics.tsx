@@ -30,7 +30,7 @@ export const DashboardMetrics: React.FC<PropType> = (props) => {
             setCountedFunction(Math.floor(currentCount));
     
             if (currentCount >= targetValue) {
-              setCountedFunction(targetValue); // Ensure the final count is exactly the target value
+              setCountedFunction(targetValue);
               clearInterval(intervalId);
             }
           }, interval);
@@ -40,12 +40,11 @@ export const DashboardMetrics: React.FC<PropType> = (props) => {
         incrementMetrics(jobsAvailable, setCountedJobsAvailable);
         incrementMetrics(upcomingEvents, setCountedUpcomingEvents);
     
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [activeTrainings, jobsAvailable, upcomingEvents]);
 
     return (
         <div className='min-w-3xl w-full'>
-            <div className='grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-6 text-white'>
+            <div className='grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 text-white'>
                 <MetricsBanner />
                 <ActiveTrainingsMetrics activeTrainings={countedActiveTrainings} />
                 <JobsAvailableMetrics jobsAvailable={countedJobsAvailable} />
