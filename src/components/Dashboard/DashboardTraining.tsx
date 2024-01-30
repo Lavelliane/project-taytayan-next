@@ -68,11 +68,11 @@ export const DashboardTraining = () => {
 						.slice()
 						.sort()
 						.map((category, index) => (
-							<CategoryBadge key={index} category={category} />
+							<CategoryBadge key={index} style='badge' category={category} />
 						))}
 				</div>
 			</div>
-			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8'>
 				{filteredTrainings.map((training: Training) => (
 					<TrainingCard key={training.trainingId} trainingData={training as Training} />
 				))}

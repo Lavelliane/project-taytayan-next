@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown';
-import { MyTrainingCard } from '../Trainings/MyTrainingCard';
+import { TrainingCard } from '../Trainings/TrainingCard';
 import { Training } from '@/types/types';
-import { DefaultTraining } from '@/utils/DefaultProfile';
-
 import { SortDropdown } from './SortDropdown';
 import { AddTrainingButton } from './AddTrainingButton';
 import { collection, getDocs, where, query } from 'firebase/firestore';
@@ -25,7 +23,7 @@ const TrainingsPage = () => {
 
 	const fetchTrainings = async () => {
 		try {
-			let userTraining: String[] = []; // Corrected to create an empty array
+			let userTraining: string[] = []; // Corrected to create an empty array
 
 			if (userStore.role === 'training_center') {
 				userTraining = userStore.myTrainings;
@@ -33,17 +31,19 @@ const TrainingsPage = () => {
 				userTraining = userStore.trainings;
 			}
 
-			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userTraining));
-			const trainingDoc = await getDocs(trainingRef);
+			if (userTraining && userTraining.length > 0) {
+				const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', userTraining));
+				const trainingDoc = await getDocs(trainingRef);
 
-			if (userStore.myTrainings.length > 0) {
-				const fetchedTrainings: Training[] = [];
+				if (userStore.myTrainings.length > 0) {
+					const fetchedTrainings: Training[] = [];
 
-				trainingDoc.forEach((doc) => {
-					const trainingData: Training = { ...(doc.data() as Training) };
-					fetchedTrainings.push(trainingData);
-				});
-				setTrainings(fetchedTrainings);
+					trainingDoc.forEach((doc) => {
+						const trainingData: Training = { ...(doc.data() as Training) };
+						fetchedTrainings.push(trainingData);
+					});
+					setTrainings(fetchedTrainings);
+				}
 			}
 		} catch (e) {
 			console.error(e);
@@ -117,18 +117,20 @@ const TrainingsPage = () => {
 								.slice()
 								.sort((a, b) => a.localeCompare(b))
 								.map((category, index) => (
-									<CategoryBadge key={index} category={category} />
+									<CategoryBadge key={index} category={category} style={''} />
 								))}
 						</div>
 					</div>
 					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
 						{filteredTrainings.map((training, index) => (
-							<MyTrainingCard key={training.trainingId + '_' + index} trainingData={training} />
+							<TrainingCard key={training.trainingId + '_' + index} trainingData={training} />
 						))}
-						{trainings.length === 0 || filteredTrainings.length === 0 && (
-							<h1 className="justify-center font-semibold text-center col-span-full py-24">No trainings found</h1>
-						)}
+						{trainings.length === 0 ||
+							(filteredTrainings.length === 0 && (
+								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No trainings found</h1>
+							))}
 					</div>
+					{userStore.myTrainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
 				</div>
 			</section>
 		</main>

@@ -1,4 +1,4 @@
-import { GoogleLocation, User } from '../types/types';
+import { Employment, GoogleLocation, User } from '../types/types';
 import { Training } from '../types/types';
 
 export const DefaultProfile: User = {
@@ -8,7 +8,7 @@ export const DefaultProfile: User = {
 	avatarURL: '',
 	firstName: '',
 	lastName: '',
-	pronoun: '',
+	pronoun: 'He/Him',
 	location: '',
 	occupation: '',
 	title: '',
@@ -22,9 +22,19 @@ export const DefaultProfile: User = {
 	myTrainings: [],
 	eventsJoined: [],
 	eventsHosted: [],
+	jobsPosted: [],
+	jobsApplied: [],
 };
 
 export const DefaultTrainingAddress: GoogleLocation = {
+	formattedAddress: '',
+	geometry: {
+		lat: 0,
+		lng: 0,
+	},
+};
+
+export const DefaultEmploymentAddress: GoogleLocation = {
 	formattedAddress: '',
 	geometry: {
 		lat: 0,
@@ -44,4 +54,26 @@ export const DefaultTraining: Training = {
 	trainingObjectives: [],
 	trainingRegistration: '',
 	trainingCategory: '',
+	createdBy: '',
+};
+
+export const DefaultEmployment: Employment = {
+	employmentId: '',
+	employmentTitle: '',
+	employmentDescription: '',
+	employmentCompany: '',
+	employmentCompanyDescription: '',
+	employmentContactInformation: [],
+	employmentType: 'Full-time', // Full-time, Part-time, Internship, Contract
+	employmentLocationType: 'On-site', // On-site, Work-from-home, Hybrid
+	employmentAddress: DefaultEmploymentAddress,
+	employmentDatePosted: new Date(),
+	employmentKeyRoles: [],
+	employmentEducation: '',
+	employmentExperience: '',
+	employmentInstructions: '',
+	employmentBenefits: '',
+	employmentSalary: 'n/a',
+	displayJob: false,
+	employmentApplicants: [],
 };

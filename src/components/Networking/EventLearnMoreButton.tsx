@@ -25,8 +25,8 @@ export const EventLearnMoreButton: React.FC<EventLearnMoreButtonProps> = ({
   return (
     <>
       <Button
-        className="w-fit bg-tertiary border-none text-white px-5"
-        size="lg"
+        className="w-fit bg-tertiary border-none text-white shrink-0"
+        size="md"
         onClick={handleModalOpen}
       >
         Learn more

@@ -6,6 +6,7 @@ import { formatTimestamp } from '@/utils/FormatTimestamp';
 import { FormatRegistrants } from '@/utils/FormatRegistrants';
 import { Registrant } from '@/types/types';
 import SeeRegistrantsButton from './SeeRegistrantsButton';
+import AttendanceButton from './AttendanceButton';
 
 //TODO: Bind button to Firebase status of user as registered.
 
@@ -108,7 +109,9 @@ export const TrainingDetails = ({ trainingData }: TrainingDetailsProps) => {
 						<FormatRegistrants registrant={trainingData?.trainingRegistrants} />
 					</div>
 				</Modal.Body>
-				<Modal.Footer />
+				<Modal.Footer className='w-full justify-end'>
+					<AttendanceButton registrant={trainingData?.trainingRegistrants} trainingId={trainingData?.trainingId} />
+				</Modal.Footer>
 			</Modal>
 		</>
 	);

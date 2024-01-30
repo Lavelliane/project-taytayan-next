@@ -4,14 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { Drawer, DrawerOptions, DrawerInterface, InstanceOptions } from 'flowbite';
 import Link from 'next/link';
 import Image from 'next/image';
-import avatar from '../../../public/assets/avatar.png';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/hooks/useAuth';
-import { Avatar, Dropdown, DropdownItem, CustomFlowbiteTheme, Sidebar } from 'flowbite-react';
-import { HiShoppingBag } from 'react-icons/hi';
+import { CustomFlowbiteTheme } from 'flowbite-react';
 import UserAvatar from '../Profile/UserAvatar';
 
 const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
+
 // options with default values
 const options: DrawerOptions = {
 	backdrop: true,
@@ -25,34 +24,6 @@ const options: DrawerOptions = {
 const instanceOptions: InstanceOptions = {
 	id: 'logo-sidebar',
 	override: true,
-};
-
-const avatarTheme: CustomFlowbiteTheme['avatar'] = {
-	root: {
-		bordered: 'p-1 ring-2 justify-center items-center',
-		color: {
-			info: 'ring-[#0090D8]',
-			success: 'ring-[#429445]',
-			warning: 'ring-[#F6C951]',
-		},
-		img: {
-			placeholder: 'text-gray-400 w-auto h-auto'
-		}
-	},
-};
-
-const customTheme: CustomFlowbiteTheme['dropdown'] = {
-	content: '',
-	floating: {
-		base: 'backdrop-blur-sm rounded-lg focus:ring-0 focus:outline-0 focus:border-0',
-		item: {
-			base:
-				'shadow-md m-0 rounded-lg flex items-center p-0 justify-start text-sm cursor-pointer w-full dark:text-gray-200 focus:outline-none',
-		},
-		style: {
-			auto: 'bg-gray-50/80 border border-gray-100',
-		},
-	},
 };
 
 const drawer: DrawerInterface = new Drawer($targetEl, options, instanceOptions);
@@ -71,9 +42,8 @@ const SidebarSeeker = () => {
 	const router = useRouter();
 	const logout = useAuthStore((state: { logout: any }) => state.logout);
 	const user = useAuthStore((state: { user: any }) => state.user);
-	const [name, setName] = useState<string>('')
-	const [nameInitials, setNameInitials] = useState<string>('')
-  
+	const [name, setName] = useState<string>('');
+
 	function handleLogout() {
 		logout();
 		router.push('/login');
@@ -82,19 +52,19 @@ const SidebarSeeker = () => {
 	useEffect(() => {
 		if ((user && user.firstName) || user.lastName) {
 			setName(user?.firstName + ' ' + user?.lastName);
-			setNameInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0))
 		}
-	}, [user])
-
+	}, [user]);
 
 	const [isTrainingsDropdownOpen, setIsTrainingsDropdownOpen] = useState<boolean>(false);
 	const [isNetworksDropdownOpen, setIsNetworksDropdownOpen] = useState<boolean>(false);
 
 	const handleTrainingsDropdownPress = () => {
 		setIsTrainingsDropdownOpen(!isTrainingsDropdownOpen);
+		if (isNetworksDropdownOpen) setIsNetworksDropdownOpen(false);
 	};
 	const handleNetworksDropdownPress = () => {
 		setIsNetworksDropdownOpen(!isNetworksDropdownOpen);
+		if (isTrainingsDropdownOpen) setIsTrainingsDropdownOpen(false);
 	};
 
 	return (
@@ -129,13 +99,13 @@ const SidebarSeeker = () => {
 				aria-hidden='true'
 			>
 				<div className='max-h-screen h-screen px-4 py-6 overflow-y-auto flex flex-col text-sm'>
-					<Link href='/' className=' flex font-lexendDeca items-center justify-center mt-4 mb-10 gap-1'>
+					<Link href='/dashboard' className=' flex font-lexendDeca items-center justify-center mt-4 mb-10 gap-1'>
 						<Image
 							src='/taytayan-logo.svg'
 							className='h-6 sm:h-12'
 							alt='Project taytayan Logo'
-							width={0}
-							height={0}
+							width={200}
+							height={200}
 							style={{ width: 'auto', height: '50px', objectFit: 'fill' }}
 						/>
 						<span className='flex flex-col items-start justify-center'>
@@ -147,7 +117,7 @@ const SidebarSeeker = () => {
 						<ul className='flex flex-col gap-2 font-medium'>
 							<li>
 								<Link
-									href='/'
+									href='/dashboard'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg 
 									${
 										pathName.includes('jobs') ||
@@ -208,9 +178,8 @@ const SidebarSeeker = () => {
 								</Link>
 							</li>
 							<li>
-								<Link
-									href=''
-									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
+								<button
+									className={`w-full flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
 										pathName.includes('/alltrainings') || pathName.includes('/mytrainings')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
@@ -232,7 +201,7 @@ const SidebarSeeker = () => {
 											d='M3 1h12M3 1v16M3 1H2m13 0v16m0-16h1m-1 16H3m12 0h2M3 17H1M6 4h1v1H6V4Zm5 0h1v1h-1V4ZM6 8h1v1H6V8Zm5 0h1v1h-1V8Zm-3 4h2a1 1 0 0 1 1 1v4H7v-4a1 1 0 0 1 1-1Z'
 										/>
 									</svg>
-									<span className='flex-1 ms-3 whitespace-nowrap '>Trainings</span>
+									<span className='flex-1 ms-3 whitespace-nowrap text-start'>Trainings</span>
 									<svg
 										className={`w-4 h-4 transform ${isTrainingsDropdownOpen ? 'hidden' : ''}`}
 										aria-hidden='true'
@@ -263,7 +232,7 @@ const SidebarSeeker = () => {
 											d='m19 9-7 7-7-7'
 										/>
 									</svg>
-								</Link>
+								</button>
 							</li>
 							<li className={`${isTrainingsDropdownOpen ? '' : 'hidden'}`}>
 								<Link
@@ -290,9 +259,8 @@ const SidebarSeeker = () => {
 								</Link>
 							</li>
 							<li>
-								<Link
-									href=''
-									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
+								<button
+									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg w-full ${
 										pathName.includes('/allevents') || pathName.includes('/myevents')
 											? 'bg-[#E3F6F5] dark:bg-[#E3F6F5] text-[#0090D8] dark:text-[#0090D8]'
 											: 'text-gray-700 dark:text-white'
@@ -314,7 +282,7 @@ const SidebarSeeker = () => {
 											d='M6 1v4a1 1 0 0 1-1 1H1m4 10v-2m3 2v-6m3 6v-4m4-10v16a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2Z'
 										/>
 									</svg>
-									<span className='flex-1 ms-3 whitespace-nowrap '>Networks</span>
+									<span className='flex-1 ms-3 whitespace-nowrap text-start'>Networks</span>
 									<svg
 										className={`w-4 h-4 transform ${isNetworksDropdownOpen ? 'hidden' : ''}`}
 										aria-hidden='true'
@@ -345,7 +313,7 @@ const SidebarSeeker = () => {
 											d='m19 9-7 7-7-7'
 										/>
 									</svg>
-								</Link>
+								</button>
 							</li>
 							<li className={`${isNetworksDropdownOpen ? '' : 'hidden'}`}>
 								<Link
@@ -368,7 +336,7 @@ const SidebarSeeker = () => {
 											: 'text-gray-700 dark:text-white'
 									}`}
 								>
-									<span className='flex-1 ms-7 whitespace-nowrap '>My Events</span>
+									<span className='flex-1 ms-7 whitespace-nowrap'>My Events</span>
 								</Link>
 							</li>
 							<li>
@@ -400,7 +368,7 @@ const SidebarSeeker = () => {
 							</li>
 						</ul>
 					</div>
-					<div className='flex flex-col h-3/4 justify-between'>
+					<div className='flex flex-col h-3/4 justify-end'>
 						<ul className='flex flex-col gap-2 h-fit font-medium border-t-2 border-gray-300 justify-between'>
 							<li className='flex flex-col gap-2 font-semibold items-start'>
 								<h1 className=' text-sm font-semibold text-gray-500 mt-4'>My Profile</h1>
@@ -413,9 +381,9 @@ const SidebarSeeker = () => {
 									}`}
 								>
 									<div className='flex gap-2 items-center'>
-										<UserAvatar 
-											firstName={user?.firstName} 
-											lastName={user?.lastName} 
+										<UserAvatar
+											firstName={user?.firstName}
+											lastName={user?.lastName}
 											avatarURL={user?.avatarURL}
 											role={user?.role}
 											size='sm'
@@ -424,9 +392,6 @@ const SidebarSeeker = () => {
 									</div>
 								</Link>
 							</li>
-						</ul>
-
-						<ul className='flex flex-col gap-2 h-fit font-medium'>
 							<li>
 								<Link
 									href='#settings'
@@ -467,7 +432,7 @@ const SidebarSeeker = () => {
 								</Link>
 							</li>
 							<li>
-								<p
+								<button
 									onClick={handleLogout}
 									className={`cursor-pointer flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
 										pathName.includes('/logout')
@@ -491,7 +456,7 @@ const SidebarSeeker = () => {
 										/>
 									</svg>
 									<span className='flex-1 ms-3 whitespace-nowrap'>Logout</span>
-								</p>
+								</button>
 							</li>
 						</ul>
 					</div>

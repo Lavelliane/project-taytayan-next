@@ -10,7 +10,7 @@ export const JobsAvailableMetrics: React.FC<PropType> = (props) => {
     const { jobsAvailable } = props;
  	return (
         <div className='bg-gradient-to-b from-fuchsia-400 to-fuchsia-200 rounded-2xl text-3xl relative overflow-clip'>
-            <div className='absolute right-0 translate-x-8 hidden sm:block'>
+            <div className='absolute right-0 translate-x-8 block'>
                 <Image
                     src={flavorImage}
                     alt='flavor-image'
