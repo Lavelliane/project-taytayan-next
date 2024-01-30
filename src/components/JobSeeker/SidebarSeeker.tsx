@@ -10,6 +10,7 @@ import { CustomFlowbiteTheme } from 'flowbite-react';
 import UserAvatar from '../Profile/UserAvatar';
 
 const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
+
 // options with default values
 const options: DrawerOptions = {
 	backdrop: true,
@@ -23,34 +24,6 @@ const options: DrawerOptions = {
 const instanceOptions: InstanceOptions = {
 	id: 'logo-sidebar',
 	override: true,
-};
-
-const avatarTheme: CustomFlowbiteTheme['avatar'] = {
-	root: {
-		bordered: 'p-1 ring-2 justify-center items-center',
-		color: {
-			info: 'ring-[#0090D8]',
-			success: 'ring-[#429445]',
-			warning: 'ring-[#F6C951]',
-		},
-		img: {
-			placeholder: 'text-gray-400 w-auto h-auto',
-		},
-	},
-};
-
-const customTheme: CustomFlowbiteTheme['dropdown'] = {
-	content: '',
-	floating: {
-		base: 'backdrop-blur-sm rounded-lg focus:ring-0 focus:outline-0 focus:border-0',
-		item: {
-			base:
-				'shadow-md m-0 rounded-lg flex items-center p-0 justify-start text-sm cursor-pointer w-full dark:text-gray-200 focus:outline-none',
-		},
-		style: {
-			auto: 'bg-gray-50/80 border border-gray-100',
-		},
-	},
 };
 
 const drawer: DrawerInterface = new Drawer($targetEl, options, instanceOptions);
@@ -70,7 +43,6 @@ const SidebarSeeker = () => {
 	const logout = useAuthStore((state: { logout: any }) => state.logout);
 	const user = useAuthStore((state: { user: any }) => state.user);
 	const [name, setName] = useState<string>('');
-	const [nameInitials, setNameInitials] = useState<string>('');
 
 	function handleLogout() {
 		logout();
@@ -80,7 +52,6 @@ const SidebarSeeker = () => {
 	useEffect(() => {
 		if ((user && user.firstName) || user.lastName) {
 			setName(user?.firstName + ' ' + user?.lastName);
-			setNameInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0));
 		}
 	}, [user]);
 
@@ -128,13 +99,13 @@ const SidebarSeeker = () => {
 				aria-hidden='true'
 			>
 				<div className='max-h-screen h-screen px-4 py-6 overflow-y-auto flex flex-col text-sm'>
-					<Link href='/' className=' flex font-lexendDeca items-center justify-center mt-4 mb-10 gap-1'>
+					<Link href='/dashboard' className=' flex font-lexendDeca items-center justify-center mt-4 mb-10 gap-1'>
 						<Image
 							src='/taytayan-logo.svg'
 							className='h-6 sm:h-12'
 							alt='Project taytayan Logo'
-							width={0}
-							height={0}
+							width={200}
+							height={200}
 							style={{ width: 'auto', height: '50px', objectFit: 'fill' }}
 						/>
 						<span className='flex flex-col items-start justify-center'>
@@ -146,7 +117,7 @@ const SidebarSeeker = () => {
 						<ul className='flex flex-col gap-2 font-medium'>
 							<li>
 								<Link
-									href='/'
+									href='/dashboard'
 									className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg 
 									${
 										pathName.includes('jobs') ||
@@ -461,7 +432,7 @@ const SidebarSeeker = () => {
 								</Link>
 							</li>
 							<li>
-								<p
+								<button
 									onClick={handleLogout}
 									className={`cursor-pointer flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg ${
 										pathName.includes('/logout')
@@ -485,7 +456,7 @@ const SidebarSeeker = () => {
 										/>
 									</svg>
 									<span className='flex-1 ms-3 whitespace-nowrap'>Logout</span>
-								</p>
+								</button>
 							</li>
 						</ul>
 					</div>

@@ -61,7 +61,7 @@ const PostJobForm = () => {
 		const finalPayload = {
 			...data,
 			employmentContactInformation: contactInformation,
-			employmentRoles: keyRoles,
+			employmentKeyRoles: keyRoles,
 		};
 		const employmentRef = collection(db, 'employment');
 		const employmentCreated = await addDoc(employmentRef, finalPayload);
@@ -293,9 +293,8 @@ const PostJobForm = () => {
 				<div className='mb-2 block'>
 					<Label htmlFor='employmentExperience' value='Experience (optional)' />
 				</div>
-				<TextInput
+				<Textarea
 					id='employmentExperience'
-					type='text'
 					placeholder='What experiences are required?'
 					{...register('employmentExperience')}
 				/>
@@ -357,7 +356,6 @@ const PostJobForm = () => {
 					processingSpinner={
 						<svg
 							aria-hidden='true'
-							role='status'
 							className='w-4 h-4 text-white animate-spin'
 							viewBox='0 0 100 101'
 							fill='none'
