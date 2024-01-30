@@ -77,8 +77,8 @@ const Hero = () => {
         <div className='flex max-w-7xl w-full h-full justify-center items-center px-8 xl:px-0'>
           <div className='w-full h-full flex flex-col gap-4 justify-center pt-14'>
             <div className='text-7xl font-lexendDeca flex flex-col'>
-              <span className='text-dark font-semibold'>Learn Today,</span>
-              <span className='bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-300 bg-clip-text text-transparent font-semibold'>Lead Tomorrow</span>
+              <span className='text-[#1e3888] font-semibold'>Learn Today,</span>
+              <span className='text-[#FCDE73] font-semibold'>Lead Tomorrow</span>
             </div>
             <p className='text-base text-gray-700 font-lexendDeca mb-20 pl-2'>
                 Be part of building the bridge to a better future. Project Taytayan is dedicated to centralizing platforms for opportunities.
