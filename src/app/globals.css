@@ -86,3 +86,62 @@ div.optionListContainer {
   border-radius: 20px;
   border: 2px solid rgb(248 250 252 / var(--tw-bg-opacity));
 }
+
+/* Landing */
+.scrolled {
+  background-color: white;
+}
+
+.anim-bg-gradient {
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(120deg, rgb(69, 0, 139), rgb(20, 103, 220), rgb(0, 204, 255));
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position .5s;
+}
+
+.anim-bg-gradient:hover {
+  background-position: 0 0;
+}
+
+.custom-shape-divider-top-1706630886 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1706630886 svg {
+  position: relative;
+  display: block;
+  width: calc(163% + 1.3px);
+  height: 214px;
+}
+
+.custom-shape-divider-top-1706630886 .shape-fill {
+  fill: #FFFFFF;
+}
+
+.custom-shape-divider-bottom-1706631099 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1706631099 svg {
+  position: relative;
+  display: block;
+  width: calc(163% + 1.3px);
+  height: 214px;
+}
+
+.custom-shape-divider-bottom-1706631099 .shape-fill {
+  fill: #FFFFFF;
+}
