@@ -12,12 +12,6 @@ interface MyJobPostProps {
 	EmploymentData: Employment;
 }
 
-const jobType = [
-	{ key: 1, value: 'Full-time', color: 'text-purple-400' },
-	{ key: 2, value: 'Work-from-home', color: 'text-blue-400' },
-	{ key: 3, value: 'Contact', color: 'text-lime-500' },
-];
-
 function formatPostedDate(timestamp: Date | Timestamp): string {
 	const jsDate = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
 	const currentDate = new Date();
@@ -67,15 +61,6 @@ export const MyJobPostCard: React.FC<MyJobPostProps> = ({ EmploymentData }: MyJo
 		displayJob,
 		employmentApplicants,
 	} = EmploymentData;
-
-	useEffect(() => {
-		const type = jobType.find((type) => type.value === employmentType);
-		if (type) {
-			setCategoryColor(type.color);
-		} else {
-			setCategoryColor('gray');
-		}
-	}, [employmentType]);
 
 	return (
 		<Card
