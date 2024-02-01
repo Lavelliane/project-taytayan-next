@@ -45,28 +45,26 @@ const NavbarLanding = () => {
     `}
 		>
 			<div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
-				<a href='https://flowbite.com/' className='flex items-center space-x-3 rtl:space-x-reverse'>
-					<Link href='/dashboard' className=' flex font-lexendDeca items-center justify-center gap-1'>
-						<Image
+				<a className='flex items-center space-x-3 rtl:space-x-reverse font-lexendDeca'>
+          <Image
 							src='/taytayan-logo.svg'
 							className='h-6 sm:h-12'
 							alt='Project taytayan Logo'
 							width={200}
 							height={200}
 							style={{ width: 'auto', height: '50px', objectFit: 'fill' }}
-						/>
-						<span className='flex flex-col items-start justify-center'>
-							<span className='text-sm font-light whitespace-nowrap dark:text-white'>PROJECT</span>
-							<span className='text-lg font-regular whitespace-nowrap dark:text-white'>taytayan</span>
-						</span>
-					</Link>
+					/>
+          <span className='flex flex-col items-start justify-center'>
+            <span className='text-sm font-light whitespace-nowrap dark:text-white'>PROJECT</span>
+            <span className='text-lg font-regular whitespace-nowrap dark:text-white'>taytayan</span>
+          </span>
 				</a>
 				<div className='flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse'>
 					<div className='flex gap-2'>
 						<Link href='/login'>
 							<button
 								type='button'
-								className='text-gray-900 bg-transparent hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+								className='text-gray-900 bg-transparent hover:bg-gray-200  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
 							>
 								Sign in
 							</button>
@@ -74,7 +72,7 @@ const NavbarLanding = () => {
 						<Link href='/new-account'>
 							<button
 								type='button'
-								className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+								className='text-black bg-transparent border-black border border-solid hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center'
 							>
 								Get started
 							</button>

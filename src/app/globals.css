@@ -145,3 +145,23 @@ div.optionListContainer {
 .custom-shape-divider-bottom-1706631099 .shape-fill {
   fill: #FFFFFF;
 }
+
+.custom-shape-divider-top-1706825984 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1706825984 svg {
+  position: relative;
+  display: block;
+  width: calc(106% + 1.3px);
+  height: 190px;
+}
+
+.custom-shape-divider-top-1706825984 .shape-fill {
+  fill: #FFFFFF;
+}
