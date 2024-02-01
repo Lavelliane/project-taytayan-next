@@ -46,7 +46,7 @@ const JobPost = () => {
 	};
 
 	return (
-		<section className='flex gap-4 h-[84vh] w-full overflow-hidden p-6 bg-slate-50 rounded-xl'>
+		<section className='flex gap-4 h-[84vh] w-full overflow-hidden  rounded-xl'>
 			<div className='flex flex-col gap-4 w-3/5 scroll-smooth overflow-y-auto'>
 				{job?.map((data, index) => (
 					<button
