@@ -174,7 +174,7 @@ export const AddEventForm = ({
               <Autocomplete
                 className="p-3 w-full inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400"
                 id="eventAddress"
-                apiKey={process.env.PLACES_API_KEY}
+                apiKey={process.env.NEXT_PUBLIC_PLACES_API_KEY}
                 onPlaceSelected={(place) => {
                   handleEventAddress(place);
                 }}
