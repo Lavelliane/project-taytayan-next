@@ -9,6 +9,7 @@ import { GoogleLocation, User } from '@/types/types';
 import Autocomplete from 'react-google-autocomplete';
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { FormatPostedDate } from '@/utils/FormatPostedDate';
 
 const PostJobForm = () => {
 	const [user, setUser] = useState<User>(DefaultProfile);
@@ -22,12 +23,12 @@ const PostJobForm = () => {
 		setUser(userStore);
 	}, []);
 
-	const handleEmploymentDate = (selectedDate: Date) => {
-		if (selectedDate) {
-			form.setValue('employmentDatePosted', selectedDate);
-			form.trigger('employmentDatePosted');
-		}
-	};
+	// const handleEmploymentDate = (selectedDate: Date) => {
+	// 	if (selectedDate) {
+	// 		form.setValue('employmentDatePosted', selectedDate);
+	// 		form.trigger('employmentDatePosted');
+	// 	}
+	// };
 
 	const handleEmploymentAddress = (selectedLocation: any) => {
 		if (selectedLocation) {
@@ -62,6 +63,8 @@ const PostJobForm = () => {
 			...data,
 			employmentContactInformation: contactInformation,
 			employmentKeyRoles: keyRoles,
+			employmentDatePosted: new Date(),
+			displayJob: true,
 		};
 		const employmentRef = collection(db, 'employment');
 		const employmentCreated = await addDoc(employmentRef, finalPayload);
@@ -73,6 +76,7 @@ const PostJobForm = () => {
 				jobsPosted: [...userStore.jobsPosted, employmentCreated.id],
 			});
 			const updateEmploymentId = doc(employmentRef, employmentCreated.id);
+
 			Promise.all([
 				await updateDoc(updateEmploymentId, {
 					employmentId: employmentCreated.id,
@@ -108,9 +112,9 @@ const PostJobForm = () => {
 			employmentCompanyDescription: '',
 			employmentContactInformation: '',
 			employmentAddress: DefaultEmploymentAddress,
-			employmentDatePosted: undefined,
 			employmentType: 'Full-time',
 			employmentLocationType: 'On-site',
+			employmentDatePosted: undefined,
 			employmentKeyRoles: '',
 			employmentEducation: '',
 			employmentExperience: '',
@@ -127,63 +131,71 @@ const PostJobForm = () => {
 	} = form;
 
 	return (
-		<form className='flex max-w-full flex-col gap-4' onSubmit={handleSubmit(submitPostJobForm)}>
+		<form className='flex max-w-full w-full flex-col gap-4' onSubmit={handleSubmit(submitPostJobForm)}>
 			<h1 className='font-semibold text-lg'>Job Posting Information</h1>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentTitle' value='Job Title' />
+			<div className='flex flex-col lg:flex-row gap-4 w-full'>
+				<div className='w-full flex flex-col gap-4'>
+					<div className='w-full'>
+						<div className='mb-2 block'>
+							<Label htmlFor='employmentTitle' value='Job Title' />
+						</div>
+						<TextInput
+							id='employmentTitle'
+							type='text'
+							placeholder='What is the job title?'
+							{...register('employmentTitle')}
+						/>
+						{errors.employmentTitle && (
+							<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentTitle.message}</span>
+						)}
+					</div>
+					<div className='w-full'>
+						<div className='mb-2 block'>
+							<Label htmlFor='employmentDescription' value='Job Description' />
+						</div>
+						<Textarea
+							placeholder='Tell us about the job...'
+							id='trainingDescription'
+							{...register('employmentDescription')}
+						/>
+						{errors.employmentDescription && (
+							<span className='text-xs lg:text-sm text-red-600 font-semibold'>
+								{errors.employmentDescription.message}
+							</span>
+						)}
+					</div>
 				</div>
-				<TextInput
-					id='employmentTitle'
-					type='text'
-					placeholder='What is the job title?'
-					{...register('employmentTitle')}
-				/>
-				{errors.employmentTitle && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentTitle.message}</span>
-				)}
-			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentDescription' value='Job Description' />
+				<div className='w-full flex flex-col gap-4'>
+					<div className='w-full'>
+						<div className='mb-2 block'>
+							<Label htmlFor='employmentCompany' value='Company Name' />
+						</div>
+						<TextInput
+							id='employmentCompany'
+							type='text'
+							placeholder='What is the company/organization name?'
+							{...register('employmentCompany')}
+						/>
+						{errors.employmentCompany && (
+							<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentCompany.message}</span>
+						)}
+					</div>
+					<div className='w-full'>
+						<div className='mb-2 block'>
+							<Label htmlFor='employmentCompanyDescription' value='Company Description' />
+						</div>
+						<Textarea
+							placeholder='Tell us about the company/organization...'
+							id='employmentCompanyDescription'
+							{...register('employmentCompanyDescription')}
+						/>
+						{errors.employmentCompanyDescription && (
+							<span className='text-xs lg:text-sm text-red-600 font-semibold'>
+								{errors.employmentCompanyDescription.message}
+							</span>
+						)}
+					</div>
 				</div>
-				<Textarea
-					placeholder='Tell us about the job...'
-					id='trainingDescription'
-					{...register('employmentDescription')}
-				/>
-				{errors.employmentDescription && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentDescription.message}</span>
-				)}
-			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentCompany' value='Company Name' />
-				</div>
-				<TextInput
-					id='employmentCompany'
-					type='text'
-					placeholder='What is the company/organization name?'
-					{...register('employmentCompany')}
-				/>
-				{errors.employmentCompany && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentCompany.message}</span>
-				)}
-			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentCompanyDescription' value='Company Description' />
-				</div>
-				<Textarea
-					placeholder='Tell us about the company/organization...'
-					id='employmentCompanyDescription'
-					{...register('employmentCompanyDescription')}
-				/>
-				{errors.employmentCompanyDescription && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>
-						{errors.employmentCompanyDescription.message}
-					</span>
-				)}
 			</div>
 			<div>
 				<div className='mb-2 block'>
@@ -201,7 +213,7 @@ const PostJobForm = () => {
 					</span>
 				)}
 			</div>
-			<div className='flex gap-4 w-full md:flex-row flex-col'>
+			<div className='flex gap-4 w-full lg:flex-row flex-col'>
 				<div className='w-full'>
 					<div className='mb-2 block'>
 						<Label htmlFor='employmentAddress' value='Job Address' />
@@ -220,7 +232,7 @@ const PostJobForm = () => {
 						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentAddress.message}</span>
 					)}
 				</div>
-				<div className='w-full'>
+				{/* <div className='w-full'>
 					<div className='mb-2 block'>
 						<Label htmlFor='employmentDatePosted' value='Job Posting Date' />
 					</div>
@@ -234,9 +246,9 @@ const PostJobForm = () => {
 					{errors.employmentDatePosted && (
 						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentDatePosted.message}</span>
 					)}
-				</div>
+				</div> */}
 			</div>
-			<div className='flex gap-4 w-full md:flex-row flex-col'>
+			<div className='flex gap-4 w-full lg:flex-row flex-col'>
 				<div className='w-full'>
 					<div className='mb-2 block'>
 						<Label htmlFor='employmentType' value='Job Type' />
@@ -266,41 +278,57 @@ const PostJobForm = () => {
 					)}
 				</div>
 			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentKeyRoles' value="Job Key Roles/Responsibilities (Separate with ';')" />
+			<div className='flex flex-col lg:flex-row gap-4 w-full'>
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employmentKeyRoles' value="Job Key Roles/Responsibilities (Separate with ';')" />
+					</div>
+					<Textarea id='trainingActivities' placeholder='Key Role 1; Key Role 2' {...register('employmentKeyRoles')} />
+					{errors.employmentKeyRoles && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentKeyRoles.message}</span>
+					)}
 				</div>
-				<Textarea id='trainingActivities' placeholder='Key Role 1; Key Role 2' {...register('employmentKeyRoles')} />
-				{errors.employmentKeyRoles && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentKeyRoles.message}</span>
-				)}
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employmentBenefits' value='Job Benefits (optional)' />
+					</div>
+					<Textarea
+						id='employmentBenefits'
+						placeholder='What benefits will they have?'
+						{...register('employmentBenefits')}
+					/>
+					{errors.employmentBenefits && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentBenefits.message}</span>
+					)}
+				</div>
 			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentEducation' value='Education Requirement (optional)' />
+			<div className='flex flex-col lg:flex-row gap-4 w-full'>
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employmentEducation' value='Education Requirement (optional)' />
+					</div>
+					<Textarea
+						id='employmentEducation'
+						placeholder='What is the required educational attainment?'
+						{...register('employmentEducation')}
+					/>
+					{errors.employmentEducation && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentEducation.message}</span>
+					)}
 				</div>
-				<TextInput
-					id='employmentEducation'
-					type='text'
-					placeholder='What is the required educational attainment?'
-					{...register('employmentEducation')}
-				/>
-				{errors.employmentEducation && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentEducation.message}</span>
-				)}
-			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentExperience' value='Experience (optional)' />
+				<div className='w-full'>
+					<div className='mb-2 block'>
+						<Label htmlFor='employmentExperience' value='Experience (optional)' />
+					</div>
+					<Textarea
+						id='employmentExperience'
+						placeholder='What experiences are required?'
+						{...register('employmentExperience')}
+					/>
+					{errors.employmentExperience && (
+						<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentExperience.message}</span>
+					)}
 				</div>
-				<Textarea
-					id='employmentExperience'
-					placeholder='What experiences are required?'
-					{...register('employmentExperience')}
-				/>
-				{errors.employmentExperience && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentExperience.message}</span>
-				)}
 			</div>
 			<div>
 				<div className='mb-2 block'>
@@ -315,19 +343,7 @@ const PostJobForm = () => {
 					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentInstructions.message}</span>
 				)}
 			</div>
-			<div>
-				<div className='mb-2 block'>
-					<Label htmlFor='employmentBenefits' value='Job Benefits (optional)' />
-				</div>
-				<Textarea
-					id='employmentBenefits'
-					placeholder='What benefits will they have?'
-					{...register('employmentBenefits')}
-				/>
-				{errors.employmentBenefits && (
-					<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.employmentBenefits.message}</span>
-				)}
-			</div>
+
 			<div>
 				<div className='mb-2 block'>
 					<Label htmlFor='employmentSalary' value='Salary Range in PHP (optional)' />

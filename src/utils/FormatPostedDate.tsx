@@ -5,7 +5,7 @@ export function FormatPostedDate(timestamp: Date | Timestamp): string {
 	const currentDate = new Date();
 
 	// Calculate the difference in milliseconds
-	const timeDifference: number = currentDate.getTime() - jsDate.getTime();
+	const timeDifference: number = currentDate?.getTime() - jsDate?.getTime();
 
 	// Calculate the difference in days
 	const daysAgo: number = Math.floor(timeDifference / (1000 * 3600 * 24));
