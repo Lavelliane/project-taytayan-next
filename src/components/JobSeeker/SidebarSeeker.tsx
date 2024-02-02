@@ -46,7 +46,7 @@ const SidebarSeeker = () => {
 
 	function handleLogout() {
 		logout();
-		router.push('/login');
+		router.push('/');
 	}
 
 	useEffect(() => {
