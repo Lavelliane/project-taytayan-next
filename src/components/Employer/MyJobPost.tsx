@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import JobPostCard from './JobPostCard';
-import JobPostDetails from './JobPostDetails';
+import MyJobPostCard from './MyJobPostCard';
+import MyJobPostDetails from './MyJobPostDetails';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
 import { Employment } from '@/types/types';
-import { query, getDocs, doc, getDoc, collection } from 'firebase/firestore';
+import { query, getDocs, doc, getDoc, collection, where } from 'firebase/firestore';
 import { DefaultEmployment } from '@/utils/DefaultProfile';
 
-const JobPost = () => {
+const MyJobPost = () => {
 	const [job, setJob] = useState<Employment[]>([DefaultEmployment]);
 	const [detailsOpened, setDetailsOpened] = useState<boolean[]>([false]);
 	const [selectedCard, setSelectedCard] = useState<number>(0);
@@ -27,19 +27,23 @@ const JobPost = () => {
 
 	const fetchEmployment = async () => {
 		try {
-			const employmentRef = collection(db, 'employment');
-			const employmentDoc = await getDocs(employmentRef);
+			if (userStore?.jobsPosted?.length > 0) {
+				const employmentRef = query(collection(db, 'employment'), where('employmentId', 'in', userStore.jobsPosted));
+				const employmentDoc = await getDocs(employmentRef);
 
-			const fetchedEmployment: Employment[] = [];
-			const detailsOpen: boolean[] = [];
+				const fetchedEmployment: Employment[] = [];
+				const detailsOpen: boolean[] = [];
 
-			employmentDoc.forEach((doc) => {
-				const employmentData: Employment = { ...(doc.data() as Employment) };
-				fetchedEmployment.push(employmentData);
-				detailsOpen.push(false);
-			});
-			setJob(fetchedEmployment);
-			setDetailsOpened(detailsOpen);
+				employmentDoc.forEach((doc) => {
+					const employmentData: Employment = { ...(doc.data() as Employment) };
+					fetchedEmployment.push(employmentData);
+					detailsOpen.push(false);
+				});
+				setJob(fetchedEmployment);
+				setDetailsOpened(detailsOpen);
+			} else {
+				console.log('No job posted');
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -54,16 +58,16 @@ const JobPost = () => {
 							<button
 								key={index}
 								onClick={() => handleDetailsOpen(index)}
-								className={`w-full h-fit ${data.displayJob ? 'block' : 'hidden'} ${
+								className={`w-full h-fit ${
 									selectedCard === index ? 'border-tertiary border-4 rounded-xl' : 'border-0'
 								}`}
 							>
-								<JobPostCard key={index} EmploymentData={data} />
+								<MyJobPostCard key={index} EmploymentData={data} />
 							</button>
 						))}
 					</div>
 					<div className='w-full scroll-smooth overflow-y-auto h-[84vh] sticky top-28'>
-						<JobPostDetails EmploymentData={job[selectedCard]} />
+						<MyJobPostDetails EmploymentData={job[selectedCard]} />
 					</div>
 				</section>
 			) : (
@@ -73,4 +77,4 @@ const JobPost = () => {
 	);
 };
 
-export default JobPost;
+export default MyJobPost;

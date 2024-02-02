@@ -3,51 +3,14 @@ import { Card } from 'flowbite-react';
 import { Employment } from '@/types/types';
 import { useAuthStore } from '@/hooks/useAuth';
 import { User } from '@/types/types';
-import { Timestamp } from 'firebase/firestore';
 import { cardTheme } from '@/utils/ComponentThemes';
-import Image from 'next/image';
-import flavorImage from '../../../public/assets/stock_2.jpg';
-import { CategoryBadge } from '../Trainings/CategoryBadge';
+import { FormatPostedDate } from '@/utils/FormatPostedDate';
 
 interface JobPostProps {
 	EmploymentData: Employment;
 }
 
-const jobType = [
-	{ key: 1, value: 'Full-time', color: 'text-purple-400' },
-	{ key: 2, value: 'Work-from-home', color: 'text-blue-400' },
-	{ key: 3, value: 'Contact', color: 'text-lime-500' },
-];
-
-function formatPostedDate(timestamp: Date | Timestamp): string {
-	const jsDate = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
-	const currentDate = new Date();
-
-	// Calculate the difference in milliseconds
-	const timeDifference: number = currentDate.getTime() - jsDate.getTime();
-
-	// Calculate the difference in days
-	const daysAgo: number = Math.floor(timeDifference / (1000 * 3600 * 24));
-
-	// Return the formatted string
-	if (daysAgo === 0) {
-		return 'Posted today';
-	} else if (daysAgo === 1) {
-		return 'Posted yesterday';
-	} else if (daysAgo > 1) {
-		return `Posted ${daysAgo} 'days' ago`;
-	} else if (daysAgo === -1) {
-		return `To be posted tomorrow`;
-	} else if (daysAgo < -1) {
-		return `To be posted in ${-daysAgo} days`;
-	} else {
-		return 'No schedule provided.';
-	}
-}
-
 export const JobPostCard: React.FC<JobPostProps> = ({ EmploymentData }: JobPostProps) => {
-	const userStore = useAuthStore((state: { user: User }) => state.user);
-	const [typeColor, setTypeColor] = useState<string>('gray');
 	const {
 		employmentId,
 		employmentTitle,
@@ -68,15 +31,6 @@ export const JobPostCard: React.FC<JobPostProps> = ({ EmploymentData }: JobPostP
 		displayJob,
 		employmentApplicants,
 	} = EmploymentData;
-
-	useEffect(() => {
-		const type = jobType.find((type) => type.value === employmentType);
-		if (type) {
-			setTypeColor(type.color);
-		} else {
-			setTypeColor('gray');
-		}
-	}, [employmentType]);
 
 	return (
 		<Card
@@ -186,17 +140,8 @@ export const JobPostCard: React.FC<JobPostProps> = ({ EmploymentData }: JobPostP
 							d='M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
 						/>
 					</svg>
-					<span className='font-base text-xs lg:text-sm text-start'>{formatPostedDate(employmentDatePosted)}</span>
+					<span className='font-base text-xs lg:text-sm text-start'>{FormatPostedDate(employmentDatePosted)}</span>
 				</h5>
-			</div>
-
-			<div className='flex justify-start items-start mx-6 mb-6 gap-2'>
-				{/* <LearnMoreButton key={employmentId} trainingData={props.EmploymentData} />
-				<JobPostRegistrationStatus
-					trainingId={trainingId}
-					trainingRegistration={trainingRegistration}
-					userStore={userStore}
-				/> */}
 			</div>
 		</Card>
 	);
