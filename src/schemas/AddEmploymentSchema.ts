@@ -65,9 +65,7 @@ export const addEmploymentFormSchema = z.object({
 		.refine((value) => ['Remote', 'On-site', 'Hybrid'].includes(value), {
 			message: 'An employment location type is required.',
 		}),
-	employmentDatePosted: z.date({
-		required_error: 'A training date is required.',
-	}),
+	employmentDatePosted: z.date().optional(),
 	employmentAddress: z.object({
 		formattedAddress: z.string().min(2, 'Training address must be 2 or more characters long.'), // Make formatted_address required and non-empty
 		geometry: z.object({

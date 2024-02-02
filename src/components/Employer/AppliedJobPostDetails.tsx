@@ -1,13 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'flowbite-react';
 import { Employment } from '@/types/types';
 import { FormatPostedDate } from '@/utils/FormatPostedDate';
+import { updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
-interface JobPostDetailsProps {
+interface MyJobPostDetailsProps {
 	EmploymentData: Employment;
 }
 
-const JobPostDetails = ({ EmploymentData }: JobPostDetailsProps) => {
+const MyJobPostDetails = ({ EmploymentData }: MyJobPostDetailsProps) => {
+	const handleHidePost = async () => {
+		try {
+			const employmentRef = doc(db, 'employment', EmploymentData.employmentId);
+
+			await updateDoc(employmentRef, {
+				displayJob: !EmploymentData.displayJob,
+			});
+
+			console.log(`Job has been ${EmploymentData.displayJob ? 'posted' : 'hidden'} successfully!`);
+		} catch (error) {
+			console.error(error);
+		}
+
+		window.location.reload();
+	};
+
+	const handleDeletePost = async () => {
+		try {
+			const employmentRef = doc(db, 'employment', EmploymentData.employmentId);
+			await deleteDoc(employmentRef);
+		} catch (error) {
+			console.error(error);
+		}
+
+		window.location.reload();
+	};
+
 	return (
 		<div className={`max-w-full w-full flex flex-col p-0 shadow-none justify-between transition-all h-full`}>
 			<header className='flex flex-col items-start justify-start gap-4 text-sm lg:text-base'>
@@ -115,10 +144,15 @@ const JobPostDetails = ({ EmploymentData }: JobPostDetailsProps) => {
 					</h5>
 				</div>
 				<div className='flex gap-4 mt-4'>
-					<Button color='transparent' className='bg-tertiary hover:bg-tertiary/70 text-white'>
-						Quick Apply
+					{/* <Button color='transparent' className='bg-tertiary hover:bg-tertiary/70 text-white'>
+						View Applicants
 					</Button>
-					<Button color='light'>Save Job</Button>
+					<Button color='light' type='submit' onClick={handleHidePost}>
+						{EmploymentData?.displayJob ? 'Hide Job' : 'Show Job'}
+					</Button>
+					<Button color='red' type='submit' onClick={handleDeletePost}>
+						Delete Job
+					</Button> */}
 				</div>
 			</header>
 			<div className='gap-4 flex flex-col'>
@@ -150,9 +184,8 @@ const JobPostDetails = ({ EmploymentData }: JobPostDetailsProps) => {
 					<p>{EmploymentData?.employmentInstructions}</p>
 				</div>
 			</div>
-			<footer></footer>
 		</div>
 	);
 };
 
-export default JobPostDetails;
+export default MyJobPostDetails;
