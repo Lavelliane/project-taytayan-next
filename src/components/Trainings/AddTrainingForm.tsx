@@ -88,6 +88,9 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 			.filter((str) => str !== '');
 		const finalPayload = {
 			...data,
+			trainingId: '',
+			trainingRegistrants: [],
+			createdBy: '',
 			trainingActivities: trainingActivitiesArray,
 			trainingObjectives: trainingObjectivesArray,
 		};
@@ -95,7 +98,6 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 		const trainingCreated = await addDoc(trainingRef, finalPayload);
 
 		try {
-			//	const docRef = doc(db, 'users', userStore.uid);
 			updateState({
 				...user,
 				myTrainings: [...userStore.myTrainings, trainingCreated.id],
@@ -118,7 +120,7 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 				})
 				.catch((e) => console.error(e));
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 
 		setIsLoading(false);
@@ -282,7 +284,6 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 							processingSpinner={
 								<svg
 									aria-hidden='true'
-									role='status'
 									className='w-4 h-4 text-white animate-spin'
 									viewBox='0 0 100 101'
 									fill='none'

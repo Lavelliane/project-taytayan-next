@@ -5,51 +5,52 @@ import { MetricsBanner } from '@/components/Dashboard/MetricsBanner';
 import { UpcomingEventsMetrics } from './UpcomingEventsMetrics';
 
 type PropType = {
-    activeTrainings: number;
-    jobsAvailable: number;
-    upcomingEvents: number;
-}
+	activeTrainings: number;
+	jobsAvailable: number;
+	upcomingEvents: number;
+};
 
 export const DashboardMetrics: React.FC<PropType> = (props) => {
-    const { activeTrainings, jobsAvailable, upcomingEvents } = props;
-    const [countedActiveTrainings, setCountedActiveTrainings] = useState<number>(0);
-    const [countedJobsAvailable, setCountedJobsAvailable] = useState<number>(0);
-    const [countedUpcomingEvents, setCountedUpcomingEvents] = useState<number>(0);
+	const { activeTrainings, jobsAvailable, upcomingEvents } = props;
+	const [countedActiveTrainings, setCountedActiveTrainings] = useState<number>(0);
+	const [countedJobsAvailable, setCountedJobsAvailable] = useState<number>(0);
+	const [countedUpcomingEvents, setCountedUpcomingEvents] = useState<number>(0);
 
+	useEffect(() => {
+		const incrementMetrics = (
+			targetValue: number,
+			setCountedFunction: React.Dispatch<React.SetStateAction<number>>
+		) => {
+			const duration = 400; // 3 seconds
+			const interval = 50; // update every 50 milliseconds
+			const steps = duration / interval;
+			const increment = targetValue / steps;
+			let currentCount = 0;
 
-    useEffect(() => {
-        const incrementMetrics = (targetValue: number, setCountedFunction: React.Dispatch<React.SetStateAction<number>>) => {
-          const duration = 400; // 3 seconds
-          const interval = 50; // update every 50 milliseconds
-          const steps = duration / interval;
-          const increment = targetValue / steps;
-          let currentCount = 0;
-    
-          const intervalId = setInterval(() => {
-            currentCount += increment;
-            setCountedFunction(Math.floor(currentCount));
-    
-            if (currentCount >= targetValue) {
-              setCountedFunction(targetValue);
-              clearInterval(intervalId);
-            }
-          }, interval);
-        };
-    
-        incrementMetrics(activeTrainings, setCountedActiveTrainings);
-        incrementMetrics(jobsAvailable, setCountedJobsAvailable);
-        incrementMetrics(upcomingEvents, setCountedUpcomingEvents);
-    
-      }, [activeTrainings, jobsAvailable, upcomingEvents]);
+			const intervalId = setInterval(() => {
+				currentCount += increment;
+				setCountedFunction(Math.floor(currentCount));
 
-    return (
-        <div className='min-w-3xl w-full'>
-            <div className='grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 text-white'>
-                <MetricsBanner />
-                <ActiveTrainingsMetrics activeTrainings={countedActiveTrainings} />
-                <JobsAvailableMetrics jobsAvailable={countedJobsAvailable} />
-                <UpcomingEventsMetrics upcomingEvents={countedUpcomingEvents} />
-            </div>
-        </div>
-    );
+				if (currentCount >= targetValue) {
+					setCountedFunction(targetValue);
+					clearInterval(intervalId);
+				}
+			}, interval);
+		};
+
+		incrementMetrics(activeTrainings, setCountedActiveTrainings);
+		incrementMetrics(jobsAvailable, setCountedJobsAvailable);
+		incrementMetrics(upcomingEvents, setCountedUpcomingEvents);
+	}, [activeTrainings, jobsAvailable, upcomingEvents]);
+
+	return (
+		<div className='min-w-3xl w-full'>
+			<div className='grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 text-white'>
+				<MetricsBanner />
+				<ActiveTrainingsMetrics activeTrainings={countedActiveTrainings} />
+				<JobsAvailableMetrics jobsAvailable={countedJobsAvailable} />
+				<UpcomingEventsMetrics upcomingEvents={countedUpcomingEvents} />
+			</div>
+		</div>
+	);
 };

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'flowbite-react';
-import { Registrant } from '@/types/types';
+import { Modal, Avatar } from 'flowbite-react';
+import { Registrant, User } from '@/types/types';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { User } from '@/types/types';
 import { db } from '@/lib/firebase';
-import Image from 'next/image';
-import { Avatar } from 'flowbite-react';
 import { avatarTheme } from '@/utils/ComponentThemes';
 
 interface FormatRegistrantsProps {
@@ -15,9 +12,9 @@ interface FormatRegistrantsProps {
 }
 
 const SeeRegistrantsModal = ({ registrant, seeRegistrantOpened, handleSeeRegistrantClose }: FormatRegistrantsProps) => {
-	const [registrants, setRegistrants] = useState<String[]>([]);
-	const [initials, setInitials] = useState<String[]>([]);
-	const [registrantAvatar, setRegistrantAvatar] = useState<String[]>([]);
+	const [registrants, setRegistrants] = useState<string[]>([]);
+	const [initials, setInitials] = useState<string[]>([]);
+	const [registrantAvatar, setRegistrantAvatar] = useState<string[]>([]);
 
 	useEffect(() => {
 		fetchRegistrants();
@@ -83,9 +80,8 @@ const SeeRegistrantsModal = ({ registrant, seeRegistrantOpened, handleSeeRegistr
 				</div>
 				<div className='flex flex-col gap-2 max-h-[300px] h-[300px]'>
 					{registrantAvatar?.map((avatar, index) => (
-						<div key={index} className='flex gap-2 items-center'>
+						<div key={avatar} className='flex gap-2 items-center'>
 							<Avatar
-								key={index + '_' + avatar}
 								rounded
 								stacked
 								size='md'

@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
+import SidebarSeeker from '@/components/Navbar/SidebarMain';
 import ProfileEdit from '@/components/Profile/ProfileEdit';
 
 const page = () => {

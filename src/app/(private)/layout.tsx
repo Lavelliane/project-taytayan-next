@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { Next13ProgressBar } from 'next13-progressbar';
-import { NavbarSeeker } from '@/components/JobSeeker/NavbarSeeker'
+import { NavbarMain } from '@/components/Navbar/NavbarMain'
 
 export default function RootLayout({
   children,
@@ -22,8 +22,8 @@ export default function RootLayout({
 
   return (
     <>
-      <main className='flex flex-col min-h-screen justify-start bg-white'>
-        <NavbarSeeker />
+      <main className='flex flex-col min-h-screen h-screen justify-start bg-white'>
+        <NavbarMain />
         <div className='w-full pl-0 sm:pl-64'>
           {children}
         </div>

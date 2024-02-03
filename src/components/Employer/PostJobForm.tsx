@@ -9,7 +9,6 @@ import { GoogleLocation, User } from '@/types/types';
 import Autocomplete from 'react-google-autocomplete';
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { FormatPostedDate } from '@/utils/FormatPostedDate';
 
 const PostJobForm = () => {
 	const [user, setUser] = useState<User>(DefaultProfile);
@@ -22,13 +21,6 @@ const PostJobForm = () => {
 	useEffect(() => {
 		setUser(userStore);
 	}, []);
-
-	// const handleEmploymentDate = (selectedDate: Date) => {
-	// 	if (selectedDate) {
-	// 		form.setValue('employmentDatePosted', selectedDate);
-	// 		form.trigger('employmentDatePosted');
-	// 	}
-	// };
 
 	const handleEmploymentAddress = (selectedLocation: any) => {
 		if (selectedLocation) {
@@ -61,6 +53,8 @@ const PostJobForm = () => {
 
 		const finalPayload = {
 			...data,
+			employmentId: '',
+			employmentApplicants: [],
 			employmentContactInformation: contactInformation,
 			employmentKeyRoles: keyRoles,
 			employmentDatePosted: new Date(),
@@ -70,7 +64,6 @@ const PostJobForm = () => {
 		const employmentCreated = await addDoc(employmentRef, finalPayload);
 
 		try {
-			//	const docRef = doc(db, 'users', userStore.uid);
 			updateState({
 				...user,
 				jobsPosted: [...userStore.jobsPosted, employmentCreated.id],
@@ -84,7 +77,7 @@ const PostJobForm = () => {
 				}),
 				await updateDoc(doc(collection(db, 'users'), user.uid), {
 					...user,
-					jobsPosted: [...userStore.jobsPosted, employmentCreated.id],
+					jobsPosted: [...user.jobsPosted, employmentCreated.id],
 				}),
 				await updateUserLatest(),
 			])

@@ -110,7 +110,7 @@ const NetworkingPage = () => {
 								.slice()
 								.sort((a, b) => a.localeCompare(b))
 								.map((category, index) => (
-									<CategoryBadge key={index} category={category} style={''} />
+									<CategoryBadge key={category} category={category} style={''} />
 								))}
 						</div>
 					</div>
@@ -121,7 +121,7 @@ const NetworkingPage = () => {
 						{networkingEvents.length === 0 ||
 							(filteredEvents.length === 0 && (
 								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No events created</h1>
-						))}
+							))}
 					</div>
 				</div>
 			</section>

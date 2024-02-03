@@ -9,35 +9,12 @@ import { useAuthStore } from '@/hooks/useAuth';
 import { CustomFlowbiteTheme } from 'flowbite-react';
 import UserAvatar from '../Profile/UserAvatar';
 
-const $targetEl: HTMLElement | null = typeof window !== 'undefined' ? document.getElementById('logo-sidebar') : null;
-
-// options with default values
-const options: DrawerOptions = {
-	backdrop: true,
-	bodyScrolling: false,
-	edge: false,
-	edgeOffset: '',
-	backdropClasses: 'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30',
-};
-
-// instance options object
-const instanceOptions: InstanceOptions = {
-	id: 'logo-sidebar',
-	override: true,
-};
-
-const drawer: DrawerInterface = new Drawer($targetEl, options, instanceOptions);
-
-async function fetchData() {
-	// Simulate asynchronous data fetching
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve('Fetched data');
-		}, 1000);
-	});
+interface SidebarMainProps {
+	HandleSideOpen: () => void;
+	SideOpen: boolean;
 }
 
-const SidebarSeeker = () => {
+const SidebarMain = ({ HandleSideOpen, SideOpen }: SidebarMainProps) => {
 	const pathName = usePathname();
 	const router = useRouter();
 	const logout = useAuthStore((state: { logout: any }) => state.logout);
@@ -70,9 +47,7 @@ const SidebarSeeker = () => {
 	return (
 		<>
 			<button
-				data-drawer-target='logo-sidebar'
-				data-drawer-toggle='logo-sidebar'
-				aria-controls='logo-sidebar'
+				onClick={HandleSideOpen}
 				type='button'
 				className='inline-flex items-center py-2 px-4 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
 			>
@@ -91,12 +66,10 @@ const SidebarSeeker = () => {
 					></path>
 				</svg>
 			</button>
-
 			<aside
-				id='logo-sidebar'
-				className='fixed top-0 left-0 z-40 w-64 max-h-screen h-screen transition-transform -translate-x-full sm:translate-x-0 shadow-md rounded-r-xl bg-white'
-				aria-label='Sidebar'
-				aria-hidden='true'
+				className={`fixed top-0 left-0 z-40 w-64 max-h-screen h-screen transition-transform ${
+					SideOpen ? '-translate-x-0' : '-translate-x-full'
+				} sm:translate-x-0 shadow-md rounded-r-xl bg-white`}
 			>
 				<div className='max-h-screen h-screen px-4 py-6 overflow-y-auto flex flex-col text-sm'>
 					<Link href='/dashboard' className=' flex font-lexendDeca items-center justify-center mt-4 mb-10 gap-1'>
@@ -466,4 +439,4 @@ const SidebarSeeker = () => {
 	);
 };
 
-export default SidebarSeeker;
+export default SidebarMain;

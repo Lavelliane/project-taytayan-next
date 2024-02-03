@@ -5,7 +5,7 @@ import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown';
 import { TrainingCard } from '../Trainings/TrainingCard';
 import { Training } from '@/types/types';
-import { doc, collection, getDocs, where, query } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
 
@@ -49,8 +49,6 @@ export const DashboardTraining = () => {
 		}
 	};
 
-	console.log(trainings);
-
 	const filterTrainings = () => {
 		if (selectedCategories.length > 0) {
 			setFilteredTrainings(trainings.filter((training) => selectedCategories.includes(training.trainingCategory)));
@@ -66,7 +64,7 @@ export const DashboardTraining = () => {
 				<div className='flex flex-wrap gap-2 pt-4 '>
 					{selectedCategories
 						.slice()
-						.sort()
+						.sort((a, b) => a.localeCompare(b))
 						.map((category, index) => (
 							<CategoryBadge key={index} style='badge' category={category} />
 						))}
@@ -76,9 +74,10 @@ export const DashboardTraining = () => {
 				{filteredTrainings.map((training: Training) => (
 					<TrainingCard key={training.trainingId} trainingData={training as Training} />
 				))}
-				{trainings.length === 0 || filteredTrainings.length === 0 && (
-					<h1 className="justify-center font-semibold text-center col-span-full py-24">No trainings found</h1>
-				)}
+				{trainings.length === 0 ||
+					(filteredTrainings.length === 0 && (
+						<h1 className='justify-center font-semibold text-center col-span-full py-24'>No trainings found</h1>
+					))}
 			</div>
 		</div>
 	);

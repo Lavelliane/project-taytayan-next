@@ -1,4 +1,4 @@
-import { Avatar, Card, CustomFlowbiteTheme } from 'flowbite-react';
+import { Avatar, Card } from 'flowbite-react';
 import React from 'react';
 import { CategoryBadge } from './CategoryBadge';
 import { Training } from '@/types/types';
@@ -96,7 +96,7 @@ export const MyTrainingCard: React.FC<TrainingProps> = (props) => {
 							? 'Free'
 							: `₱${Number(trainingRegistration).toLocaleString('en-US', {
 									minimumFractionDigits: 2,
-							})}`}
+							  })}`}
 					</span>
 				</h5>
 			</div>
