@@ -4,8 +4,8 @@ import ProfileEdit from '@/components/Profile/ProfileEdit';
 
 const page = () => {
 	return (
-		<div className='p-20'>
-			<ProfileEdit />;
+		<div className='lg:p-20 p-4'>
+			<ProfileEdit />
 		</div>
 	);
 };

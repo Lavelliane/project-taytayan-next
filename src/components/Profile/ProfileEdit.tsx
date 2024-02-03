@@ -62,11 +62,11 @@ const ProfileEdit = () => {
 	};
 
 	return (
-		<form className='h-fit w-full lg:p-0 p-4'>
-			<div className='flex flex-col w-full lg:h-52 relative'>
+		<form className='h-fit w-full mx-auto'>
+			<div className='flex flex-col w-full h-52 relative mx-auto'>
 				<div className='absolute w-full h-32 bg-[#9B5FFC] rounded-lg'></div>
-				<div className='lg:px-10 w-full h-fit z-10 lg:absolute sm:bottom-0 flex lg:flex-row flex-col items-center justify-between'>
-					<div className='flex lg:flex-row flex-col lg:gap-6 items-center lg:items-end'>
+				<div className='px-10 w-full h-fit absolute lg:top-16 top-6 flex lg:flex-row flex-col lg:items-end items-center lg:justify-between'>
+					<div className='flex lg:flex-row flex-col lg:gap-6 gap-2 lg:items-end items-center'>
 						<UserAvatar
 							firstName={user?.firstName}
 							lastName={user?.lastName}
@@ -75,7 +75,7 @@ const ProfileEdit = () => {
 							size='xl'
 						/>
 						<div className='flex flex-col'>
-							<h1 className='text-xl font-bold'>Profile</h1>
+							<h1 className='font-bold lg:text-lg md:text-base text-sm'>Profile</h1>
 							<h2 className='text-gray-700'>Upload your photo and personal details</h2>
 						</div>
 					</div>
@@ -96,9 +96,9 @@ const ProfileEdit = () => {
 					</div>
 				</div>
 			</div>
-			<div className='flex w-full flex-col gap-6 md:m-14 m-0'>
-				<h1 className='font-semibold text-lg'>Basic Info</h1>
-				<div className='flex flex-col max-w-xl w-full gap-6'>
+			<div className='flex flex-col w-full h-fit my-10 gap-10 lg:mt-10 mt-24'>
+				<h1 className='font-semibold text-lg xl:ml-20 ml-0'>Basic Info</h1>
+				<div className='flex flex-col max-w-xl w-full gap-6 mx-auto'>
 					<div className='w-full flex items-center gap-4'>
 						<label htmlFor='firstName' className='text-sm font-semibold w-1/4'>
 							First Name
@@ -173,9 +173,9 @@ const ProfileEdit = () => {
 					</div>
 				</div>
 			</div>
-			<div className='flex w-full flex-col gap-6 md:m-14 m-0'>
-				<h1 className='font-semibold text-lg'>About Me</h1>
-				<div className='flex flex-col max-w-xl w-full gap-6'>
+			<div className='flex flex-col w-full h-fit my-10 gap-10 mt-10 mx-auto'>
+				<h1 className='font-semibold text-lg xl:ml-20 ml-0'>About Me</h1>
+				<div className='flex flex-col max-w-xl w-full gap-6 mx-auto'>
 					<div className='w-full flex flex-col items-start gap-4'>
 						<label htmlFor='aboutMe' className='text-sm font-semibold'>
 							Bio
@@ -222,9 +222,9 @@ const ProfileEdit = () => {
 					</div>
 				</div>
 			</div>
-			<div className='flex w-full flex-col gap-6 md:m-14 m-0'>
-				<h1 className='font-semibold text-lg'>Additional Information</h1>
-				<div className='flex flex-col max-w-xl w-full gap-6'>
+			<div className='flex flex-col w-full h-fit my-10 gap-10 mt-10'>
+				<h1 className='font-semibold text-lg xl:ml-20 ml-0'>Additional Information</h1>
+				<div className='flex flex-col max-w-xl w-full gap-6 mx-auto'>
 					<div className='w-full flex items-center gap-4'>
 						<label htmlFor='email' className='text-sm font-semibold w-1/4'>
 							Email

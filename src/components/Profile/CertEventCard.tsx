@@ -4,13 +4,13 @@ import { Card } from 'flowbite-react';
 import Image from 'next/image';
 import EventIcon from '../../../public/assets/eventsIcon.png';
 
-const MyEventsCard = () => {
+const CertEventCard = () => {
 	const certName = 'Web Development';
 	const eventDate = 'June 20, 2021';
 	const Status = 'Completed';
 
 	return (
-		<Card className='max-w-2xl w-[30%] h-fit mr-auto rounded-full'>
+		<Card className='max-w-2xl w-full h-fit mr-auto rounded-full'>
 			<div className='flex justify-between items-center'>
 				<div className='flex flex-col gap-2'>
 					<div className='flex gap-2 items-center'>
@@ -47,4 +47,4 @@ const MyEventsCard = () => {
 	);
 };
 
-export default MyEventsCard;
+export default CertEventCard;
