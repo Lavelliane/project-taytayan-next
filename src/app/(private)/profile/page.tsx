@@ -1,9 +1,12 @@
 import React from 'react';
-import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
 import Profile from '@/components/Profile/Profile';
 
 const page = () => {
-	return <Profile />;
+	return (
+		<div className='p-10'>
+			<Profile />
+		</div>
+	);
 };
 
 export default page;

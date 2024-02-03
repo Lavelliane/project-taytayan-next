@@ -50,7 +50,7 @@ const SidebarSeeker = () => {
 	}
 
 	useEffect(() => {
-		if ((user && user.firstName) || user.lastName) {
+		if ((user && user?.firstName) || user?.lastName) {
 			setName(user?.firstName + ' ' + user?.lastName);
 		}
 	}, [user]);

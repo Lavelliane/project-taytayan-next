@@ -3,7 +3,11 @@ import SidebarSeeker from '@/components/JobSeeker/SidebarSeeker';
 import ProfileEdit from '@/components/Profile/ProfileEdit';
 
 const page = () => {
-	return <ProfileEdit />;
+	return (
+		<div className='p-20'>
+			<ProfileEdit />;
+		</div>
+	);
 };
 
 export default page;
