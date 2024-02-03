@@ -58,22 +58,20 @@ const MyJobPost = () => {
 						{job?.map((data, index) => (
 							<div key={data.employmentId}>
 								<Link
-									key={data.employmentId}
 									href={`/${data.employmentId}`}
 									className={`w-full lg:hidden h-fit ${data.displayJob ? 'block' : 'hidden'} ${
 										selectedCard === index ? 'border-tertiary border-4 rounded-xl' : 'border-0'
 									}`}
 								>
-									<MyJobPostCard key={data.employmentId} EmploymentData={data} />
+									<MyJobPostCard EmploymentData={data} />
 								</Link>
 								<button
-									key={data.employmentId}
 									onClick={() => handleDetailsOpen(index)}
 									className={`w-full hidden h-fit ${data.displayJob ? 'lg:block ' : 'hidden'} ${
 										selectedCard === index ? 'border-tertiary border-4 rounded-xl' : 'border-0'
 									}`}
 								>
-									<MyJobPostCard key={data.employmentId} EmploymentData={data} />
+									<MyJobPostCard EmploymentData={data} />
 								</button>
 							</div>
 						))}
