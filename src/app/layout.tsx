@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Lexend_Deca, Roboto } from 'next/font/google'
+import {Providers} from "@/components/Providers";
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
@@ -28,7 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${roboto.variable} ${lexendDeca.variable}`}>
         <link rel="icon" href="/taytayan-logo.svg" sizes="any" />
-        {children}
+          <Providers>
+            {children}
+          </Providers>
       </body>
     </html>
   )

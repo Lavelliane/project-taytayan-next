@@ -10,7 +10,7 @@ const interestOptions = [
 	'Internet of Things',
 	'Blockchain',
 	'Plumbing',
-	'welding',
+	'Welding',
 	'Carpentry',
 	'Masonry',
 	'Electrical',

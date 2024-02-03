@@ -7,7 +7,7 @@ import { Button } from "flowbite-react";
 
 const Hero = () => {
   return (
-    <section className='h-screen translate-y-14 w-full flex bg-gradient-to-r from-blue-300 via-indigo-300 to-purple-300 justify-center' style={{ height: 'calc(100vh - 72px)' }}>
+    <section className='h-screen translate-y-16 w-full flex bg-gradient-to-r from-blue-300 via-indigo-300 to-purple-300 justify-center' style={{ height: 'calc(100vh - 72px)' }}>
       <div className="custom-shape-divider-top-1706630886 -translate-y-2">
           <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
               <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="shape-fill"></path>
@@ -27,13 +27,24 @@ const Hero = () => {
             </p>
             <div className='flex gap-6 pl-2'>
               <Button
-                className="w-fit bg-tertiary border-none text-white px-1 z-10 shadow-lg shadow-blue-400"
+                className="w-fit bg-tertiary border-none text-white px-1 z-10"
                 size="lg"
                 href='#benefits'
               >
                 Find out more
+                <svg className='-mr-1 ml-2 h-4 w-4' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    fillRule='evenodd'
+                    d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                    clipRule='evenodd'
+                  />
+                </svg>
               </Button>
-              <Button color='gray' size='lg' className='bg-white px-0 hover:bg-amber-700 z-10 text-primary'>
+              <Button 
+                className="w-fit bg-white border-none text-black px-1 z-10"
+                size="lg"
+                href='#'
+              >
                 Be a partner
               </Button> 
             </div>
