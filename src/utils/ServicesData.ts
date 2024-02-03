@@ -44,7 +44,6 @@ export const skillsData = [
   { name: 'Masonry', image: masonryImage },
   { name: 'Electronics', image: electricalImage },
   { name: 'Machinery', image: mechanicalImage },
-  { name: 'Cookery', image: cookeryImage },
   { name: 'Bartending', image: bartendingImage },
   { name: 'Housekeeping', image: housekeepingImage },
   { name: 'Food and Beverage', image: foodBeverageImage },

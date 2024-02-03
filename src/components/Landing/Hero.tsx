@@ -16,19 +16,21 @@ const Hero = () => {
           </svg>
       </div>
       <div className='w-full h-full flex justify-center items-center'>
-        <div className='flex max-w-7xl w-full h-full justify-center items-center px-8 xl:px-0'>
-          <div className='w-full h-full flex flex-col gap-4 justify-center pt-14'>
-            <div className='text-7xl font-lexendDeca flex flex-col'>
-              <span className='text-[#1e3888] font-semibold'>Learn Today,</span>
-              <span className='text-[#FCDE73] font-semibold'>Lead Tomorrow</span>
+        <div className='flex max-w-7xl w-full h-fit px-8 xl:px-0 items-center'>
+          <div className='w-full h-full flex flex-col'>
+            <div className='flex flex-col gap-2 mt-20 sm:mt-0 mb-24 sm:mb-12 md:mb-28'>
+              <div className='text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-lexendDeca flex flex-col'>
+                <span className='text-[#1e3888] font-semibold flex-none'>Learn Today,</span>
+                <span className='text-[#FCDE73] font-semibold'>Lead Tomorrow</span>
+              </div>
+              <p className='max-w-md text-justify text-base sm:text-xs md:text-sm lg:text-base font-light text-white font-lexendDeca pl-1 sm:pl-2'>
+                  Be part of building the bridge to a better future. Project Taytayan is dedicated to centralizing platforms for opportunities.
+              </p>
             </div>
-            <p className='max-w-md text-justify text-base font-light text-white font-lexendDeca mb-20 pl-2'>
-                Be part of building the bridge to a better future. Project Taytayan is dedicated to centralizing platforms for opportunities.
-            </p>
-            <div className='flex gap-6 pl-2'>
+            <div className='flex gap-6 pl-1 sm:pl-2 md:hidden'>
               <Button
-                className="w-fit bg-tertiary border-none text-white px-1 z-10"
-                size="lg"
+                className="w-fit bg-tertiary border-none text-white text-lg px-1 z-10"
+                size='sm'
                 href='#benefits'
               >
                 Find out more
@@ -42,20 +44,43 @@ const Hero = () => {
               </Button>
               <Button 
                 className="w-fit bg-white border-none text-black px-1 z-10"
-                size="lg"
+                size='sm'
+                href='#'
+              >
+                Be a partner
+              </Button> 
+            </div>
+            <div className='gap-6 pl-1 sm:pl-2 hidden md:flex'>
+              <Button
+                className="w-fit bg-tertiary border-none text-white text-lg px-1 z-10"
+                size='lg'
+                href='#benefits'
+              >
+                Find out more
+                <svg className='-mr-1 ml-2 h-4 w-4' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    fillRule='evenodd'
+                    d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </Button>
+              <Button 
+                className="w-fit bg-white border-none text-black px-1 z-10"
+                size='lg'
                 href='#'
               >
                 Be a partner
               </Button> 
             </div>
           </div>
-          <div className='w-full'>
-              <Image
-                src={flavorImage}
-                alt='flavor-image'
-                height={2000}
-                style={{ objectFit: 'fill', width: 'auto'}}
-              />
+          <div className='w-full h-full pt-24 sm:pt-0 z-10 hidden sm:block'>
+            <Image
+              src={flavorImage}
+              alt='flavor-image'
+              width={2000}
+              style={{ objectFit: 'fill', height: 'auto'}}
+            />
           </div>
         </div>
       </div>

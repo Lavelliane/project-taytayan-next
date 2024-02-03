@@ -24,7 +24,7 @@ const Services = () => {
   const { ref } = useSectionInView("Services");
   return (
     <section id='services' className='h-fit w-full flex justify-center pt-24'>
-      <div className='flex flex-col gap-24 max-w-5xl w-full justify-center items-center px-8 xl:px-0'>
+      <div className='flex flex-col gap-8 max-w-5xl w-full justify-center items-center px-8 xl:px-0'>
         <div className='max-w-md text-center gap-4 flex flex-col items-center drop-shadow-sm'>
           <h1 className='w-fit font-bold text-3xl bg-gradient-to-r from-sky-400 to-amber-300 bg-clip-text text-transparent'>Learnable Skills</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla cursus ante a semper cursus. Sed ac luctus erat, vel porttitor erat. In odio mi, interdum vel rutrum ut, scelerisque vitae massa.</p>
@@ -34,7 +34,7 @@ const Services = () => {
             {skillsData.map((skill, index) => (
               <motion.li
                 key={index}
-                className="bg-white border-black rounded-xl px-4 py-3 flex align-middle items-center w-fit dark:bg-white/10 dark:text-white/80"
+                className="bg-white border-black rounded-xl px-0 md:px-1 lg:px-2 py-3 flex align-middle items-center w-fit dark:bg-white/10 dark:text-white/80"
                 variants={fadeInAnimationVariants}
                 initial="initial"
                 whileInView="animate"
@@ -42,12 +42,28 @@ const Services = () => {
                 custom={index}
                 whileHover={{ scale: 1.1 }}
               >
-                <div className="flex flex-col gap-2 align-middle items-center text-sm">
+                <div className="flex flex-col gap-2 align-middle items-center text-xs lg:text-sm">
                   <Image
-                        className=""
+                        className="hidden lg:block"
                         src={skill.image}
                         alt="Profile Picture"
-                        width={150}
+                        width={130}
+                        height={1}
+                        priority
+                  />
+                  <Image
+                        className="hidden md:block lg:hidden"
+                        src={skill.image}
+                        alt="Profile Picture"
+                        width={120}
+                        height={1}
+                        priority
+                  />
+                  <Image
+                        className="block md:hidden"
+                        src={skill.image}
+                        alt="Profile Picture"
+                        width={115}
                         height={1}
                         priority
                   />

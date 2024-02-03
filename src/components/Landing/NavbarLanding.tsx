@@ -53,11 +53,11 @@ const NavbarLanding = () => {
           </span>
 				</a>
 				<div className='flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse'>
-          <ul className='flex items-center p-4 md:p-0 font-medium border border-gray-100/0 rounded-lg bg-gray-50/0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white/0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
+          <ul className='flex items-center p-0 font-medium border border-gray-100/0 rounded-lg bg-gray-50/0 space-x-2 md:space-x-4 lg:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white/0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
             <li>
 							<a
 								href='/login'
-								className='block py-2 px-3 text-gray-900 rounded bg-transparent hover:text-neutral-600'
+								className='hidden sm:block py-2 px-3 text-gray-900 rounded bg-transparent hover:text-neutral-600'
 							>
 								Login
 							</a>
@@ -65,7 +65,7 @@ const NavbarLanding = () => {
 						<li>
 							<a
 								href='/new-account'
-								className='block py-2 px-3 text-gray-900 rounded-lg bg-transparent hover:text-white hover:bg-black border-gray-900 border-solid border-2'
+								className='hidden sm:block py-2 px-3 text-white md:text-gray-900 rounded-lg bg-gray-900 md:bg-transparent md:hover:text-white md:hover:bg-gray-900 border-gray-900 border-solid border-2'
 							>
 								Get started
 							</a>
@@ -97,7 +97,7 @@ const NavbarLanding = () => {
 					</button>
 				</div>
 				<div className='items-center justify-between hidden w-full md:flex md:w-auto md:order-1' id='navbar-sticky'>
-					<ul className='flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100/0 rounded-lg bg-gray-50/0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white/0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
+					<ul className='flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100/0 rounded-lg bg-gray-50/0 md:space-x-0 lg:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white/0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
 						<li>
 							<a
 								href='#'

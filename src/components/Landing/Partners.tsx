@@ -46,8 +46,9 @@ const Partners = () => {
       </section>
       <section id='project-partners' className='flex h-fit w-full bg-gradient-to-r from-neutral-100 to-gray-200 pt-12 pb-20'>
         <div className='flex flex-col w-full items-center gap-8'>
-          <h1 className='text-gray-400 text-xl font-lexendDeca font-extralight'>Our core project partners</h1>
-          <div className='max-w-7xl w-full flex justify-between items-center'>
+          <h1 className='text-gray-400 text-xs sm:text-sm md:text-base lg:text-lg font-lexendDeca font-extralight'>Our core project partners</h1>
+          {/* LG */}
+          <div className='max-w-7xl w-full lg:flex justify-evenly items-center hidden'>
             <Image
               src={usaidLogo}
               alt='benefit'
@@ -64,15 +65,69 @@ const Partners = () => {
               style={{ width: 'auto', height: '100px', objectFit: 'fill' }}
             />
           </div>
+          {/* MD */}
+          <div className='max-w-7xl w-full md:flex justify-evenly items-center hidden lg:hidden'>
+            <Image
+              src={usaidLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '75px', objectFit: 'fill' }}
+            />
+            <Image
+              src={edcLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '75px', objectFit: 'fill' }}
+            />
+            <Image
+              src={uscLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '75px', objectFit: 'fill' }}
+            />
+          </div>
+          {/* SM */}
+          <div className='max-w-7xl w-full sm:flex justify-evenly items-center hidden md:hidden'>
+            <Image
+              src={usaidLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '60px', objectFit: 'fill' }}
+            />
+            <Image
+              src={edcLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '60px', objectFit: 'fill' }}
+            />
+            <Image
+              src={uscLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '60px', objectFit: 'fill' }}
+            />
+          </div>
+          {/* XS */}
+          <div className='max-w-7xl w-full flex justify-evenly items-center sm:hidden'>
+            <Image
+              src={usaidLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '40px', objectFit: 'fill' }}
+            />
+            <Image
+              src={edcLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '40px', objectFit: 'fill' }}
+            />
+            <Image
+              src={uscLogo}
+              alt='benefit'
+              style={{ width: 'auto', height: '40px', objectFit: 'fill' }}
+            />
+          </div>
         </div>
       </section>
       <section id='apply-now' className='flex h-fit w-full mb-48 justify-center pt-24'>
-        <div className='max-w-7xl w-full justify-center items-center flex flex-col gap-8'>
+        <div className='max-w-5xl w-full justify-center items-center flex flex-col gap-8'>
           <div className='max-w-md text-center gap-4 flex flex-col items-center drop-shadow-sm'>
             <h1 className='w-fit font-bold text-3xl bg-gradient-to-r from-sky-400 to-amber-300 bg-clip-text text-transparent'>How to Apply</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla cursus ante a semper cursus. Sed ac luctus erat, vel porttitor erat. In odio mi, interdum vel rutrum ut, scelerisque vitae massa.</p>
           </div>
-          <div className='flex w-full justify-center gap-8'>
+          <div className='flex flex-col sm:flex-row w-full items-center justify-center gap-8 px-8'>
             <Card 
               href="#" 
               className="max-w-sm"
