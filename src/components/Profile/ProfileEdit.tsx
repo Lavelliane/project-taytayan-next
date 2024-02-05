@@ -13,18 +13,6 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { Avatar, CustomFlowbiteTheme } from 'flowbite-react';
 import UserAvatar from './UserAvatar';
 
-const avatarTheme: CustomFlowbiteTheme['avatar'] = {
-	root: {
-		bordered: 'p-1 ring-2',
-		color: {
-			info: 'ring-tertiary',
-		},
-		initials: {
-			text: 'text-5xl',
-		},
-	},
-};
-
 const ProfileEdit = () => {
 	const [user, setUser] = useState<User>(DefaultProfile);
 
@@ -32,7 +20,7 @@ const ProfileEdit = () => {
 	const updateState = useAuthStore((state) => state.updateUserState);
 
 	useEffect(() => {
-		setUser(userStore);
+		setUser({ ...userStore, pronoun: userStore?.pronoun || 'He/Him' });
 	}, []);
 
 	let nameInitials = '';
@@ -48,6 +36,7 @@ const ProfileEdit = () => {
 	const handleOnSubmit = async (event: any) => {
 		event.preventDefault();
 		console.log('PROFILE EDIT SUBMIT');
+
 		try {
 			const docRef = doc(db, 'users', userStore.uid);
 			await updateDoc(docRef, user);
@@ -313,6 +302,21 @@ const ProfileEdit = () => {
 						/>
 					</div>
 				</div>
+			</div>
+			<div className='flex gap-4 justify-end w-full px-10'>
+				<Link
+					href='/profile'
+					className='mt-8 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-1 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400'
+				>
+					Cancel
+				</Link>
+				<button
+					onClick={handleOnSubmit}
+					type='submit'
+					className='bg-gray-700 mt-8 px-3 py-2 text-xs font-medium text-center text-white rounded-full border border-gray-600 hover:bg-gray-600 focus:ring-1 focus:outline-none focus:ring-gray-600  dark:hover:bg-gray-600 dark:focus:ring-gray-600'
+				>
+					Save
+				</button>
 			</div>
 		</form>
 	);
