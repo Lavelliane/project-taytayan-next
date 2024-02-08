@@ -24,8 +24,7 @@ export const DashboardNetworking = () => {
 		setFilteredEvents(networkingEvents);
 	}, [networkingEvents]);
 
-	useEffect(() => {
-	}, [filteredEvents]);
+	useEffect(() => {}, [filteredEvents]);
 
 	useEffect(() => {
 		filterEvents();
@@ -68,9 +67,9 @@ export const DashboardNetworking = () => {
 				<div className='flex flex-wrap gap-2 pt-4 '>
 					{selectedCategories
 						.slice()
-						.sort()
+						.sort((a, b) => a.localeCompare(b))
 						.map((category, index) => (
-							<CategoryBadge key={index} category={category} style={''} />
+							<CategoryBadge key={category} category={category} style={''} />
 						))}
 				</div>
 			</div>

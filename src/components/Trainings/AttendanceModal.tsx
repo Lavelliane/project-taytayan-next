@@ -47,10 +47,8 @@ const AttendanceModal = ({
 		};
 
 		setRegistrantState(currentRegistrant);
-		console.log(currentRegistrant);
 	};
 
-	console.log(registrantState);
 	const handleConfirmAttendance = async (event: { preventDefault: () => void }) => {
 		event.preventDefault();
 		const registrantRef = doc(db, 'trainings', trainingId);

@@ -8,7 +8,7 @@ interface MyTrainingsCardProps {
 	trainings: Training;
 }
 
-const MyTrainingsCard = ({ trainings }: MyTrainingsCardProps) => {
+const CertTrainingCard = ({ trainings }: MyTrainingsCardProps) => {
 	const certName = trainings.trainingName;
 	const typeOfCertification = trainings.trainingCategory;
 	const organization = trainings.trainingCenter;
@@ -89,4 +89,4 @@ const MyTrainingsCard = ({ trainings }: MyTrainingsCardProps) => {
 	);
 };
 
-export default MyTrainingsCard;
+export default CertTrainingCard;

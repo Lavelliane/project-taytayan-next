@@ -85,6 +85,7 @@ export const AddEventForm = ({ addEventOpened, handleAddEventClose }: AddEventPr
 			.filter((str) => str !== '');
 		const finalPayload = {
 			...eventPayload,
+			eventId: '',
 			eventActivities: eventActivitiesArray,
 			eventObjectives: eventObjectivesArray,
 		};

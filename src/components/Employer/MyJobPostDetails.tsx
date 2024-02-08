@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { Employment, User } from '@/types/types';
 import { FormatPostedDate } from '@/utils/FormatPostedDate';
 import { updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
+import { DefaultProfile } from '@/utils/DefaultProfile';
 
 interface MyJobPostDetailsProps {
 	EmploymentData: Employment;
 }
 
 const MyJobPostDetails = ({ EmploymentData }: MyJobPostDetailsProps) => {
+	const [user, setUser] = useState<User>(DefaultProfile);
+
 	const userStore = useAuthStore((state) => state.user);
 	const updateState = useAuthStore((state) => state.updateUserState);
 	const updateUserLatest = useAuthStore((state) => state.updateUserLatest);
+
+	useEffect(() => {
+		setUser(userStore);
+	}, []);
 
 	const handleHidePost = async () => {
 		try {
@@ -36,15 +43,24 @@ const MyJobPostDetails = ({ EmploymentData }: MyJobPostDetailsProps) => {
 			const employmentRef = doc(db, 'employment', EmploymentData.employmentId);
 			await deleteDoc(employmentRef);
 
-			let storeUser: string[] = [];
-			const indexDelete = userStore.jobsPosted.indexOf(EmploymentData?.employmentId || '');
-			if (indexDelete !== -1) {
-				storeUser = userStore.jobsPosted.splice(indexDelete, 1);
+			let storeUserPost: string[] = user.jobsPosted;
+			const indexDelete = user.jobsPosted.indexOf(EmploymentData?.employmentId);
+
+			if (indexDelete >= 0 && indexDelete < user.jobsPosted.length) {
+				storeUserPost.splice(indexDelete, 1);
+			} else {
+				console.log('Index out of range');
 			}
 
+			updateState({
+				...user,
+				jobsPosted: storeUserPost,
+			});
+
 			Promise.all([
-				await updateDoc(doc(db, 'users', userStore.uid), {
-					jobsPosted: storeUser,
+				await updateDoc(doc(db, 'users', user.uid), {
+					...user,
+					jobsPosted: storeUserPost,
 				}),
 				await updateUserLatest(),
 			])
@@ -65,9 +81,9 @@ const MyJobPostDetails = ({ EmploymentData }: MyJobPostDetailsProps) => {
 		<div className={`max-w-full w-full flex flex-col p-0 shadow-none justify-between transition-all h-full`}>
 			<header className='flex flex-col items-start justify-start gap-4 text-sm lg:text-base'>
 				<div>
-					<h1 className='text-4xl font-bold'>{EmploymentData?.employmentTitle}</h1>
-					<h2 className='text-2xl font-semibold mt-4'>{EmploymentData?.employmentCompany}</h2>
-					<p className='text-base font-normal'>{EmploymentData?.employmentCompanyDescription}</p>
+					<h1 className='xl:text-4xl md:text-2xl text-xl font-bold'>{EmploymentData?.employmentTitle}</h1>
+					<h2 className='xl:text-2xl md:text-lg text-base font-semibold mt-4'>{EmploymentData?.employmentCompany}</h2>
+					<p className='xl:text-base md:text-sm text-xs font-normal'>{EmploymentData?.employmentCompanyDescription}</p>
 				</div>
 				<div className='flex flex-col gap-4 mt-4'>
 					<h5 className='flex gap-3 items-start'>
@@ -169,45 +185,41 @@ const MyJobPostDetails = ({ EmploymentData }: MyJobPostDetailsProps) => {
 				</div>
 				<div className='flex gap-4 mt-4'>
 					<Button color='transparent' className='bg-tertiary hover:bg-tertiary/70 text-white'>
-						View Applicants
+						Quick Apply
 					</Button>
-					<Button color='light' type='submit' onClick={handleHidePost}>
-						{EmploymentData?.displayJob ? 'Hide Job' : 'Show Job'}
-					</Button>
-					<Button color='red' type='submit' onClick={handleDeletePost}>
-						Delete Job
-					</Button>
+					<Button color='light'>Save Job</Button>
 				</div>
 			</header>
 			<div className='gap-4 flex flex-col'>
 				<div className='mt-8'>
-					<h1 className='text-lg font-semibold'>JOB SUMMARY:</h1>
-					<p>{EmploymentData?.employmentDescription}</p>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>JOB SUMMARY:</h1>
+					<p className='xl:text-base md:text-sm text-xs'>{EmploymentData?.employmentDescription}</p>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>JOB BENEFITS:</h1>
-					<p>{EmploymentData?.employmentBenefits}</p>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>JOB BENEFITS:</h1>
+					<p className='xl:text-base md:text-sm text-xs'>{EmploymentData?.employmentBenefits}</p>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>KEY ROLES & RESPONSIBILITIES:</h1>
-					<ul className=' list-disc ml-8'>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>KEY ROLES & RESPONSIBILITIES:</h1>
+					<ul className=' list-disc ml-8 xl:text-base md:text-sm text-xs'>
 						{EmploymentData?.employmentKeyRoles.map((roles, index) => (
-							<li key={index}>{roles}</li>
+							<li key={roles}>{roles}</li>
 						))}
 					</ul>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>EDUCATION & EXPERIENCE REQUIREMENT:</h1>
-					<ul className=' list-disc ml-8'>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>EDUCATION & EXPERIENCE REQUIREMENT:</h1>
+					<ul className=' list-disc ml-8 xl:text-base md:text-sm text-xs'>
 						<li>{EmploymentData?.employmentEducation}</li>
 						<li>{EmploymentData?.employmentExperience}</li>
 					</ul>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>EMPLOYMENT INSTRUCTION:</h1>
-					<p>{EmploymentData?.employmentInstructions}</p>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>EMPLOYMENT INSTRUCTION:</h1>
+					<p className=' list-disc ml-8 xl:text-base md:text-sm text-xs'>{EmploymentData?.employmentInstructions}</p>
 				</div>
 			</div>
+			<footer></footer>
 		</div>
 	);
 };

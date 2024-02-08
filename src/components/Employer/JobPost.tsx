@@ -6,6 +6,7 @@ import { db } from '@/lib/firebase';
 import { Employment } from '@/types/types';
 import { query, getDocs, doc, getDoc, collection } from 'firebase/firestore';
 import { DefaultEmployment } from '@/utils/DefaultProfile';
+import Link from 'next/link';
 
 const JobPost = () => {
 	const [job, setJob] = useState<Employment[]>([DefaultEmployment]);
@@ -48,26 +49,35 @@ const JobPost = () => {
 	return (
 		<>
 			{job?.length > 0 ? (
-				<section className='flex gap-10 w-full p-10 rounded-xl'>
-					<div className='flex flex-col gap-4 w-3/5 scroll-smooth '>
+				<section className='flex gap-10 w-full sm:p-10 p-0 rounded-xl'>
+					<div className='flex flex-col gap-4 md:w-3/5 w-full scroll-smooth '>
 						{job?.map((data, index) => (
-							<button
-								key={index}
-								onClick={() => handleDetailsOpen(index)}
-								className={`w-full h-fit ${data.displayJob ? 'block' : 'hidden'} ${
-									selectedCard === index ? 'border-tertiary border-4 rounded-xl' : 'border-0'
-								}`}
-							>
-								<JobPostCard key={index} EmploymentData={data} />
-							</button>
+							<div key={data.employmentId}>
+								<Link
+									href={`/${data.employmentId}`}
+									className={`w-full lg:hidden h-fit ${data.displayJob ? 'block' : 'hidden'} ${
+										selectedCard === index ? 'border-tertiary border-4 rounded-xl' : 'border-0'
+									}`}
+								>
+									<JobPostCard EmploymentData={data} />
+								</Link>
+								<button
+									onClick={() => handleDetailsOpen(index)}
+									className={`w-full hidden h-fit ${data.displayJob ? 'lg:block ' : 'hidden'} ${
+										selectedCard === index ? 'border-tertiary border-4 rounded-xl' : 'border-0'
+									}`}
+								>
+									<JobPostCard EmploymentData={data} />
+								</button>
+							</div>
 						))}
 					</div>
-					<div className='w-full scroll-smooth overflow-y-auto h-[84vh] sticky top-28'>
+					<div className='md:block hidden w-full scroll-smooth overflow-y-auto h-[84vh] sticky top-28'>
 						<JobPostDetails EmploymentData={job[selectedCard]} />
 					</div>
 				</section>
 			) : (
-				<h1 className='font-semibold text-center lg:text-lg text-base'>No jobs posted yet. </h1>
+				<h1 className='font-semibold text-center lg:text-lg text-base mt-10'>No jobs posted yet. </h1>
 			)}
 		</>
 	);

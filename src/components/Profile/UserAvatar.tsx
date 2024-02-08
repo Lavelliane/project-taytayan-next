@@ -32,26 +32,24 @@ const UserAvatar: React.FC<UserAvatarProps> = (props) => {
 	}, [firstName, lastName]);
 
 	return (
-		<div>
-			<Avatar
-				size={size}
-				placeholderInitials={nameInitials}
-				img={avatarURL ?? ''}
-				alt='user'
-				rounded
-				className={`rounded-full 
-        ${
-					role === 'training_center'
-						? 'border-[#429445]'
-						: role === 'employer'
-						? 'border-[#F6C951]'
-						: role === 'general'
-						? 'border-[#0090D8]'
-						: 'border-gray-300'
-				}
-        ${size === 'sm' ? 'border-2' : size === 'xl' ? 'border-0' : 'border-0'}`}
-			/>
-		</div>
+		<Avatar
+			size={size}
+			placeholderInitials={nameInitials}
+			img={avatarURL ?? ''}
+			alt='user'
+			rounded
+			className={`rounded-full 
+			${
+				role === 'training_center'
+					? 'border-[#429445]'
+					: role === 'employer'
+					? 'border-[#F6C951]'
+					: role === 'general'
+					? 'border-[#0090D8]'
+					: 'border-gray-300'
+			}
+			${size === 'sm' ? 'border-2' : size === 'xl' ? 'border-0' : 'border-0'}`}
+		/>
 	);
 };
 

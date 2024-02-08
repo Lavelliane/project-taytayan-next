@@ -12,9 +12,9 @@ const JobPostDetails = ({ EmploymentData }: JobPostDetailsProps) => {
 		<div className={`max-w-full w-full flex flex-col p-0 shadow-none justify-between transition-all h-full`}>
 			<header className='flex flex-col items-start justify-start gap-4 text-sm lg:text-base'>
 				<div>
-					<h1 className='text-4xl font-bold'>{EmploymentData?.employmentTitle}</h1>
-					<h2 className='text-2xl font-semibold mt-4'>{EmploymentData?.employmentCompany}</h2>
-					<p className='text-base font-normal'>{EmploymentData?.employmentCompanyDescription}</p>
+					<h1 className='xl:text-4xl md:text-2xl text-xl font-bold'>{EmploymentData?.employmentTitle}</h1>
+					<h2 className='xl:text-2xl md:text-lg text-base font-semibold mt-4'>{EmploymentData?.employmentCompany}</h2>
+					<p className='xl:text-base md:text-sm text-xs font-normal'>{EmploymentData?.employmentCompanyDescription}</p>
 				</div>
 				<div className='flex flex-col gap-4 mt-4'>
 					<h5 className='flex gap-3 items-start'>
@@ -123,31 +123,31 @@ const JobPostDetails = ({ EmploymentData }: JobPostDetailsProps) => {
 			</header>
 			<div className='gap-4 flex flex-col'>
 				<div className='mt-8'>
-					<h1 className='text-lg font-semibold'>JOB SUMMARY:</h1>
-					<p>{EmploymentData?.employmentDescription}</p>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>JOB SUMMARY:</h1>
+					<p className='xl:text-base md:text-sm text-xs'>{EmploymentData?.employmentDescription}</p>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>JOB BENEFITS:</h1>
-					<p>{EmploymentData?.employmentBenefits}</p>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>JOB BENEFITS:</h1>
+					<p className='xl:text-base md:text-sm text-xs'>{EmploymentData?.employmentBenefits}</p>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>KEY ROLES & RESPONSIBILITIES:</h1>
-					<ul className=' list-disc ml-8'>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>KEY ROLES & RESPONSIBILITIES:</h1>
+					<ul className=' list-disc ml-8 xl:text-base md:text-sm text-xs'>
 						{EmploymentData?.employmentKeyRoles.map((roles, index) => (
-							<li key={index}>{roles}</li>
+							<li key={roles}>{roles}</li>
 						))}
 					</ul>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>EDUCATION & EXPERIENCE REQUIREMENT:</h1>
-					<ul className=' list-disc ml-8'>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>EDUCATION & EXPERIENCE REQUIREMENT:</h1>
+					<ul className=' list-disc ml-8 xl:text-base md:text-sm text-xs'>
 						<li>{EmploymentData?.employmentEducation}</li>
 						<li>{EmploymentData?.employmentExperience}</li>
 					</ul>
 				</div>
 				<div>
-					<h1 className='text-lg font-semibold'>EMPLOYMENT INSTRUCTION:</h1>
-					<p>{EmploymentData?.employmentInstructions}</p>
+					<h1 className='xl:text-lg md:text-base text-sm font-semibold'>EMPLOYMENT INSTRUCTION:</h1>
+					<p className=' list-disc ml-8 xl:text-base md:text-sm text-xs'>{EmploymentData?.employmentInstructions}</p>
 				</div>
 			</div>
 			<footer></footer>

@@ -54,11 +54,11 @@ const MyJobPost = () => {
 			<div className='flex flex-col gap-4 w-3/5 scroll-smooth '>
 				{job?.map((data, index) => (
 					<button
-						key={index}
+						key={data.employmentId}
 						onClick={() => handleDetailsOpen(index)}
 						className={`w-full h-fit ${selectedCard === index ? 'border-tertiary border-4 rounded-xl' : 'border-0'}`}
 					>
-						<MyJobPostCard key={index} EmploymentData={data} />
+						<MyJobPostCard key={data.employmentId} EmploymentData={data} />
 					</button>
 				))}
 			</div>

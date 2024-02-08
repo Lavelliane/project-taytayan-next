@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Badge, Button, Checkbox, CustomFlowbiteTheme, Dropdown, DropdownItem } from 'flowbite-react';
+import React, { useState } from 'react';
+import { Button, CustomFlowbiteTheme, Dropdown, DropdownItem } from 'flowbite-react';
 import { IoIosArrowDown } from 'react-icons/io';
 
 const customTheme: CustomFlowbiteTheme['dropdown'] = {

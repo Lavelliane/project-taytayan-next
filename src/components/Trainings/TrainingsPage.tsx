@@ -8,6 +8,7 @@ import { AddTrainingButton } from './AddTrainingButton';
 import { collection, getDocs, where, query } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
+import { MyTrainingCard } from './MyTrainingCard';
 
 const TrainingsPage = () => {
 	const userStore = useAuthStore((state) => state.user);
@@ -116,21 +117,31 @@ const TrainingsPage = () => {
 							{selectedCategories
 								.slice()
 								.sort((a, b) => a.localeCompare(b))
-								.map((category, index) => (
-									<CategoryBadge key={index} category={category} style={''} />
+								.map((category) => (
+									<CategoryBadge key={category} category={category} style={''} />
 								))}
 						</div>
 					</div>
-					<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8 bg-slate-50 p-6 rounded-xl'>
-						{filteredTrainings.map((training, index) => (
-							<TrainingCard key={training.trainingId + '_' + index} trainingData={training} />
-						))}
+					<div className='rounded-xl md:bg-slate-50 bg-none lg:p-6 md:p-4 p-0'>
 						{trainings.length === 0 ||
 							(filteredTrainings.length === 0 && (
-								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No trainings found</h1>
+								<h1 className='text-center justify-center font-semibold w-full flex py-24'>No trainings found.</h1>
 							))}
+						{userStore.myTrainings.length === 0 && (
+							<h1 className='text-center justify-center font-semibold w-full flex py-16'>No trainings created.</h1>
+						)}
+						<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full bg-none'>
+							{filteredTrainings.map((training) => (
+								<>
+									{userStore.role === 'training_center' ? (
+										<MyTrainingCard key={training.trainingId} trainingData={training} />
+									) : (
+										<TrainingCard key={training.trainingId} trainingData={training} />
+									)}
+								</>
+							))}
+						</div>
 					</div>
-					{userStore.myTrainings.length === 0 && <h1 className='text-center font-semibold'>No trainings created</h1>}
 				</div>
 			</section>
 		</main>

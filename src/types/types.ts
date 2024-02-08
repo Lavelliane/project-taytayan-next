@@ -110,3 +110,24 @@ type GoogleCoordinates = {
 	lat: number;
 	lng: number;
 };
+
+export const links = [
+  {
+    name: "Home",
+    hash: "#home",
+  },
+  {
+    name: "About",
+    hash: "#benefits",
+  },
+  {
+    name: "Services",
+    hash: "#services",
+  },
+  {
+    name: "Contact",
+    hash: "#contact",
+  },
+] as const;
+
+export type SectionName = (typeof links)[number]["name"];
