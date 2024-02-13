@@ -40,26 +40,28 @@ const Profile = () => {
 		fetchTrainings();
 	}, []);
 
-	console.log(event);
-
 	const fetchTrainings = async () => {
 		if (user && user.trainings.length > 0) {
 			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', user.trainings));
 
 			try {
 				const trainingDoc = await getDocs(trainingRef);
-				const trainingData = trainingDoc.docs.map((doc) => doc.data()) as Training[];
+				const trainingData = trainingDoc?.docs.map((doc) => doc.data()) as Training[];
 
 				let fetchedTraining: Training[] = trainingData;
+				console.log(trainingData);
 
-				trainingData.forEach((tr, index) => {
-					if (tr.trainingRegistrants.find(({ registrantId }) => registrantId === user.uid)?.attended) {
+				console.log(fetchedTraining);
+				console.log(
+					fetchedTraining[1].trainingRegistrants?.find(({ registrantId }) => registrantId === user.uid)?.attended
+				);
+				trainingData.map((tr, index) => {
+					if (tr.trainingRegistrants?.find(({ registrantId }) => registrantId === user.uid)?.attended === false) {
 						fetchedTraining.splice(index);
 					}
+
+					setTraining(fetchedTraining);
 				});
-				console.log(trainingData);
-				console.log(fetchedTraining);
-				setTraining(fetchedTraining);
 
 				// // Calculate the number of completed trainings
 				// const completedTrainingsCount = trainingData.reduce((count, training) => {

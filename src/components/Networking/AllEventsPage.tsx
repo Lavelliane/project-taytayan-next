@@ -117,7 +117,7 @@ const AllEventsPage = () => {
 						{networkingEvents.length === 0 ||
 							(filteredEvents.length === 0 && (
 								<h1 className='justify-center font-semibold text-center col-span-full py-24'>No events found</h1>
-						))}
+							))}
 					</div>
 				</div>
 			</section>
