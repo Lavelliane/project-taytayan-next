@@ -28,11 +28,15 @@ const CertEventCard = ({ Events }: CertEventCardProps) => {
 							style={{ width: 30, height: 'auto' }}
 						/>
 						<div>
-							<h5 className='text-sm text-gray-900 dark:text-gray-400 font-bold'>{certName}</h5>
-							<h1 className='max-w-[200px] w-full text-sm text-gray-900 dark:text-gray-400 font-semibold text-ellipsis overflow-hidden whitespace-nowrap'>
+							<h5 className='sm:max-w-[200px] md:max-w-[160px] lg:max-w-[220px] max-w-[130px] text-sm text-gray-900 dark:text-gray-400 font-bold  text-ellipsis overflow-hidden whitespace-nowrap'>
+								{certName}
+							</h5>
+							<h1 className='sm:max-w-[200px] md:max-w-[160px] lg:max-w-[220px] max-w-[130px] w-full text-sm text-gray-900 dark:text-gray-400 font-semibold text-ellipsis overflow-hidden whitespace-nowrap'>
 								{eventCenter}
 							</h1>
-							<h1 className='text-xs'>{formatTimestamp(eventDate)}</h1>
+							<h1 className='sm:max-w-[200px] md:max-w-[160px] lg:max-w-[220px] max-w-[130px] text-xs  text-ellipsis overflow-hidden whitespace-nowrap'>
+								{formatTimestamp(eventDate)}
+							</h1>
 						</div>
 					</div>
 				</div>

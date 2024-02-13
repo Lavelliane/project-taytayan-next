@@ -191,9 +191,11 @@ const Profile = () => {
 				</Card>
 			</div>
 			<div className='min-w-full w-full h-[1px] bg-gray-400 mb-4'></div>
-			<div className='flex gap-4'>
+			<div className='flex gap-4 flex-wrap'>
 				<div className='px-4 py-1 bg-[#00AAFF] rounded-full w-fit font-semibold text-white'>
-					<span className='font-semibold xl:text-base md:text-sm text-xs'>Trainings Completed&nbsp;&nbsp;&nbsp;</span>
+					<span className='font-semibold xl:text-base md:text-sm text-xs'>
+						Trainings&nbsp;Completed&nbsp;&nbsp;&nbsp;
+					</span>
 					<span className='font-semibold xl:text-base md:text-sm text-xs'>{training.length}</span>
 				</div>
 				<div className='px-4 py-1 bg-[#00AAFF] rounded-full w-fit font-semibold text-white'>
