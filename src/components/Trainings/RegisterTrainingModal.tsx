@@ -1,12 +1,10 @@
-import React, { useState, useEffect, ReactEventHandler, use } from 'react';
-import { Modal, Button } from 'flowbite-react';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Avatar } from 'flowbite-react';
 import { useAuthStore } from '@/hooks/useAuth';
-import { collection, getDoc, query, where, doc, setDoc } from 'firebase/firestore';
-import { Training } from '@/types/types';
-import { User } from '@/types/types';
+import { getDoc, doc, setDoc } from 'firebase/firestore';
+import { Training, User } from '@/types/types';
 import { db } from '@/lib/firebase';
 import Image from 'next/image';
-import { Avatar } from 'flowbite-react';
 import { avatarTheme } from '@/utils/ComponentThemes';
 import { DefaultProfile } from '@/utils/DefaultProfile';
 
@@ -205,7 +203,6 @@ const RegisterTrainingModal = ({
 							processingSpinner={
 								<svg
 									aria-hidden='true'
-									role='status'
 									className='w-4 h-4 text-white animate-spin'
 									viewBox='0 0 100 101'
 									fill='none'
@@ -235,7 +232,6 @@ const RegisterTrainingModal = ({
 							processingSpinner={
 								<svg
 									aria-hidden='true'
-									role='status'
 									className='w-4 h-4 text-white animate-spin'
 									viewBox='0 0 100 101'
 									fill='none'
