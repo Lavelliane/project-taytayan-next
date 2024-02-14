@@ -1,6 +1,7 @@
 import React from 'react'
 import philippinesMap from '../../../public/assets/philippines_map.svg'
 import Image from 'next/image';
+import Link from 'next/link'
 import { Button, Card } from "flowbite-react";
 import uscLogo from '../../../public/assets/USC_logo_l.png'
 import usaidLogo from '../../../public/assets/USAID-Identity.svg'
@@ -9,7 +10,7 @@ import edcLogo from '../../../public/assets/EDC_logo.png'
 const Partners = () => {
   return (
     <>
-      <section className='h-fit translate-y-14 mb-14 w-full flex flex-col bg-gradient-to-tr from-blue-300 via-indigo-300 to-purple-300 justify-center' style={{ height: 'calc(100vh - 72px)' }}>
+      <section id='be-a-partner' className='h-fit translate-y-14 mb-14 w-full flex flex-col bg-gradient-to-tr from-[#DCE35B]/80 to-[#45B649]/80 justify-center' style={{ height: 'calc(100vh - 72px)' }}>
         <div className="custom-shape-divider-top-1706825984 z-10">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M0,0V6c0,21.6,291,111.46,741,110.26,445.39,3.6,459-88.3,459-110.26V0Z" className="shape-fill"></path>
@@ -17,15 +18,11 @@ const Partners = () => {
         </div>
         <div className='w-full h-full flex flex-col gap-8 justify-center items-center z-10'>
           <h1 className='text-5xl text-white font-bold font-lexendDeca drop-shadow-xl'>Be a Partner</h1>
-          <Button 
-            color="light" 
-            className='px-4 shadow-xl'
-            size='lg'
-            pill
-            href='#apply-now'
-          >
-            Apply Now
-          </Button>
+          <Link href='#apply-now'>
+            <button type="button" className="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100/50 font-medium rounded-full text-base px-6 py-3 z-50 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200 me-2 mb-2">
+              Apply Now
+            </button>
+          </Link>
         </div>
         <div className='w-full h-full flex justify-center items-center overflow-hidden absolute'>
           <div className='w-full items-center justify-center flex'>
@@ -44,9 +41,9 @@ const Partners = () => {
           </div>
         </div>
       </section>
-      <section id='project-partners' className='flex h-fit w-full bg-gradient-to-r from-neutral-100 to-gray-200 pt-12 pb-20'>
+      <section id='project-partners' className='flex h-fit w-full bg-gradient-to-r from-gray-100/70 to-gray-300/70 pt-12 pb-20 shadow-inner'>
         <div className='flex flex-col w-full items-center gap-8'>
-          <h1 className='text-gray-400 text-xs sm:text-sm md:text-base lg:text-lg font-lexendDeca font-extralight'>Our core project partners</h1>
+          <h1 className='text-gray-400 text-sm md:text-base lg:text-lg font-lexendDeca font-light'>Our core project partners</h1>
           {/* LG */}
           <div className='max-w-7xl w-full lg:flex justify-evenly items-center hidden'>
             <Image
@@ -124,7 +121,7 @@ const Partners = () => {
       <section id='apply-now' className='flex h-fit w-full mb-48 justify-center pt-24'>
         <div className='max-w-5xl w-full justify-center items-center flex flex-col gap-8'>
           <div className='max-w-md text-center gap-4 flex flex-col items-center drop-shadow-sm'>
-            <h1 className='w-fit font-bold text-3xl bg-gradient-to-r from-sky-400 to-amber-300 bg-clip-text text-transparent'>How to Apply</h1>
+            <h1 className='w-fit font-bold text-3xl bg-gradient-to-br from-[#DCE35B] to-[#45B649] bg-clip-text text-transparent'>How to Apply</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla cursus ante a semper cursus. Sed ac luctus erat, vel porttitor erat. In odio mi, interdum vel rutrum ut, scelerisque vitae massa.</p>
           </div>
           <div className='flex flex-col sm:flex-row w-full items-center justify-center gap-8 px-8'>
