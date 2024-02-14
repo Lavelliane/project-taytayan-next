@@ -21,7 +21,7 @@ export default function SignIn() {
 								height={0}
 								style={{ width: 'auto', height: '50px', objectFit: 'fill' }}
 							/>
-							<span className='flex flex-col items-center justify-center'>
+							<span className='flex flex-col justify-center'>
 								<span className='text-sm font-light whitespace-nowrap dark:text-white'>PROJECT</span>
 								<span className='text-lg font-regular whitespace-nowrap dark:text-white'>taytayan</span>
 							</span>
