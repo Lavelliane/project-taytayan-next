@@ -1,6 +1,6 @@
 import { Timestamp } from 'firebase/firestore';
 
-export const formatTimestamp = (timestamp: Date) => {
+export const formatTimestamp = (timestamp: Date | Timestamp) => {
 	// Convert Firestore Timestamp to JavaScript Date
 	const jsDate = timestamp instanceof Timestamp ? timestamp.toDate() : timestamp;
 
@@ -10,8 +10,6 @@ export const formatTimestamp = (timestamp: Date) => {
 		year: 'numeric',
 		month: 'long',
 		day: 'numeric',
-		hour: 'numeric',
-		minute: 'numeric',
 	});
 
 	return formattedDate;

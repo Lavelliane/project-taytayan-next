@@ -3,11 +3,17 @@ import React from 'react';
 import { Card } from 'flowbite-react';
 import Image from 'next/image';
 import EventIcon from '../../../public/assets/eventsIcon.png';
+import { NetworkingEvent } from '@/types/types';
+import { formatTimestamp } from '@/utils/FormatTimestamp';
 
-const CertEventCard = () => {
-	const certName = 'Web Development';
-	const eventDate = 'June 20, 2021';
-	const Status = 'Completed';
+interface CertEventCardProps {
+	Events: NetworkingEvent;
+}
+
+const CertEventCard = ({ Events }: CertEventCardProps) => {
+	const certName = Events.eventName;
+	const eventDate = Events.eventDate;
+	const eventCenter = Events.eventCenter;
 
 	return (
 		<Card className='max-w-2xl w-full h-fit mr-auto rounded-full'>
@@ -22,8 +28,15 @@ const CertEventCard = () => {
 							style={{ width: 30, height: 'auto' }}
 						/>
 						<div>
-							<h5 className='text-sm text-gray-900 dark:text-gray-400 font-semibold'>{certName}</h5>
-							<h1 className='text-xs'>{eventDate}</h1>
+							<h5 className='sm:max-w-[200px] md:max-w-[160px] lg:max-w-[220px] max-w-[130px] text-sm text-gray-900 dark:text-gray-400 font-bold  text-ellipsis overflow-hidden whitespace-nowrap'>
+								{certName}
+							</h5>
+							<h1 className='sm:max-w-[200px] md:max-w-[160px] lg:max-w-[220px] max-w-[130px] w-full text-sm text-gray-900 dark:text-gray-400 font-semibold text-ellipsis overflow-hidden whitespace-nowrap'>
+								{eventCenter}
+							</h1>
+							<h1 className='sm:max-w-[200px] md:max-w-[160px] lg:max-w-[220px] max-w-[130px] text-xs  text-ellipsis overflow-hidden whitespace-nowrap'>
+								{formatTimestamp(eventDate)}
+							</h1>
 						</div>
 					</div>
 				</div>

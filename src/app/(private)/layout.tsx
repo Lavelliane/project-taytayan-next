@@ -6,6 +6,7 @@ import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { Next13ProgressBar } from 'next13-progressbar';
 import { NavbarMain } from '@/components/Navbar/NavbarMain'
+import { useAuthStore } from "@/hooks/useAuth";
 
 export default function RootLayout({
   children,
@@ -13,12 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter()
+  const userStore = useAuthStore((state) => state.user)
 
-  useEffect(() => {
-    if (!auth.currentUser) {
-      router.push('/login')
-    }
-  }, [auth.currentUser]);
+
+  // useEffect(() => {
+  //   if (auth && !auth.currentUser) {
+  //     router.push('/login')
+  //   }
+  // }, [auth.currentUser]);
+
+  // console.log(auth);
 
   return (
     <>

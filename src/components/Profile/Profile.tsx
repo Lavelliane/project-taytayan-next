@@ -1,15 +1,14 @@
 'use client';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { Avatar, Card, CustomFlowbiteTheme } from 'flowbite-react';
+import { Card, CustomFlowbiteTheme } from 'flowbite-react';
 import Link from 'next/link';
 import CertTrainingCard from './CertTrainingCard';
 import CertEventCard from './CertEventCard';
-import avatar from '../../../public/assets/avatar.png';
-import { collection, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuthStore } from '@/hooks/useAuth';
-import { Training, User } from '@/types/types';
+import { Training, User, NetworkingEvent } from '@/types/types';
 import UserAvatar from './UserAvatar';
 
 const avatarTheme: CustomFlowbiteTheme['avatar'] = {
@@ -26,6 +25,7 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 
 const Profile = () => {
 	const [training, setTraining] = useState<Training[]>([]);
+	const [event, setEvent] = useState<NetworkingEvent[]>([]);
 	const [trainingsCompleted, setTrainingsCompleted] = useState<number>(0);
 
 	const user = useAuthStore<User>((state) => state.user);
@@ -33,37 +33,63 @@ const Profile = () => {
 
 	useEffect(() => {
 		updateUserLatest();
-		console.log(user);
 	}, []);
 
 	useEffect(() => {
+		fetchEvents();
 		fetchTrainings();
 	}, []);
 
 	const fetchTrainings = async () => {
-		if (user && user.trainings) {
+		if (user && user.trainings.length > 0) {
 			const trainingRef = query(collection(db, 'trainings'), where('trainingId', 'in', user.trainings));
 
 			try {
 				const trainingDoc = await getDocs(trainingRef);
-				const trainingData = trainingDoc.docs.map((doc) => doc.data()) as Training[];
+				const trainingData = trainingDoc?.docs.map((doc) => doc.data()) as Training[];
 
-				setTraining(trainingData);
+				let fetchedTraining: Training[] = trainingData;
+				console.log(trainingData);
 
-				// Calculate the number of completed trainings
-				const completedTrainingsCount = trainingData.reduce((count, training) => {
-					const attendedRegistrants = training.trainingRegistrants.filter((registrant) => registrant.attended === true);
-					return attendedRegistrants.length > 0 ? count + 1 : count;
-				}, 0);
+				console.log(fetchedTraining);
+				console.log(
+					fetchedTraining[1].trainingRegistrants?.find(({ registrantId }) => registrantId === user.uid)?.attended
+				);
+				trainingData.map((tr, index) => {
+					if (tr.trainingRegistrants?.find(({ registrantId }) => registrantId === user.uid)?.attended === false) {
+						fetchedTraining.splice(index);
+					}
 
-				setTrainingsCompleted(completedTrainingsCount);
+					setTraining(fetchedTraining);
+				});
+
+				// // Calculate the number of completed trainings
+				// const completedTrainingsCount = trainingData.reduce((count, training) => {
+				// 	const attendedRegistrants = training.trainingRegistrants.filter((registrant) => registrant.attended === true);
+				// 	return attendedRegistrants.length > 0 ? count + 1 : count;
+				// }, 0);
+
+				// setTrainingsCompleted(completedTrainingsCount);
 			} catch (error) {
 				console.error('Error fetching trainings:', error);
 			}
 		}
 	};
 
-	const events = user?.eventsJoined.length ?? 0;
+	const fetchEvents = async () => {
+		if (user && user.eventsJoined.length > 0) {
+			const eventRef = query(collection(db, 'networking'), where('eventId', 'in', user.eventsJoined));
+
+			try {
+				const eventDoc = await getDocs(eventRef);
+				const eventData = eventDoc.docs.map((doc) => doc.data()) as NetworkingEvent[];
+
+				setEvent(eventData);
+			} catch (error) {
+				console.error('Error fetching events:', error);
+			}
+		}
+	};
 
 	let nameInitials = '';
 
@@ -165,14 +191,16 @@ const Profile = () => {
 				</Card>
 			</div>
 			<div className='min-w-full w-full h-[1px] bg-gray-400 mb-4'></div>
-			<div className='flex gap-4'>
+			<div className='flex gap-4 flex-wrap'>
 				<div className='px-4 py-1 bg-[#00AAFF] rounded-full w-fit font-semibold text-white'>
-					<span className='font-semibold xl:text-lg md:text-base text-sm'>Trainings Completed&nbsp;&nbsp;&nbsp;</span>
-					<span className='font-semibold xl:text-base md:text-sm text-xs'>{trainingsCompleted}</span>
+					<span className='font-semibold xl:text-base md:text-sm text-xs'>
+						Trainings&nbsp;Completed&nbsp;&nbsp;&nbsp;
+					</span>
+					<span className='font-semibold xl:text-base md:text-sm text-xs'>{training.length}</span>
 				</div>
 				<div className='px-4 py-1 bg-[#00AAFF] rounded-full w-fit font-semibold text-white'>
-					<span className='font-semibold xl:text-lg md:text-base text-sm'>Events&nbsp;&nbsp;&nbsp;</span>
-					<span className='font-semibold xl:text-base md:text-sm text-xs'>{events}</span>
+					<span className='font-semibold xl:text-base md:text-sm text-xs'>Events&nbsp;&nbsp;&nbsp;</span>
+					<span className='font-semibold xl:text-base md:text-sm text-xs'>{event.length}</span>
 				</div>
 			</div>
 			<div className='mt-6 flex flex-col gap-4'>
@@ -180,17 +208,17 @@ const Profile = () => {
 				<div className='flex flex-wrap gap-6'>
 					{user.trainings.map((tr, index) => (
 						<div key={training[index]?.trainingId}>
-							{checkAttendance(index) ? <CertTrainingCard trainings={training[index]} /> : null}
+							{training[index] ? <CertTrainingCard trainings={training[index]} /> : null}
 						</div>
 					))}
 				</div>
 			</div>
 			<div className='mt-6 flex flex-col gap-4'>
 				<h1 className='font-semibold xl:text-lg md:text-base text-sm'>Events Joined</h1>
-				<div className=' grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
-					<CertEventCard />
-					<CertEventCard />
-					<CertEventCard />
+				<div className='grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
+					{user?.eventsJoined?.map((ev, index) => (
+						<div key={event[index]?.eventId}>{event[index] && <CertEventCard Events={event[index]} />}</div>
+					))}
 				</div>
 			</div>
 		</main>

@@ -17,7 +17,7 @@ const CertTrainingCard = ({ trainings }: MyTrainingsCardProps) => {
 	const Status = 'Completed';
 
 	return (
-		<Card className='max-w-2xl w-[21rem] h-fit mr-auto'>
+		<Card className='max-w-2xl lg:w-[21rem] w-full h-fit'>
 			<div className='flex gap-2 items-center'>
 				<Image
 					src={CertificateIcon}
