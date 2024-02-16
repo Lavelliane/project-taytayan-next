@@ -12,7 +12,7 @@ export default function SignIn() {
 			<section className=' h-fit flex p-0 sm:p-8 lg:p-0 bg-gradient-to-b from-blue-500 via-indigo-500 to-purple-500 justify-center'>
 				<div className='h-screen z-50 w-full rounded-none sm:rounded-2xl lg:rounded-none flex flex-col items-center justify-center bg-white lg:bg-white backdrop-blur-md lg:backdrop-blur-none border-white/50 border'>
 					<div className='w-full px-12 max-w-lg'>
-						<Link href='/admin' className=' flex font-lexendDeca mb-2 gap-1 w-fit'>
+						<Link href='/' className=' flex font-lexendDeca mb-2 gap-1 w-fit'>
 							<Image
 								src='/taytayan-logo.svg'
 								className='h-6 sm:h-12'

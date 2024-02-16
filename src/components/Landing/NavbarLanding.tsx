@@ -45,7 +45,7 @@ const NavbarLanding = () => {
     `}
 		>
 			<div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
-				<a className='flex items-center space-x-3 rtl:space-x-reverse font-lexendDeca'>
+				<Link href='/' className='flex items-center space-x-3 rtl:space-x-reverse font-lexendDeca'>
 					<Image
 						src='/taytayan-logo.svg'
 						className='h-6 sm:h-12'
@@ -58,11 +58,11 @@ const NavbarLanding = () => {
 						<span className='text-sm font-light whitespace-nowrap dark:text-white'>PROJECT</span>
 						<span className='text-lg font-regular whitespace-nowrap dark:text-white'>taytayan</span>
 					</span>
-				</a>
+				</Link>
 				<div className='flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse'>
 					<ul className='flex items-center p-0 text-xs lg:text-sm font-medium border border-gray-100/0 rounded-lg bg-gray-50/0 space-x-1 md:space-x-2 lg:space-x-3 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white/0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
 						<li>
-							<a
+							<Link
 								href='/login'
 								className='hidden sm:flex gap-2 items-center py-2 px-3 font-normal text-gray-900 rounded-lg bg-transparent hover:text-gray-700 hover:underline hover:underline-offset-2'
 							>
@@ -82,7 +82,7 @@ const NavbarLanding = () => {
 										d='M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2'
 									/>
 								</svg>
-							</a>
+							</Link>
 						</li>
 						<Link href='/new-account'>
 							<button
@@ -162,8 +162,8 @@ const NavbarLanding = () => {
 							</a>
 						</li>
 						<li>
-							<a
-								href='#login'
+							<Link
+								href='/login'
 								className='flex gap-2 items-center sm:hidden py-2 px-3 text-gray-900 rounded-lg bg-transparent hover:text-gray-700 hover:bg-gray-100'
 							>
 								Log in
@@ -182,11 +182,11 @@ const NavbarLanding = () => {
 										d='M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2'
 									/>
 								</svg>
-							</a>
+							</Link>
 						</li>
 						<li>
 							<a
-								href='#new-account'
+								href='/new-account'
 								className='block sm:hidden py-2 px-3 text-gray-900 rounded-lg bg-transparent hover:text-gray-700 hover:bg-gray-100'
 							>
 								Create an account
