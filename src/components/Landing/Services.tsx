@@ -27,7 +27,9 @@ const Services = () => {
       <div className='flex flex-col gap-8 max-w-5xl w-full justify-center items-center px-8 xl:px-0'>
         <div className='max-w-md text-center gap-4 flex flex-col items-center drop-shadow-sm'>
           <h1 className='w-fit font-bold text-3xl bg-gradient-to-br from-[#DCE35B] to-[#45B649] bg-clip-text text-transparent'>Learnable Skills</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla cursus ante a semper cursus. Sed ac luctus erat, vel porttitor erat. In odio mi, interdum vel rutrum ut, scelerisque vitae massa.</p>
+          <p>
+            From coding and digital marketing to project management, our curated courses provide a direct path to mastering practical expertise and advancing your professional proficiency.
+          </p>
         </div>
         <div className="flex w-full">
           <ul className="flex flex-wrap justify-center gap-2 text-lg text-gray-800">

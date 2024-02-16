@@ -163,7 +163,7 @@ const NavbarLanding = () => {
 						</li>
 						<li>
 							<a
-								href='#'
+								href='#login'
 								className='flex gap-2 items-center sm:hidden py-2 px-3 text-gray-900 rounded-lg bg-transparent hover:text-gray-700 hover:bg-gray-100'
 							>
 								Log in
@@ -186,7 +186,7 @@ const NavbarLanding = () => {
 						</li>
 						<li>
 							<a
-								href='#'
+								href='#new-account'
 								className='block sm:hidden py-2 px-3 text-gray-900 rounded-lg bg-transparent hover:text-gray-700 hover:bg-gray-100'
 							>
 								Create an account

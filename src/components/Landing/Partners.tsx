@@ -92,23 +92,20 @@ const Partners = () => {
 							How to Apply
 						</h1>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla cursus ante a semper cursus. Sed ac luctus
-							erat, vel porttitor erat. In odio mi, interdum vel rutrum ut, scelerisque vitae massa.
+              Become our valued partner and join us on a transformative journey to unlock the potential of the younger generation, guiding them towards becoming responsible and empowered professionals.
 						</p>
 					</div>
 					<div className='flex flex-col sm:flex-row w-full items-center justify-center gap-8 px-8'>
 						<Card href='#' className='max-w-sm' imgAlt='training centers' imgSrc='/assets/trainingCenter.jpg'>
 							<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>Training Centers</h5>
 							<p className='font-normal text-gray-700 dark:text-gray-400'>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla cursus ante a semper cursus. Sed ac
-								luctus erat, vel porttitor erat. In odio mi, interdum vel rutrum ut, scelerisque vitae massa.
+                If you provide training programs and vocational workshops, help us empower youth with the essential skills needed to transition into becoming professionals. 
 							</p>
 						</Card>
 						<Card href='#' className='max-w-sm' imgAlt='job employers' imgSrc='/assets/jobEmployer.jpg'>
 							<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>Job Employers</h5>
 							<p className='font-normal text-gray-700 dark:text-gray-400'>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla cursus ante a semper cursus. Sed ac
-								luctus erat, vel porttitor erat. In odio mi, interdum vel rutrum ut, scelerisque vitae massa.
+                Prospective employers play a crucial role in paving the way for young individuals to enter the industry and establish a foothold in their chosen fields.
 							</p>
 						</Card>
 					</div>

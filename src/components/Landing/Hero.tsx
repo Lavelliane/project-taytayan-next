@@ -78,14 +78,14 @@ const Hero = () => {
 							</Link>
 						</div>
 					</div>
-					<div className='w-full h-fit sm:pt-0 hidden sm:block rounded-full overflow-hidden xl:rounded-none'>
+					<div className='w-full h-full sm:pt-0 hidden sm:block rounded-full overflow-hidden xl:rounded-none'>
 						<Image
 							src={heroImage}
 							alt='flavor-image'
 							height={1600}
 							style={{
 								objectFit: 'cover',
-								width: '500px',
+								width: '520px',
 								height: 'auto',
 							}}
 						/>
