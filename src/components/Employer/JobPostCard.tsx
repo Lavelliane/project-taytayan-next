@@ -38,7 +38,7 @@ export const JobPostCard: React.FC<JobPostProps> = ({ EmploymentData }: JobPostP
 			theme={cardTheme}
 			renderImage={() => (
 				<div className='flex min-w-fit h-32 relative w-full items-center justify-center rounded-t-lg'>
-					<div className='absolute inset-0 text-white z-10 w-full flex h-full items-start justify-between bg-black/80 rounded-t-lg'>
+					<div className='absolute inset-0 text-dark z-10 w-full flex h-full items-start justify-between bg-gradient-to-br from-[#DCE35B]/80 to-[#45B649]/80 rounded-t-lg'>
 						<div className='flex w-full items-start justify-between mx-6 mb-4 mt-6 gap-4'>
 							<div className='flex flex-col gap-0 w-full'>
 								<h1 className='text-lg lg:text-xl font-bold'>{employmentTitle}</h1>

@@ -9,10 +9,10 @@ import Link from 'next/link';
 const Hero = () => {
 	return (
 		<section
-			className='h-screen translate-y-16 w-full flex bg-gradient-to-br from-[#DCE35B]/80 to-[#45B649]/80 justify-center -z-10'
+			className='h-screen translate-y-24 w-full flex bg-gradient-to-br from-[#DCE35B]/80 to-[#45B649]/80 justify-center -z-10'
 			style={{ height: 'calc(100vh - 64px)' }}
 		>
-			<div className='custom-shape-divider-top-1706630886 -translate-y-2 z-20'>
+			<div className='custom-shape-divider-top-1706630886 -translate-y-6 z-20'>
 				<svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
 					<path
 						d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z'
@@ -30,28 +30,28 @@ const Hero = () => {
 					></path>
 				</svg>
 			</div>
-			<div className='w-full h-full flex justify-center items-center'>
+			<div className='w-full h-full flex justify-center items-center pb-4'>
 				<div className='flex max-w-7xl w-full h-fit px-8 xl:px-0 items-center gap-8'>
 					<div className='w-full h-full flex flex-col'>
-						<div className='flex flex-col gap-2 mt-20 sm:mt-0 mb-24 sm:mb-12 md:mb-28'>
-							<div className='text-5xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-lexendDeca flex flex-col'>
-								<span className='bg-gradient-to-tr from-slate-800 via-slate-900 to-amber-700 bg-clip-text text-transparent font-semibold flex-none z-10'>
+						<div className='flex flex-col gap-2 mt-20 sm:mt-0 mb-14 sm:mb-12 md:mb-24'>
+							<div className='text-3xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-lexendDeca flex flex-col'>
+								<span className='bg-gradient-to-tr from-slate-800 via-slate-900 to-amber-700 bg-clip-text text-transparent font-semibold flex-none z-50'>
 									Learn Today,
 								</span>
 								<span className='bg-gradient-to-tr from-slate-700 via-slate-900 to-slate-900 bg-clip-text text-transparent font-semibold'>
 									Lead Tomorrow
 								</span>
 							</div>
-							<p className='max-w-md text-justify text-base sm:text-xs md:text-sm lg:text-base font-light text-white font-lexendDeca pl-1 sm:pl-2'>
+							<p className='max-w-md text-justify text-sm md:text-sm lg:text-base font-light text-white font-lexendDeca pl-1 sm:pl-2'>
 								Be part of building the bridge to a better future. Project Taytayan is dedicated to centralizing
 								platforms for opportunities.
 							</p>
 						</div>
-						<div className='gap-6 sm:gap-2 pl-1 sm:pl-2 flex z-50'>
+						<div className='gap-2 sm:gap-2 pl-1 sm:pl-2 flex z-50 flex-wrap'>
 							<Link href='#benefits'>
 								<button
 									type='button'
-									className='text-gray-900 bg-[#F6C951] hover:bg-[#EFCB66] focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 font-medium rounded-lg text-base sm:text-xs lg:text-base px-6 sm:px-4 md:px-6 py-3 text-center inline-flex items-center dark:focus:ring-[#F7BE38]/50 me-2 mb-2'
+									className='text-gray-900 bg-[#F6C951] hover:bg-[#EFCB66] focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 font-medium rounded-lg text-sm sm:text-sm lg:text-base px-6 sm:px-4 md:px-6 py-3 text-center inline-flex items-center dark:focus:ring-[#F7BE38]/50 me-2 mb-2 shadow-md'
 								>
 									Find out more
 									<svg
@@ -71,21 +71,23 @@ const Hero = () => {
 							<Link href='#be-a-partner'>
 								<button
 									type='button'
-									className='text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100/50 font-medium rounded-lg text-base sm:text-xs lg:text-base px-6 sm:px-4 md:px-6 py-3 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:text-gray-900 me-2 mb-2'
+									className='text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100/50 font-medium rounded-lg text-sm sm:text-sm lg:text-base px-6 sm:px-4 md:px-6 py-3 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:text-gray-900 me-2 mb-2 shadow-md'
 								>
 									Be a partner
 								</button>
 							</Link>
 						</div>
 					</div>
-					<div className='w-full h-full sm:pt-0 hidden sm:block rounded-full overflow-hidden xl:rounded-none'>
+
+					<div className='w-full h-full hidden sm:flex rounded-full overflow-hidden flex-grow'>
 						<Image
 							src={heroImage}
 							alt='flavor-image'
-							height={1600}
+							height={500}
+							width={500}
 							style={{
-								objectFit: 'cover',
-								width: '520px',
+								objectFit: 'fill',
+								width: 'auto',
 								height: 'auto',
 							}}
 						/>

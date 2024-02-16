@@ -24,11 +24,11 @@ const Partners = () => {
 					</svg>
 				</div>
 				<div className='w-full h-full flex flex-col gap-8 justify-center items-center z-10'>
-					<h1 className='text-5xl text-white font-bold font-lexendDeca drop-shadow-xl'>Be a Partner</h1>
+					<h1 className='text-3xl md:text-5xl text-white font-bold font-lexendDeca drop-shadow-xl'>Be a Partner</h1>
 					<Link href='#apply-now'>
 						<button
 							type='button'
-							className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100/50 font-medium rounded-full text-base px-6 py-3 z-50 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200 me-2 mb-2'
+							className='text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100/50 font-medium rounded-full text-sm sm:text-base px-6 py-3 z-50 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200 me-2 mb-2'
 						>
 							Apply Now
 						</button>
@@ -91,21 +91,24 @@ const Partners = () => {
 						<h1 className='w-fit font-bold text-3xl bg-gradient-to-br from-[#DCE35B] to-[#45B649] bg-clip-text text-transparent'>
 							How to Apply
 						</h1>
-						<p>
-              Become our valued partner and join us on a transformative journey to unlock the potential of the younger generation, guiding them towards becoming responsible and empowered professionals.
+						<p className='text-sm sm:text-base px-6'>
+							Become our valued partner and join us on a transformative journey to unlock the potential of the younger
+							generation, guiding them towards becoming responsible and empowered professionals.
 						</p>
 					</div>
 					<div className='flex flex-col sm:flex-row w-full items-center justify-center gap-8 px-8'>
 						<Card href='#' className='max-w-sm' imgAlt='training centers' imgSrc='/assets/trainingCenter.jpg'>
 							<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>Training Centers</h5>
-							<p className='font-normal text-gray-700 dark:text-gray-400'>
-                If you provide training programs and vocational workshops, help us empower youth with the essential skills needed to transition into becoming professionals. 
+							<p className='font-normal text-gray-700 dark:text-gray-400 text-sm sm:text-base'>
+								If you provide training programs and vocational workshops, help us empower youth with the essential
+								skills needed to transition into becoming professionals.
 							</p>
 						</Card>
 						<Card href='#' className='max-w-sm' imgAlt='job employers' imgSrc='/assets/jobEmployer.jpg'>
 							<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>Job Employers</h5>
-							<p className='font-normal text-gray-700 dark:text-gray-400'>
-                Prospective employers play a crucial role in paving the way for young individuals to enter the industry and establish a foothold in their chosen fields.
+							<p className='font-normal text-gray-700 dark:text-gray-400 text-sm sm:text-base'>
+								Prospective employers play a crucial role in paving the way for young individuals to enter the industry
+								and establish a foothold in their chosen fields.
 							</p>
 						</Card>
 					</div>
