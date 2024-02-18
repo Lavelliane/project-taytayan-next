@@ -17,13 +17,12 @@ export default function RootLayout({
   const userStore = useAuthStore((state) => state.user)
 
 
-  // useEffect(() => {
-  //   if (auth && !auth.currentUser) {
-  //     router.push('/login')
-  //   }
-  // }, [auth.currentUser]);
-
-  // console.log(auth);
+  useEffect(() => {
+    if (!userStore.uid) {
+      router.push('/login')
+    }
+    
+  }, [userStore, router]);
 
   return (
     <>
