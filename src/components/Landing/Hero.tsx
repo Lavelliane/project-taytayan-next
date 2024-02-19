@@ -12,7 +12,7 @@ const Hero = () => {
 			className='h-screen translate-y-24 w-full flex bg-gradient-to-br from-[#DCE35B]/80 to-[#45B649]/80 justify-center -z-10'
 			style={{ height: 'calc(100vh - 64px)' }}
 		>
-			<div className='custom-shape-divider-top-1706630886 -translate-y-6 z-20'>
+			<div className='custom-shape-divider-top-1706630886 -translate-y-6'>
 				<svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
 					<path
 						d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z'
@@ -31,14 +31,14 @@ const Hero = () => {
 				</svg>
 			</div>
 			<div className='w-full h-full flex justify-center items-center pb-4'>
-				<div className='flex max-w-7xl w-full h-fit px-8 xl:px-0 items-center gap-8'>
+				<div className='flex max-w-7xl w-full h-fit px-8 xl:px-0 items-center gap-8 z-0'>
 					<div className='w-full h-full flex flex-col'>
 						<div className='flex flex-col gap-2 mt-20 sm:mt-0 mb-14 sm:mb-12 md:mb-24'>
 							<div className='text-3xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl font-lexendDeca flex flex-col'>
 								<span className='bg-gradient-to-tr from-slate-800 via-slate-900 to-amber-700 bg-clip-text text-transparent font-semibold flex-none z-50'>
 									Learn Today,
 								</span>
-								<span className='bg-gradient-to-tr from-slate-700 via-slate-900 to-slate-900 bg-clip-text text-transparent font-semibold'>
+								<span className='bg-gradient-to-tr from-slate-700 via-slate-900 to-slate-900 bg-clip-text text-transparent font-semibold z-50'>
 									Lead Tomorrow
 								</span>
 							</div>
@@ -79,7 +79,7 @@ const Hero = () => {
 						</div>
 					</div>
 
-					<div className='w-full h-full hidden sm:flex rounded-full overflow-hidden flex-grow'>
+					<div className='w-full h-full hidden sm:flex lg:rounded-none rounded-full overflow-hidden z-[999]'>
 						<Image
 							src={heroImage}
 							alt='flavor-image'
