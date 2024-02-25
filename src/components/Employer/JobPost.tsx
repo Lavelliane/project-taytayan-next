@@ -5,7 +5,7 @@ import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
 import { Employment } from '@/types/types';
 import { query, getDocs, doc, getDoc, collection } from 'firebase/firestore';
-import { DefaultEmployment } from '@/utils/DefaultProfile';
+import { DefaultEmployment } from '@/utils/Defaults';
 import Link from 'next/link';
 
 const JobPost = () => {

@@ -16,7 +16,7 @@ const EventRegistrationStatus: React.FC<RegistrationStatusProps> = (props) => {
 				<Badge className='bg-green-100 text-green-500 px-5 py-2.5 rounded-lg text-center font-semibold text-sm'>
 					<div className='flex flex-row items-center justify-center gap-1'>
 						<svg
-							className='w-5 h-5'
+							className='w-5 h-5 sm:block hidden'
 							aria-hidden='true'
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'

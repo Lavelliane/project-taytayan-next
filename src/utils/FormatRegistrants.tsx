@@ -6,7 +6,7 @@ import { db } from '@/lib/firebase';
 import { Registrant } from '@/types/types';
 import Image from 'next/image';
 import { Avatar } from 'flowbite-react';
-import { DefaultProfile } from '@/utils/DefaultProfile';
+import { DefaultProfile } from '@/utils/Defaults';
 import { avatarTheme } from '@/utils/ComponentThemes';
 import SeeRegistrantsModal from '@/components/Trainings/SeeRegistrantsModal';
 

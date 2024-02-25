@@ -144,7 +144,7 @@ export const NetworkingEventCard: React.FC<EventProps> = (props) => {
 				</h5>
 			</div>
 
-			<div className='flex justify-start items-center mx-6 mb-6 gap-2'>
+			<div className='flex flex-wrap sm:justify-start justify-around items-center mx-6 mb-6 gap-2'>
 				<EventLearnMoreButton key={eventId} networkingEventData={props.networkingEventData} />
 				<EventRegistrationStatus eventId={eventId} eventRegistration={eventRegistration} userStore={userStore} />
 			</div>

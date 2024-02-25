@@ -61,20 +61,20 @@ const Partners = () => {
 					</h1>
 					{/* LG */}
 					<div className='max-w-7xl w-full lg:flex justify-evenly items-center hidden'>
-						<Image src={usaidLogo} alt='benefit' style={{ width: 'auto', height: '100px', objectFit: 'fill' }} />
-						<Image src={edcLogo} alt='benefit' style={{ width: 'auto', height: '100px', objectFit: 'fill' }} />
+						{/* <Image src={usaidLogo} alt='benefit' style={{ width: 'auto', height: '100px', objectFit: 'fill' }} />
+						<Image src={edcLogo} alt='benefit' style={{ width: 'auto', height: '100px', objectFit: 'fill' }} /> */}
 						<Image src={uscLogo} alt='benefit' style={{ width: 'auto', height: '100px', objectFit: 'fill' }} />
 					</div>
 					{/* MD */}
 					<div className='max-w-7xl w-full md:flex justify-evenly items-center hidden lg:hidden'>
-						<Image src={usaidLogo} alt='benefit' style={{ width: 'auto', height: '75px', objectFit: 'fill' }} />
-						<Image src={edcLogo} alt='benefit' style={{ width: 'auto', height: '75px', objectFit: 'fill' }} />
+						{/* <Image src={usaidLogo} alt='benefit' style={{ width: 'auto', height: '75px', objectFit: 'fill' }} />
+						<Image src={edcLogo} alt='benefit' style={{ width: 'auto', height: '75px', objectFit: 'fill' }} /> */}
 						<Image src={uscLogo} alt='benefit' style={{ width: 'auto', height: '75px', objectFit: 'fill' }} />
 					</div>
 					{/* SM */}
 					<div className='max-w-7xl w-full sm:flex justify-evenly items-center hidden md:hidden'>
-						<Image src={usaidLogo} alt='benefit' style={{ width: 'auto', height: '60px', objectFit: 'fill' }} />
-						<Image src={edcLogo} alt='benefit' style={{ width: 'auto', height: '60px', objectFit: 'fill' }} />
+						{/* <Image src={usaidLogo} alt='benefit' style={{ width: 'auto', height: '60px', objectFit: 'fill' }} />
+						<Image src={edcLogo} alt='benefit' style={{ width: 'auto', height: '60px', objectFit: 'fill' }} /> */}
 						<Image src={uscLogo} alt='benefit' style={{ width: 'auto', height: '60px', objectFit: 'fill' }} />
 					</div>
 					{/* XS */}

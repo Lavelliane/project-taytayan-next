@@ -1,6 +1,6 @@
 import { Unsubscribe, UserCredential } from 'firebase/auth';
 
-export type User = {
+type User = {
 	email: string;
 	uid: string;
 	role: string;
@@ -25,7 +25,7 @@ export type User = {
 	jobsApplied: string[];
 };
 
-export type Training = {
+type Training = {
 	trainingId: string;
 	trainingName: string;
 	trainingCenter: string;
@@ -40,12 +40,12 @@ export type Training = {
 	createdBy: string;
 };
 
-export type Registrant = {
+type Registrant = {
 	registrantId: string;
 	attended: boolean;
 };
 
-export type NetworkingEvent = {
+type NetworkingEvent = {
 	eventId: string;
 	eventName: string;
 	eventAddress: GoogleLocation;
@@ -59,7 +59,7 @@ export type NetworkingEvent = {
 	eventCategory: string;
 };
 
-export type Employment = {
+type Employment = {
 	employmentId: string;
 	employmentTitle: string;
 	employmentDescription: string;
@@ -86,7 +86,20 @@ type Applicant = {
 	accepted: boolean;
 };
 
-export type AuthStore = {
+type Feedback = {
+	satisfaction: number;
+	navigation: number;
+	layout: number;
+	bugs: number;
+	speed: number;
+	recommendation: number;
+	improvements: string;
+	comments: string;
+	name: string;
+	email: string;
+};
+
+type AuthStore = {
 	user: User;
 	signUp: (
 		email: string,
@@ -101,7 +114,7 @@ export type AuthStore = {
 	logout: () => Promise<void>;
 };
 
-export type GoogleLocation = {
+type GoogleLocation = {
 	formattedAddress: string;
 	geometry: GoogleCoordinates;
 };
@@ -112,22 +125,24 @@ type GoogleCoordinates = {
 };
 
 export const links = [
-  {
-    name: "Home",
-    hash: "#home",
-  },
-  {
-    name: "About",
-    hash: "#benefits",
-  },
-  {
-    name: "Services",
-    hash: "#services",
-  },
-  {
-    name: "Contact",
-    hash: "#contact",
-  },
+	{
+		name: 'Home',
+		hash: '#home',
+	},
+	{
+		name: 'About',
+		hash: '#benefits',
+	},
+	{
+		name: 'Services',
+		hash: '#services',
+	},
+	{
+		name: 'Contact',
+		hash: '#contact',
+	},
 ] as const;
 
-export type SectionName = (typeof links)[number]["name"];
+type SectionName = typeof links[number]['name'];
+
+export type { Employment, NetworkingEvent, Registrant, GoogleLocation, User, Training, Feedback, SectionName, AuthStore }

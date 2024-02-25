@@ -3,7 +3,7 @@ import { CategoryBadge } from '../Trainings/CategoryBadge';
 import { CategoryDropdown } from '../Trainings/CategoryDropdown';
 import { TrainingCard } from '../Trainings/TrainingCard';
 import { Training } from '@/types/types';
-import { DefaultTraining } from '@/utils/DefaultProfile';
+import { DefaultTraining } from '@/utils/Defaults';
 import { SortDropdown } from './SortDropdown';
 import { AddTrainingButton } from './AddTrainingButton';
 import { collection, getDocs, where, query } from 'firebase/firestore';

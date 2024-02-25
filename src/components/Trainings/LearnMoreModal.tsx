@@ -3,7 +3,6 @@ import { Training } from '@/types/types';
 import { FiMapPin } from 'react-icons/fi';
 import { formatTimestamp } from '@/utils/FormatTimestamp';
 import { FormatRegistrants } from '@/utils/FormatRegistrants';
-import { Registrant } from '@/types/types';
 import SeeRegistrantsButton from './SeeRegistrantsButton';
 import { RegisterTrainingButton } from './RegisterTrainingButton';
 
@@ -26,7 +25,7 @@ const avatarTheme: CustomFlowbiteTheme['avatar'] = {
 
 export const LearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, trainingData }: LearnMoreProps) => {
 	return (
-		<Modal show={learnMoreOpened} position='center' size='2xl' onClose={() => handleLearnMoreClose()} popup>
+		<Modal dismissible show={learnMoreOpened} position='center' size='2xl' onClose={() => handleLearnMoreClose()} popup>
 			<Modal.Header />
 			<Modal.Body className='flex flex-col gap-4 my-4'>
 				<div className='flex gap-2 mt-4 items-center'>
@@ -62,7 +61,7 @@ export const LearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, training
 					<span className='text-sm lg:text-base font-bold'>Activities</span>
 					<ul className='list-disc text-gray-500 list-inside'>
 						{trainingData.trainingActivities.map((activity: string, index: number) => (
-							<li key={index} className='text-xs lg:text-sm'>
+							<li key={activity} className='text-xs lg:text-sm'>
 								{activity}
 							</li>
 						))}
@@ -74,7 +73,7 @@ export const LearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, training
 					</span>
 					<ul className='list-disc text-gray-500 list-inside'>
 						{trainingData.trainingObjectives.map((objective: string, index: number) => (
-							<li key={index} className='text-xs lg:text-sm'>
+							<li key={objective} className='text-xs lg:text-sm'>
 								{objective}
 							</li>
 						))}

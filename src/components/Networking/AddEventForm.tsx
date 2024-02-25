@@ -8,7 +8,7 @@ import Autocomplete from 'react-google-autocomplete';
 import { GoogleLocation, User } from '@/types/types';
 import { useAuthStore } from '@/hooks/useAuth';
 import { useEffect, useState } from 'react';
-import { DefaultProfile } from '@/utils/DefaultProfile';
+import { DefaultProfile } from '@/utils/Defaults';
 
 interface AddEventProps {
 	addEventOpened: boolean;

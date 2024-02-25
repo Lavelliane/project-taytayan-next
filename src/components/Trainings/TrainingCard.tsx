@@ -144,7 +144,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 				</h5>
 			</div>
 
-			<div className='flex justify-start items-center mx-6 mb-6 gap-2'>
+			<div className='flex flex-wrap sm:justify-start justify-around items-center mx-6 mb-6 gap-2'>
 				<LearnMoreButton key={trainingId} trainingData={props.trainingData} />
 				<TrainingRegistrationStatus
 					trainingId={trainingId}

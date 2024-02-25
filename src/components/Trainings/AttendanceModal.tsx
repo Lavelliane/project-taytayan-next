@@ -1,11 +1,8 @@
-import React, { useState, useEffect, ReactHTML, ReactHTMLElement } from 'react';
-import { Modal, Button, Checkbox } from 'flowbite-react';
-import { Registrant } from '@/types/types';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Checkbox, Avatar } from 'flowbite-react';
+import { Registrant, User } from '@/types/types';
 import { collection, getDocs, doc, query, where, updateDoc } from 'firebase/firestore';
-import { User } from '@/types/types';
 import { db } from '@/lib/firebase';
-import Image from 'next/image';
-import { Avatar } from 'flowbite-react';
 import { avatarTheme } from '@/utils/ComponentThemes';
 
 interface FormatRegistrantsProps {
@@ -124,9 +121,9 @@ const AttendanceModal = ({
 				</div>
 				<div className='flex flex-col gap-2 max-h-[300px] h-[300px]'>
 					{registrants?.map((reg, index) => (
-						<div key={index} className='flex gap-2 items-center'>
+						<div key={reg.avatar} className='flex gap-2 items-center'>
 							<Avatar
-								key={index + '_' + reg.avatar}
+								key={reg.avatar}
 								rounded
 								stacked
 								size='md'

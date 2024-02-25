@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AddEmploymentFormType, addEmploymentFormSchema } from '@/schemas/AddEmploymentSchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DefaultEmployment, DefaultProfile, DefaultEmploymentAddress } from '@/utils/DefaultProfile';
+import { DefaultEmployment, DefaultProfile, DefaultEmploymentAddress } from '@/utils/Defaults';
 import { Button, Datepicker, Label, Select, Textarea, TextInput } from 'flowbite-react';
 import { useAuthStore } from '@/hooks/useAuth';
 import { GoogleLocation, User } from '@/types/types';
