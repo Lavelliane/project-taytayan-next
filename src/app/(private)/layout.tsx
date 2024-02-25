@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import { Next13ProgressBar } from 'next13-progressbar';
 import { NavbarMain } from '@/components/Navbar/NavbarMain'
 import { useAuthStore } from "@/hooks/useAuth";
-import { GlobalProvider } from "@/components/Feedback/ShowFeedback";
+import { GlobalFeedbackToastProvider } from "@/components/Feedback/ShowFeedbackToast";
+import {GlobalFeedbackModalProvider} from '@/components/Feedback/ShowFeedbackModal';
 import FeedbackToast from "@/components/Feedback/FeedbackToast";
+import FeedbackFormModal from "@/components/Feedback/FeedbackFormModal";
 
 export default function RootLayout({
   children,
@@ -27,9 +29,11 @@ export default function RootLayout({
   }, [userStore, router]);
 
   return (
-    <GlobalProvider>
+    <GlobalFeedbackToastProvider>
+      <GlobalFeedbackModalProvider>
       <div className="fixed p-4 z-[999] bottom-0 right-0">
         <FeedbackToast/>
+        <FeedbackFormModal />
       </div>
       <main className='flex flex-col min-h-screen h-screen justify-start bg-white'>
         <NavbarMain />
@@ -39,6 +43,7 @@ export default function RootLayout({
       </main>
     
       <Next13ProgressBar height='2px' color='#FFC72C' options={{ showSpinner: false }} showOnShallow />
-    </GlobalProvider>
+      </GlobalFeedbackModalProvider>
+    </GlobalFeedbackToastProvider>
   );
 }

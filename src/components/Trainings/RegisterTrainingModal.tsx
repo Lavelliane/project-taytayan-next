@@ -6,7 +6,7 @@ import { Training, User } from '@/types/types';
 import { db } from '@/lib/firebase';
 import Image from 'next/image';
 import { avatarTheme } from '@/utils/ComponentThemes';
-import { DefaultProfile } from '@/utils/DefaultProfile';
+import { DefaultProfile } from '@/utils/Defaults';
 
 interface RegisterTrainingProps {
 	trainingId: string;

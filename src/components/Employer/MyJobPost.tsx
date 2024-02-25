@@ -6,7 +6,7 @@ import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
 import { Employment } from '@/types/types';
 import { query, getDocs, collection, where } from 'firebase/firestore';
-import { DefaultEmployment } from '@/utils/DefaultProfile';
+import { DefaultEmployment } from '@/utils/Defaults';
 
 const MyJobPost = () => {
 	const [job, setJob] = useState<Employment[]>([]);

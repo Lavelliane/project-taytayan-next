@@ -7,15 +7,17 @@ interface ShowFeedbackType {
 	hideToast: () => void;
 }
 
-const ShowFeedback = createContext<ShowFeedbackType>({
+const ShowFeedbackToast = createContext<ShowFeedbackType>({
 	isToastVisible: false,
 	showToast: () => {},
 	hideToast: () => {},
 });
 
-export const useToast = () => useContext(ShowFeedback);
+export const useToast = () => useContext(ShowFeedbackToast);
 
-export const GlobalProvider = ({ children }: any) => {
+export const useFeedbackModal = () => useContext;
+
+export const GlobalFeedbackToastProvider = ({ children }: any) => {
 	const [isToastVisible, setIsToastVisible] = useState(false);
 
 	useEffect(() => {
@@ -44,5 +46,5 @@ export const GlobalProvider = ({ children }: any) => {
 		[isToastVisible]
 	);
 
-	return <ShowFeedback.Provider value={contextValue}>{children}</ShowFeedback.Provider>;
+	return <ShowFeedbackToast.Provider value={contextValue}>{children}</ShowFeedbackToast.Provider>;
 };

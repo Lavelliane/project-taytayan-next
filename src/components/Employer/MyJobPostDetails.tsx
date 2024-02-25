@@ -5,7 +5,7 @@ import { FormatPostedDate } from '@/utils/FormatPostedDate';
 import { updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
-import { DefaultProfile } from '@/utils/DefaultProfile';
+import { DefaultProfile } from '@/utils/Defaults';
 
 interface MyJobPostDetailsProps {
 	EmploymentData: Employment;

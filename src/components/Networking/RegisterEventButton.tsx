@@ -5,7 +5,7 @@ import { Button } from 'flowbite-react';
 import RegisterEventModal from './RegisterEventModal';
 import { User } from '@/types/types';
 import { useAuthStore } from '@/hooks/useAuth';
-import { DefaultProfile } from '@/utils/DefaultProfile';
+import { DefaultProfile } from '@/utils/Defaults';
 
 interface RegisterEventButtonProps {
 	eventId: string;

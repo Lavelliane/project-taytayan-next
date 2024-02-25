@@ -1,7 +1,6 @@
-import { Employment, GoogleLocation, User } from '../types/types';
-import { Training } from '../types/types';
+import { Employment, GoogleLocation, User, Training, Feedback } from '../types/types';
 
-export const DefaultProfile: User = {
+const DefaultProfile: User = {
 	email: '',
 	uid: '',
 	role: 'general',
@@ -26,7 +25,7 @@ export const DefaultProfile: User = {
 	jobsApplied: [],
 };
 
-export const DefaultTrainingAddress: GoogleLocation = {
+const DefaultTrainingAddress: GoogleLocation = {
 	formattedAddress: '',
 	geometry: {
 		lat: 0,
@@ -34,7 +33,7 @@ export const DefaultTrainingAddress: GoogleLocation = {
 	},
 };
 
-export const DefaultEmploymentAddress: GoogleLocation = {
+const DefaultEmploymentAddress: GoogleLocation = {
 	formattedAddress: '',
 	geometry: {
 		lat: 0,
@@ -42,7 +41,7 @@ export const DefaultEmploymentAddress: GoogleLocation = {
 	},
 };
 
-export const DefaultTraining: Training = {
+const DefaultTraining: Training = {
 	trainingId: '',
 	trainingName: '',
 	trainingCenter: '',
@@ -57,7 +56,7 @@ export const DefaultTraining: Training = {
 	createdBy: '',
 };
 
-export const DefaultEmployment: Employment = {
+const DefaultEmployment: Employment = {
 	employmentId: '',
 	employmentTitle: '',
 	employmentDescription: '',
@@ -76,4 +75,26 @@ export const DefaultEmployment: Employment = {
 	employmentSalary: 'n/a',
 	displayJob: false,
 	employmentApplicants: [],
+};
+
+const DefaultFeedback: Feedback = {
+	satisfaction: -1,
+	navigation: -1,
+	layout: -1,
+	bugs: -1,
+	speed: -1,
+	recommendation: -1,
+	improvements: '',
+	comments: '',
+	name: '',
+	email: '',
+};
+
+export {
+	DefaultProfile,
+	DefaultTrainingAddress,
+	DefaultEmploymentAddress,
+	DefaultTraining,
+	DefaultEmployment,
+	DefaultFeedback,
 };

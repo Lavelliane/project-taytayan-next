@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import Link from 'next/link';
 import { User } from '@/types/types';
-import { DefaultProfile } from '@/utils/DefaultProfile';
+import { DefaultProfile } from '@/utils/Defaults';
 import Multiselect from 'multiselect-react-dropdown';
 import { skillOptions, interestOptions } from '@/utils/Options';
 import { useAuthStore } from '@/hooks/useAuth';

@@ -5,7 +5,7 @@ import { Button } from 'flowbite-react';
 import RegisterTrainingModal from './RegisterTrainingModal';
 import { User } from '@/types/types';
 import { useAuthStore } from '@/hooks/useAuth';
-import { DefaultProfile } from '@/utils/DefaultProfile';
+import { DefaultProfile } from '@/utils/Defaults';
 
 interface RegisterTrainingButtonProps {
 	trainingId: string;

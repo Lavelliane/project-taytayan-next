@@ -1,13 +1,11 @@
-import { AddEventButton } from '@/components/Networking/AddEventButton';
-import { AddTrainingButton } from '@/components/Trainings/AddTrainingButton';
+import FeedbackFormModal from '@/components/Feedback/FeedbackFormModal';
 import React from 'react';
 
 const page = () => {
 	return (
 		<div className='h-screen '>
 			<div>
-				<AddTrainingButton />
-				<AddEventButton />
+				<FeedbackFormModal addFeedbackOpen={true} />
 			</div>
 		</div>
 	);

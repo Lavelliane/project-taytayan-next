@@ -7,7 +7,7 @@ import { collection, addDoc, doc, updateDoc, CollectionReference, DocumentData }
 import { db } from '@/lib/firebase';
 import { useAuthStore } from '@/hooks/useAuth';
 import { GoogleLocation, User } from '@/types/types';
-import { DefaultProfile, DefaultTrainingAddress } from '@/utils/DefaultProfile';
+import { DefaultProfile, DefaultTrainingAddress } from '@/utils/Defaults';
 import Autocomplete from 'react-google-autocomplete';
 
 interface AddTrainingProps {
