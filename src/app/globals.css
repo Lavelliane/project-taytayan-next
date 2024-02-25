@@ -110,26 +110,6 @@ div.optionListContainer {
   background-position: 0 0;
 }
 
-.custom-shape-divider-top-1706630886 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.custom-shape-divider-top-1706630886 svg {
-  position: relative;
-  display: block;
-  width: calc(163% + 1.3px);
-  height: 214px;
-}
-
-.custom-shape-divider-top-1706630886 .shape-fill {
-  fill: #FFFFFF;
-}
-
 .custom-shape-divider-bottom-1706631099 {
   position: absolute;
   bottom: 0;
@@ -169,4 +149,78 @@ div.optionListContainer {
 
 .custom-shape-divider-top-1706825984 .shape-fill {
   fill: #FFFFFF;
+}
+
+.custom-shape-divider-top-1708824647 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1708824647 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 70px;
+}
+
+.custom-shape-divider-top-1708824647 .shape-fill {
+  fill: #FFFFFF;
+}
+
+/** For tablet devices **/
+@media (min-width: 768px) and (max-width: 1023px) {
+  .custom-shape-divider-top-1708824647 svg {
+      width: calc(150% + 1.3px);
+      height: 61px;
+  }
+}
+
+/** For mobile devices **/
+@media (max-width: 767px) {
+  .custom-shape-divider-top-1708824647 svg {
+      width: calc(180% + 1.3px);
+      height: 50px;
+  }
+}
+
+.custom-shape-divider-bottom-1708824755 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg) translateY(-1px);
+ 
+}
+
+.custom-shape-divider-bottom-1708824755 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 90px;
+}
+
+.custom-shape-divider-bottom-1708824755 .shape-fill {
+  fill: #FFFFFF;
+}
+
+/** For tablet devices **/
+@media (min-width: 768px) and (max-width: 1023px) {
+  .custom-shape-divider-bottom-1708824755 svg {
+      width: calc(150% + 1.3px);
+      height: 82px;
+  }
+}
+
+/** For mobile devices **/
+@media (max-width: 767px) {
+  .custom-shape-divider-bottom-1708824755 svg {
+      width: calc(180% + 1.3px);
+      height: 72px;
+  }
 }
