@@ -18,6 +18,7 @@ import { useAuthStore } from '@/hooks/useAuth';
 import { db } from '@/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useModal } from './ShowFeedbackModal';
+import { useConfirmToast } from './ShowFeedbackConfirmToast';
 
 const FeedbackFormModal = () => {
 	const [satisfactionRating, setSatisfactionRating] = useState<number>(-1);
@@ -29,10 +30,12 @@ const FeedbackFormModal = () => {
 
 	const userStore = useAuthStore((state) => state.user);
 	const { isModalVisible, hideModal } = useModal();
+	const { isConfirmToastVisible, showConfirmToast } = useConfirmToast();
 
 	const resetForm = () => {
 		reset(); // Reset the form to its default values
 		hideModal();
+		showConfirmToast();
 	};
 
 	const submitFeedbackForm = async (feedbackPayload: FeedbackType) => {
@@ -273,7 +276,17 @@ const FeedbackFormModal = () => {
 							<span className='text-xs lg:text-sm text-red-600 font-semibold'>{errors.comments.message}</span>
 						)}
 					</div>
-					<Button type='submit' disabled={!isValid}>
+					<Button
+						type='submit'
+						disabled={!isValid}
+						gradientMonochrome='tertiary'
+						theme={{
+							gradient: {
+								tertiary:
+									'text-white bg-gradient-to-r from-tertiary/60 via-tertiary/80 to-tertiary enabled:hover:bg-gradient-to-br focus:ring-4 focus:ring-tertiary/60 dark:focus:ring-tertiary',
+							},
+						}}
+					>
 						Submit
 					</Button>
 				</form>
