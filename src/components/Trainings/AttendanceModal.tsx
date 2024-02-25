@@ -124,9 +124,9 @@ const AttendanceModal = ({
 				</div>
 				<div className='flex flex-col gap-2 max-h-[300px] h-[300px]'>
 					{registrants?.map((reg, index) => (
-						<div key={index} className='flex gap-2 items-center'>
+						<div key={reg.avatar} className='flex gap-2 items-center'>
 							<Avatar
-								key={index + '_' + reg.avatar}
+								key={reg.avatar}
 								rounded
 								stacked
 								size='md'

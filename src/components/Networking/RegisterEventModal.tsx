@@ -1,12 +1,10 @@
-import React, { useState, useEffect, ReactEventHandler, use } from 'react';
-import { Modal, Button } from 'flowbite-react';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Avatar } from 'flowbite-react';
 import { useAuthStore } from '@/hooks/useAuth';
-import { collection, getDoc, query, where, doc, setDoc } from 'firebase/firestore';
-import { NetworkingEvent } from '@/types/types';
-import { User } from '@/types/types';
+import { getDoc, doc, setDoc } from 'firebase/firestore';
+import { NetworkingEvent, User } from '@/types/types';
 import { db } from '@/lib/firebase';
 import Image from 'next/image';
-import { Avatar } from 'flowbite-react';
 import { avatarTheme } from '@/utils/ComponentThemes';
 import { DefaultProfile } from '@/utils/DefaultProfile';
 
@@ -16,11 +14,7 @@ interface RegisterEventProps {
 	handleRegisterEventClose: () => void;
 }
 
-const RegisterEventModal = ({
-	eventId,
-	registerEventOpened,
-	handleRegisterEventClose,
-}: RegisterEventProps) => {
+const RegisterEventModal = ({ eventId, registerEventOpened, handleRegisterEventClose }: RegisterEventProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [user, setUser] = useState<User>(DefaultProfile);
 	const [networkingEvent, setNetworkingEvent] = useState<NetworkingEvent>();
@@ -54,10 +48,12 @@ const RegisterEventModal = ({
 		if (userStore?.eventsJoined.includes(eventId)) {
 			alert('You have already registered for this training.');
 		} else {
-			const updatedRegistrants = Array.isArray(networkingEvent?.eventRegistrants) ? networkingEvent.eventRegistrants : [];
+			const updatedRegistrants = Array.isArray(networkingEvent?.eventRegistrants)
+				? networkingEvent.eventRegistrants
+				: [];
 			const newRegistrants = {
 				registrantId: userStore.uid,
-				attended: true,
+				attended: false,
 			};
 
 			updatedRegistrants.push(newRegistrants);
@@ -82,7 +78,9 @@ const RegisterEventModal = ({
 			);
 			updateState(user);
 			setIsLoading(false);
+			handleRegisterEventClose();
 			window.location.reload();
+			localStorage.setItem('toastVisibility', JSON.stringify(true));
 		}
 	};
 
@@ -92,7 +90,9 @@ const RegisterEventModal = ({
 		if (!userStore?.eventsJoined.includes(eventId)) {
 			alert('You are not registered for this training.');
 		} else {
-			const updatedRegistrants = Array.isArray(networkingEvent?.eventRegistrants) ? networkingEvent.eventRegistrants : [];
+			const updatedRegistrants = Array.isArray(networkingEvent?.eventRegistrants)
+				? networkingEvent.eventRegistrants
+				: [];
 
 			const index = updatedRegistrants.findIndex((registrant) => registrant.registrantId === userStore.uid);
 
@@ -153,7 +153,21 @@ const RegisterEventModal = ({
 					</svg>
 					<h1 className='font-bold'>Registration</h1>
 				</div>
-				<h1>Welcome {userStore.firstName}! To join the networking event, please click attend below.</h1>
+				{!userStore?.eventsJoined.includes(eventId) ? (
+					<h1>
+						Welcome {userStore.firstName}! To join the{' '}
+						<span className='font-semibold'>{networkingEvent?.eventName}</span>, please click{' '}
+						<span className='font-semibold text-tertiary'>Attend.</span>
+					</h1>
+				) : (
+					<h1>
+						You are registered for <span className='font-semibold'>{networkingEvent?.eventName}</span>.
+						<br />
+						<br />
+						If you wish to cancel, please click{' '}
+						<span className='font-semibold text-yellow-500'>Cancel Registration.</span>
+					</h1>
+				)}
 				<div className='flex gap-4 items-center'>
 					<Avatar
 						color='info'
@@ -190,7 +204,6 @@ const RegisterEventModal = ({
 							processingSpinner={
 								<svg
 									aria-hidden='true'
-									role='status'
 									className='w-4 h-4 text-white animate-spin'
 									viewBox='0 0 100 101'
 									fill='none'
@@ -214,14 +227,13 @@ const RegisterEventModal = ({
 						<Button
 							disabled={!userStore?.eventsJoined.includes(eventId)}
 							type='submit'
-							color='failure'
+							color='warning'
 							className='w-fit border-none text-white'
 							size='sm'
 							isProcessing={isLoading}
 							processingSpinner={
 								<svg
 									aria-hidden='true'
-									role='status'
 									className='w-4 h-4 text-white animate-spin'
 									viewBox='0 0 100 101'
 									fill='none'

@@ -82,6 +82,7 @@ const RegisterTrainingModal = ({
 			setIsLoading(false);
 			handleRegisterTrainingClose();
 			window.location.reload();
+			localStorage.setItem('toastVisibility', JSON.stringify(true));
 		}
 	};
 

@@ -40,7 +40,7 @@ const formatTimestamp = (timestamp: Date) => {
 
 export const EventLearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, networkingEventData }: LearnMoreProps) => {
 	return (
-		<Modal show={learnMoreOpened} position='center' size='2xl' onClose={() => handleLearnMoreClose()} popup>
+		<Modal dismissible show={learnMoreOpened} position='center' size='2xl' onClose={() => handleLearnMoreClose()} popup>
 			<Modal.Header />
 			<Modal.Body className='flex flex-col gap-4 my-4'>
 				<div className='flex gap-2 mt-4 items-center'>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Modal } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { Training } from '@/types/types';
 import { LearnMoreModal } from './LearnMoreModal';
 
