@@ -69,26 +69,21 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 							</div>
 							<div className='bg-neutral-50 flex flex-col px-3 py-1 rounded-lg items-center'>
 								<span className={`${categoryColor} uppercase font-bold text-sm`}>
-									{formatTimestamp(trainingDate)
-										.split(' ')[1]
-										.slice(0, 3)}
+									{formatTimestamp(trainingDate).split(' ')[1].slice(0, 3)}
 								</span>
 								<span className='font-bold text-2xl text-black'>
-									{
-										formatTimestamp(trainingDate)
-											.split(',')[1]
-											.trim()
-											.split(' ')[1]
-									}
+									{formatTimestamp(trainingDate).split(',')[1].trim().split(' ')[1]}
 								</span>
 							</div>
 						</div>
 					</div>
 				</div>
-			)}
-		>
+			)}>
 			<h3 className='mb-4'>
-				<CategoryBadge style='banner' category={trainingCategory} />
+				<CategoryBadge
+					style='banner'
+					category={trainingCategory}
+				/>
 			</h3>
 			<div className='flex flex-col gap-2 mx-6 mb-4'>
 				<h5 className='flex gap-3 items-center'>
@@ -97,8 +92,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 						aria-hidden='true'
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
-						viewBox='0 0 24 24'
-					>
+						viewBox='0 0 24 24'>
 						<path
 							stroke='currentColor'
 							strokeLinecap='round'
@@ -115,9 +109,12 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 						aria-hidden='true'
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
-						viewBox='0 0 17 21'
-					>
-						<g stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'>
+						viewBox='0 0 17 21'>
+						<g
+							stroke='currentColor'
+							strokeLinecap='round'
+							strokeLinejoin='round'
+							strokeWidth='2'>
 							<path d='M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z' />
 							<path d='M13.8 12.938h-.01a7 7 0 1 0-11.465.144h-.016l.141.17c.1.128.2.252.3.372L8 20l5.13-6.248c.193-.209.373-.429.54-.66l.13-.154Z' />
 						</g>
@@ -130,8 +127,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 						aria-hidden='true'
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
-						viewBox='0 0 24 24'
-					>
+						viewBox='0 0 24 24'>
 						<path
 							stroke='currentColor'
 							strokeLinecap='round'
@@ -145,7 +141,10 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 			</div>
 
 			<div className='flex flex-wrap sm:justify-start justify-around items-center mx-6 mb-6 gap-2'>
-				<LearnMoreButton key={trainingId} trainingData={props.trainingData} />
+				<LearnMoreButton
+					key={trainingId}
+					trainingData={props.trainingData}
+				/>
 				<TrainingRegistrationStatus
 					trainingId={trainingId}
 					trainingRegistration={trainingRegistration}
