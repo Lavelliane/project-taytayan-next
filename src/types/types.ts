@@ -119,6 +119,12 @@ type GoogleLocation = {
 	geometry: GoogleCoordinates;
 };
 
+type MapViewLocation = {
+	id: string;
+	name: string;
+	position: GoogleCoordinates;
+};
+
 type GoogleCoordinates = {
 	lat: number;
 	lng: number;
@@ -143,6 +149,18 @@ export const links = [
 	},
 ] as const;
 
-type SectionName = typeof links[number]['name'];
+type SectionName = (typeof links)[number]['name'];
 
-export type { Employment, NetworkingEvent, Registrant, GoogleLocation, User, Training, Feedback, SectionName, AuthStore }
+export type {
+	Employment,
+	NetworkingEvent,
+	Registrant,
+	GoogleLocation,
+	GoogleCoordinates,
+	MapViewLocation,
+	User,
+	Training,
+	Feedback,
+	SectionName,
+	AuthStore,
+};

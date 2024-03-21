@@ -50,10 +50,10 @@ const FeedbackConfirmToast = () => {
 						<p className='mb-2 text-sm font-normal'>Thank you for your response.</p>
 
 						<Rating className='flex gap-2 items-center justify-center'>
-							<RatingStar className={`transition-transform ${progress < 90 ? 'scale-100' : 'scale-0'}`} />
 							<RatingStar className={`transition-transform ${progress < 70 ? 'scale-100' : 'scale-0'}`} />
-							<RatingStar className={`transition-transform ${progress < 50 ? 'scale-100' : 'scale-0'}`} />
-							<RatingStar className={`transition-transform ${progress < 30 ? 'scale-100 ' : 'scale-0'}`} />
+							<RatingStar className={`transition-transform ${progress < 55 ? 'scale-100' : 'scale-0'}`} />
+							<RatingStar className={`transition-transform ${progress < 40 ? 'scale-100' : 'scale-0'}`} />
+							<RatingStar className={`transition-transform ${progress < 25 ? 'scale-100 ' : 'scale-0'}`} />
 							<RatingStar className={`transition-transform ${progress < 10 ? 'scale-100' : 'scale-0'}`} />
 						</Rating>
 					</div>
