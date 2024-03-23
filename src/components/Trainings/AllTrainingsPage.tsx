@@ -131,15 +131,10 @@ const AllTrainingsPage = () => {
 					<div className='pb-8'>
 						<div className='flex gap-6 justify-between'>
 							<div className='flex gap-6'>
-								<CategoryDropdown
-									selectedCategories={selectedCategories}
-									onCategoryChange={handleCategoryChange}
-								/>
+								<CategoryDropdown selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
 								<SortDropdown onSortChange={handleSortChange} />
 							</div>
-							<Button
-								href={showMapView ? '' : '#map-view'}
-								onClick={handleToggleMapView}>
+							<Button href={showMapView ? '' : '#map-view'} onClick={handleToggleMapView}>
 								{showMapView ? 'List View' : 'Map View'}
 							</Button>
 						</div>
@@ -148,11 +143,7 @@ const AllTrainingsPage = () => {
 								.slice()
 								.sort((a, b) => a.localeCompare(b))
 								.map((category) => (
-									<CategoryBadge
-										key={category}
-										category={category}
-										style={''}
-									/>
+									<CategoryBadge key={category} category={category} style={''} />
 								))}
 						</div>
 					</div>
@@ -160,7 +151,8 @@ const AllTrainingsPage = () => {
 						id='map-view'
 						className={`rounded-xl md:bg-slate-50 bg-none lg:p-6 md:p-4 p-0 gap-6 flex w-full relative ${
 							showMapView ? 'overflow-y-auto h-[80vh]' : 'h-fit overflow-y-auto'
-						} `}>
+						} `}
+					>
 						{trainings.length === 0 ||
 							(filteredTrainings.length === 0 && (
 								<h1 className='text-center justify-center font-semibold w-full flex py-24'>No trainings found.</h1>
@@ -168,7 +160,8 @@ const AllTrainingsPage = () => {
 						<div
 							className={`relative grid grid-cols-1 scroll-smooth ${
 								showMapView ? 'lg:grid-cols-1 max-w-sm w-full' : 'lg:grid-cols-2 w-full'
-							} gap-6  bg-none `}>
+							} gap-6  bg-none `}
+						>
 							{filteredTrainings.map((training) => (
 								<button
 									disabled={!showMapView}
@@ -178,11 +171,9 @@ const AllTrainingsPage = () => {
 									key={training.trainingId}
 									onClick={() =>
 										setSelectedLocation({ id: training.trainingId, position: training.trainingAddress.geometry })
-									}>
-									<TrainingCard
-										key={training.trainingId}
-										trainingData={training}
-									/>
+									}
+								>
+									<TrainingCard key={training.trainingId} trainingData={training} />
 								</button>
 							))}
 							{trainings.length === 0 ||
@@ -194,7 +185,8 @@ const AllTrainingsPage = () => {
 						<div
 							className={`rounded-lg shadow-lg sticky top-0 duration-1000  ease-in-out transition-transform w-full h-full ${
 								showMapView ? 'scale-x-100 origin-right' : 'scale-x-0 origin-right hidden'
-							}`}>
+							}`}
+						>
 							<MapView
 								handleToggleMapView={handleToggleMapView}
 								trainingLocation={trainingLocations}
