@@ -35,7 +35,7 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 	const [markers, setMarkers] = useState<MarkerType[]>(trainingLocation);
 
 	const location = useGeoLocation();
-	const [center, setCenter] = useState<GoogleCoordinates>(currentLocation);
+	const [center, setCenter] = useState<GoogleCoordinates>({ lat: 10.3157, lng: 123.8854 });
 
 	const handleActiveMarker = (id: string, location: GoogleCoordinates) => {
 		setActiveMarker(id);
@@ -63,7 +63,7 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 		} else {
 			setCenter(currentLocation);
 		}
-	}, [selectedLocation]);
+	}, [selectedLocation, currentLocation]);
 
 	const handleMyLocation = () => {
 		if (center.lat === 0 && center.lng === 0) {
