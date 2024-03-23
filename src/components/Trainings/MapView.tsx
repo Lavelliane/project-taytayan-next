@@ -43,7 +43,9 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 		const foundRetailer = trainingLocation.find((retailer) => retailer.id === id);
 		setMapInfo(foundRetailer || null);
 
-		if (map) {
+		if (!foundRetailer) {
+			handleMyLocation();
+		} else if (foundRetailer && map) {
 			map.panTo(location);
 		}
 	};
@@ -58,6 +60,8 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 		if (selectedLocation.position.lat != 0 && selectedLocation.position.lng != 0) {
 			setCenter(selectedLocation.position);
 			handleActiveMarker(selectedLocation.id, selectedLocation.position);
+		} else {
+			setCenter(currentLocation);
 		}
 	}, [selectedLocation]);
 
