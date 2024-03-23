@@ -164,7 +164,6 @@ const AllTrainingsPage = () => {
 						>
 							{filteredTrainings.map((training) => (
 								<button
-									disabled={!showMapView}
 									className={`rounded-lg ${
 										showMapView && selectedLocation?.id === training.trainingId ? 'ring-tertiary ring-4' : ''
 									} ${showMapView ? 'hover:shadow-lg' : ''} transition-shadow`}
@@ -191,7 +190,8 @@ const AllTrainingsPage = () => {
 								handleToggleMapView={handleToggleMapView}
 								trainingLocation={trainingLocations}
 								selectedLocation={selectedLocation || { id: '', position: { lat: 0, lng: 0 } }}
-								currentLocation={currentLocation || { lat: 0, lng: 0 }}
+								//currentLocation={currentLocation || { lat: 10.3157, lng: 123.8854 }}
+								currentLocation={{ lat: 10.3157, lng: 123.8854 }}
 							/>
 						</div>
 					</div>
