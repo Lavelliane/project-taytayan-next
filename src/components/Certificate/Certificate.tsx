@@ -12,15 +12,19 @@ import {
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { PDFViewer } from "@react-pdf/renderer";
 
 const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [certificateTemplate, setCertificateTemplate] = useState("");
+  const [userName, setUserName] = useState("");
+  const [eventName, setEventName] = useState("");
+  const [eventDate, setEventDate] = useState();
   const [validEventAndCert, setValidEventAndCert] = useState(false);
 
   const getImageSize = async (currentCertificateTemplate: string) => {
     const size = await fetchImageSize(currentCertificateTemplate);
-    setImageSize(size);
+    setImageSize(size || { width: 0, height: 0 });
   };
 
   useEffect(() => {
@@ -30,15 +34,28 @@ const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
       if (docSnap.exists()) {
         const currentData = docSnap.data();
         const validUserandEvent = currentData.trainingRegistrants.some(
-          (registrant) =>
+          (registrant: any) =>
             registrant.registrantId === uid && registrant.attended === true
         );
         if (validUserandEvent) {
+          const userRef = doc(db, "users", uid);
+          const userSnap = await getDoc(userRef);
+          const currentUserData = userSnap.data();
+          const date =
+            currentData.trainingDate.toDate().toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            }) || "";
+          setUserName(currentUserData?.firstName);
+          setEventName(currentData.trainingName);
+          setEventDate(date);
           setCertificateTemplate(currentData.certificateTemplate);
           getImageSize(currentData.certificateTemplate);
           setValidEventAndCert(true);
+        } else {
+          setValidEventAndCert(false);
         }
-        setValidEventAndCert(false);
       } else {
         setValidEventAndCert(false);
       }
@@ -46,7 +63,7 @@ const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
     if (uid) {
       checkIfUserAttended();
     }
-  }, [uid]);
+  }, [uid, eventId]);
 
   if (imageSize.width === 0 || imageSize.height === 0) {
     return null; // Render nothing until imageSize is fetched
@@ -85,22 +102,34 @@ const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
       textAlign: "center",
       fontSize: 48 * scaleFactor,
       fontWeight: "bold",
-      color: "white",
+      color: "black",
     },
   });
 
   if (validEventAndCert) {
     return (
-      <Document>
-        <Page size={[width, height]} style={styles.page}>
-          <View style={styles.wrapper}>
-            <Image src={certificateTemplate} style={styles.image} />
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>Test</Text>
-            </View>
-          </View>
-        </Page>
-      </Document>
+      <>
+        <div className="h-screen px-28">
+          <div className="h-full w-full flex flex-col items-center justify-center gap-3">
+            <span className="font-semibold text-xl">
+              ✨ Congratulations, {userName} for participating in {eventName}{" "}
+              last {eventDate}! ✨
+            </span>
+            <PDFViewer width={"80%"} height={"90%"}>
+              <Document>
+                <Page size={[width, height]} style={styles.page}>
+                  <View style={styles.wrapper}>
+                    <Image src={certificateTemplate} style={styles.image} />
+                    <View style={styles.textContainer}>
+                      <Text style={styles.text}>{userName}</Text>
+                    </View>
+                  </View>
+                </Page>
+              </Document>
+            </PDFViewer>
+          </div>
+        </div>
+      </>
     );
   } else {
     <span>ERROR HERE</span>;
