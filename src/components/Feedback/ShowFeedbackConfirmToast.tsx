@@ -22,7 +22,6 @@ export const GlobalFeedbackConfirmConfirmToastProvider = ({ children }: any) => 
 
 	const showConfirmToast = () => {
 		setIsConfirmToastVisible(true);
-		console.log(isConfirmToastVisible);
 	};
 
 	const hideConfirmToast = () => {

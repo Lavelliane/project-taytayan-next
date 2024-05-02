@@ -35,7 +35,7 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 	const [markers, setMarkers] = useState<MarkerType[]>(trainingLocation);
 
 	const location = useGeoLocation();
-	const [center, setCenter] = useState<GoogleCoordinates>(currentLocation);
+	const [center, setCenter] = useState<GoogleCoordinates>({ lat: 10.3157, lng: 123.8854 });
 
 	const handleActiveMarker = (id: string, location: GoogleCoordinates) => {
 		setActiveMarker(id);
@@ -43,7 +43,9 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 		const foundRetailer = trainingLocation.find((retailer) => retailer.id === id);
 		setMapInfo(foundRetailer || null);
 
-		if (map) {
+		if (!foundRetailer) {
+			handleMyLocation();
+		} else if (foundRetailer && map) {
 			map.panTo(location);
 		}
 	};
@@ -58,9 +60,10 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 		if (selectedLocation.position.lat != 0 && selectedLocation.position.lng != 0) {
 			setCenter(selectedLocation.position);
 			handleActiveMarker(selectedLocation.id, selectedLocation.position);
-			handleMyLocation();
+		} else {
+			setCenter(currentLocation);
 		}
-	}, [selectedLocation]);
+	}, [selectedLocation, currentLocation]);
 
 	const handleMyLocation = () => {
 		if (center.lat === 0 && center.lng === 0) {
@@ -71,8 +74,8 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 				}
 			}
 		}
-		if (map && center) {
-			map.panTo(center);
+		if (map && currentLocation) {
+			map.panTo(currentLocation);
 		}
 	};
 
@@ -98,7 +101,8 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 						mapTypeControl: false,
 						zoomControl: false,
 						fullscreenControl: false,
-					}}>
+					}}
+				>
 					{markers?.map(({ position, id }) => (
 						<MarkerF
 							key={id} // Add a unique key for each Marker component
@@ -120,7 +124,7 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 						/>
 					))}
 					<Marker
-						position={center}
+						position={currentLocation}
 						zIndex={40}
 						icon={{
 							path: 'M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z',
@@ -145,9 +149,7 @@ const MapView = ({ handleToggleMapView, trainingLocation, selectedLocation, curr
 						{String(trainingLocation.length).padStart(2, '0')}
 					</span>
 				</button> */}
-				<button
-					onClick={handleMyLocation}
-					className='text-gray-900 text-2xl bg-gray-100 p-2 rounded-full shadow-md'>
+				<button onClick={handleMyLocation} className='text-gray-900 text-2xl bg-gray-100 p-2 rounded-full shadow-md'>
 					<TbCurrentLocation />
 				</button>
 			</div>
