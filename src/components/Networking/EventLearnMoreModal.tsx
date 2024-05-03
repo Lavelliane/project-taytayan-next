@@ -1,6 +1,6 @@
 import { Avatar, Button, CustomFlowbiteTheme, Modal } from 'flowbite-react';
 import { NetworkingEvent } from '@/types/types';
-import { FiMapPin } from 'react-icons/fi';
+import { FiMapPin, FiCopy, FiArrowUpRight } from 'react-icons/fi';
 import { Timestamp } from 'firebase/firestore';
 import { RegisterEventButton } from './RegisterEventButton';
 import SeeRegistrantsButton from '../Trainings/SeeRegistrantsButton';
@@ -42,7 +42,7 @@ export const EventLearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, net
 	return (
 		<Modal dismissible show={learnMoreOpened} position='center' size='2xl' onClose={() => handleLearnMoreClose()} popup>
 			<Modal.Header />
-			<Modal.Body className='flex flex-col gap-4 my-4'>
+			<Modal.Body className='flex flex-col gap-4'>
 				<div className='flex gap-2 mt-4 items-center'>
 					<Avatar
 						img='/institution.svg'
@@ -62,6 +62,15 @@ export const EventLearnMoreModal = ({ learnMoreOpened, handleLearnMoreClose, net
 					<FiMapPin />
 					{networkingEventData.eventAddress.formattedAddress || 'Project Taytayan HQ'}
 				</div>
+        <div className='flex w-fit gap-2'>
+          <Button  
+            href={`/event/${networkingEventData.eventId}`}
+            color='gray'
+            className='p-0 h-8'>
+            Event Page
+            <FiArrowUpRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
 				<div className='text-sm lg:text-base font-bold'>
 					Registration Fee:{' '}
 					{parseFloat(networkingEventData.eventRegistration) === 0 ? (
