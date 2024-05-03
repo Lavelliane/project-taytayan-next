@@ -113,7 +113,7 @@ export const AddTrainingForm = ({
 
   const submitAddTrainingForm = async (data: AddTrainingFormType) => {
     setIsLoading(true);
-	const { certificateTemplate, ...dataWithoutCertificate } = data;
+    const { certificateTemplate, ...dataWithoutCertificate } = data;
     const trainingActivitiesArray = data.trainingActivities
       .split(";")
       .map((item: string) => item.trim())
@@ -163,7 +163,6 @@ export const AddTrainingForm = ({
         })
         .catch((e) => console.error(e));
     } catch (error) {
-      console.log("DEAD!");
       console.error(error);
     }
 
