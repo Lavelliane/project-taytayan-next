@@ -127,8 +127,7 @@ const Profile = () => {
 					</div>
 					<Link
 						href='/profile/edit'
-						className='lg:mt-8 mt-2 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-1 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400'
-					>
+						className='lg:mt-8 mt-2 px-3 py-2 text-xs font-medium text-center text-gray-900 rounded-full border border-gray-400 hover:bg-gray-400 focus:ring-1 focus:outline-none focus:ring-gray-400  dark:hover:bg-gray-400 dark:focus:ring-gray-400'>
 						Edit Profile
 					</Link>
 				</div>
@@ -144,8 +143,7 @@ const Profile = () => {
 							{user.skills.map((skill) => (
 								<span
 									className='font-normal px-2 py-1 border border-gray-500 rounded-full lg:text-sm text-xs'
-									key={skill}
-								>
+									key={skill}>
 									{skill}
 									<br />
 								</span>
@@ -154,7 +152,9 @@ const Profile = () => {
 					</h5>
 				</div>
 
-				<Card href='#' className='lg:max-w-2xl lg:w-[42rem] w-full h-fit ml-auto'>
+				<Card
+					href='#'
+					className='lg:max-w-2xl lg:w-[42rem] w-full h-fit ml-auto'>
 					<h5 className='text-sm text-gray-900 dark:text-gray-400'>
 						<span className='font-semibold xl:text-lg md:text-base text-sm'>Email</span>
 						<br />
@@ -180,8 +180,7 @@ const Profile = () => {
 							{user.interest.map((interest) => (
 								<span
 									className='font-normal px-2 py-1 border border-gray-500 rounded-full lg:text-sm text-xs'
-									key={interest}
-								>
+									key={interest}>
 									{interest}
 									<br />
 								</span>
@@ -208,7 +207,12 @@ const Profile = () => {
 				<div className='flex flex-wrap gap-6'>
 					{user.trainings.map((tr, index) => (
 						<div key={training[index]?.trainingId}>
-							{training[index] ? <CertTrainingCard trainings={training[index]} /> : null}
+							{training[index] ? (
+								<CertTrainingCard
+									userId={user.uid}
+									trainings={training[index]}
+								/>
+							) : null}
 						</div>
 					))}
 				</div>
