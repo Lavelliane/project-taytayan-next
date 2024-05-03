@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Lexend_Deca, Roboto } from 'next/font/google'
 import {Providers} from "@/components/Providers";
 import './globals.css'
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const roboto = Roboto({
@@ -27,6 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Script
+        strategy="lazyOnload" // Or "afterInteractive"
+        src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+      />
       <body className={`${inter.className} ${roboto.variable} ${lexendDeca.variable}`}>
         <link rel="icon" href="/taytayan-logo.svg" sizes="any" />
           <Providers>
