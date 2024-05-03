@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { PDFViewer } from "@react-pdf/renderer";
+import { FaQuestion } from "react-icons/fa";
 
 const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
@@ -131,8 +132,17 @@ const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
         </div>
       </>
     );
-  } else {
-    <span>ERROR HERE</span>;
+  } else if (!validEventAndCert) {
+    return (
+      <>
+        <div className="min-h-screen h-screen px-28">
+          <div className="h-full w-full flex flex-col items-center justify-center gap-3">
+            <FaQuestion />
+            <span>{`You seem lost. I don't think this is the right event / certification :(`}</span>
+          </div>
+        </div>
+      </>
+    );
   }
 };
 
