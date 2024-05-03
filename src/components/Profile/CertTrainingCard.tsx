@@ -3,12 +3,14 @@ import { Card } from 'flowbite-react';
 import Image from 'next/image';
 import CertificateIcon from '../../../public/assets/certificationIcon.png';
 import { Training } from '@/types/types';
+import Link from 'next/link';
 
 interface MyTrainingsCardProps {
+	userId: string;
 	trainings: Training;
 }
 
-const CertTrainingCard = ({ trainings }: MyTrainingsCardProps) => {
+const CertTrainingCard = ({ userId, trainings }: MyTrainingsCardProps) => {
 	const certName = trainings.trainingName;
 	const typeOfCertification = trainings.trainingCategory;
 	const organization = trainings.trainingCenter;
@@ -38,8 +40,7 @@ const CertTrainingCard = ({ trainings }: MyTrainingsCardProps) => {
 						aria-hidden='true'
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
-						viewBox='0 0 20 20'
-					>
+						viewBox='0 0 20 20'>
 						<path
 							stroke='currentColor'
 							strokeLinecap='round'
@@ -56,9 +57,12 @@ const CertTrainingCard = ({ trainings }: MyTrainingsCardProps) => {
 						aria-hidden='true'
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
-						viewBox='0 0 17 21'
-					>
-						<g stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'>
+						viewBox='0 0 17 21'>
+						<g
+							stroke='currentColor'
+							strokeLinecap='round'
+							strokeLinejoin='round'
+							strokeWidth='2'>
 							<path d='M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z' />
 							<path d='M13.8 12.938h-.01a7 7 0 1 0-11.465.144h-.016l.141.17c.1.128.2.252.3.372L8 20l5.13-6.248c.193-.209.373-.429.54-.66l.13-.154Z' />
 						</g>
@@ -71,8 +75,7 @@ const CertTrainingCard = ({ trainings }: MyTrainingsCardProps) => {
 						aria-hidden='true'
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
-						viewBox='0 0 20 20'
-					>
+						viewBox='0 0 20 20'>
 						<path
 							stroke='currentColor'
 							strokeLinecap='round'
@@ -84,7 +87,12 @@ const CertTrainingCard = ({ trainings }: MyTrainingsCardProps) => {
 					<h1 className='text-xs'>{Number(registrationFee) >= 0 ? registrationFee.toString() : 'Free'}</h1>
 				</div>
 			</div>
-			<h1 className='text-sm text-white font-semibold bg-[#009639] rounded-lg px-6 py-2 w-fit'>{Status}</h1>
+			<Link
+				href={`/event/${trainings.trainingId}/certificate/${userId}`}
+				target='_blank'
+				className='text-sm text-white font-semibold bg-[#009639] rounded-lg px-6 py-2 w-fit lg:hover:shadow-md lg:hover:bg-[#009639]/80'>
+				{/* {Status} */} View Certificate
+			</Link>
 		</Card>
 	);
 };
