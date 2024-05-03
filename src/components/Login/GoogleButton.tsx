@@ -4,7 +4,7 @@ import {
     CustomFlowbiteTheme,
 } from 'flowbite-react';
 import { useAuthStore, initialUserState } from '@/hooks/useAuth';
-import { onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect } from 'firebase/auth';
 import { auth, db, provider } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import { User } from '@/types/types';
@@ -20,13 +20,20 @@ const googleButton: CustomFlowbiteTheme['button'] = {
 export const GoogleButton = () => {
   const router = useRouter()
   const [isSigningIn, setIsSigningIn] = useState(false)
-  const updateUserState = useAuthStore((state) => state.updateUserState)
-  const handleGoogleAuth = () => {
-    signInWithRedirect(auth, provider)
+  const updateUserState = useAuthStore((state: any) => state.updateUserState)
+  const handleGoogleAuth = async () => {
+    try {
+      setIsSigningIn(true);
+      await signInWithPopup(auth, new GoogleAuthProvider());
+    } catch (error) {
+      console.error('Error during Google authentication:', error);
+      setIsSigningIn(false);
+    }
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        // console.log('USER', user)
         const docRef = doc(collection(db, 'users'), user.uid);
         const userDoc = await getDoc(docRef);
   
@@ -48,7 +55,7 @@ export const GoogleButton = () => {
     });
 
     return () => unsubscribe();
-  }, [auth, router, updateUserState, setIsSigningIn]);
+  }, []);
   return (
     <div>
       <Button 
