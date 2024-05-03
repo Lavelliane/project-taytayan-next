@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { PDFViewer } from "@react-pdf/renderer";
-import { FaQuestion } from "react-icons/fa";
+import { HiEmojiSad } from "react-icons/hi";
 
 const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
@@ -66,10 +66,6 @@ const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
     }
   }, [uid, eventId]);
 
-  if (imageSize.width === 0 || imageSize.height === 0) {
-    return null; // Render nothing until imageSize is fetched
-  }
-
   const { width, height } = imageSize;
   const scaleFactor = Math.min(width, height) / 1500; // Adjust this factor as needed
 
@@ -107,43 +103,49 @@ const Certificate = ({ uid, eventId }: { uid: string; eventId: string }) => {
     },
   });
 
-  if (validEventAndCert) {
+  if (!validEventAndCert) {
     return (
       <>
-        <div className="h-screen px-28">
+        <div className="h-screen">
           <div className="h-full w-full flex flex-col items-center justify-center gap-3">
-            <span className="font-semibold text-xl">
-              ✨ Congratulations, {userName} for participating in {eventName}{" "}
-              last {eventDate}! ✨
-            </span>
-            <PDFViewer width={"80%"} height={"90%"}>
-              <Document>
-                <Page size={[width, height]} style={styles.page}>
-                  <View style={styles.wrapper}>
-                    <Image src={certificateTemplate} style={styles.image} />
-                    <View style={styles.textContainer}>
-                      <Text style={styles.text}>{userName}</Text>
-                    </View>
-                  </View>
-                </Page>
-              </Document>
-            </PDFViewer>
-          </div>
-        </div>
-      </>
-    );
-  } else if (!validEventAndCert) {
-    return (
-      <>
-        <div className="min-h-screen h-screen px-28">
-          <div className="h-full w-full flex flex-col items-center justify-center gap-3">
-            <FaQuestion />
-            <span>{`You seem lost. I don't think this is the right event / certification :(`}</span>
+            <div className="flex justify-center items-center border-black border-2 p-10 gap-4 text-lg rounded-xl shadow-lg">
+              <HiEmojiSad size={75} />
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold">{`You seem lost.`}</span>
+                <span>{`Invalid event or certificate does not exist :(`}</span>
+                <span>{`Please contact the administrators if you think this is a mistake.`}</span>
+              </div>
+            </div>
           </div>
         </div>
       </>
     );
   }
+
+  return (
+    <>
+      <div className="h-screen px-28">
+        <div className="h-full w-full flex flex-col items-center justify-center gap-3">
+          <span className="font-semibold text-xl">
+            ✨ Congratulations, {userName} for participating in {eventName} last{" "}
+            {eventDate}! ✨
+          </span>
+          <PDFViewer width={"80%"} height={"90%"}>
+            <Document>
+              <Page size={[width, height]} style={styles.page}>
+                <View style={styles.wrapper}>
+                  <Image src={certificateTemplate} style={styles.image} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.text}>{userName}</Text>
+                  </View>
+                </View>
+              </Page>
+            </Document>
+          </PDFViewer>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Certificate;
