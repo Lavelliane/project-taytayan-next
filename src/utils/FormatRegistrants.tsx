@@ -114,7 +114,7 @@ export const FormatRegistrants = ({ registrant }: FormatRegistrantsProps) => {
 					{registrantAvatar?.length > 8 && <Avatar.Counter total={registrantAvatar?.length - 5} />}
 				</Avatar.Group>
 			</div>
-			<p className='text-xs lg:text-sm text-gray-600'>{formattedNames}</p>
+			<p className='text-xs lg:text-sm '>{formattedNames}</p>
 			<SeeRegistrantsModal
 				registrant={registrant}
 				seeRegistrantOpened={modalOpened}

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Hero from './Hero';
 import NavbarLanding from './NavbarLanding';
 import Benefits from './Benefits';
@@ -8,6 +8,7 @@ import Services from './Services';
 import Partners from './Partners';
 import { Next13ProgressBar } from 'next13-progressbar';
 import FooterLanding from './FooterLanding';
+import retrieveStatic from '@/utils/retrieveStaticData';
 
 const LandingPage = () => {
 	return (

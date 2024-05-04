@@ -171,6 +171,69 @@ div.optionListContainer {
   fill: #FFFFFF;
 }
 
+/* Event */
+
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.glass-text {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+body.event-page {background: radial-gradient(100% 100% at var(--13-x-position) var(--13-y-position), #c8c22d -74%, transparent),radial-gradient(100% 100% at var(--14-x-position) var(--14-y-position), #00c77b 0%, transparent),radial-gradient(100% 100% at var(--15-x-position) var(--15-y-position), #23d726 0%, transparent),radial-gradient(100% 100% at var(--16-x-position) var(--16-y-position), #9dc11a 0%, transparent),#81bd00;animation-name: main; animation-iteration-count: infinite; animation-duration: 6s; transition-timing-function: ease-in-out;}@property --13-x-position {
+  syntax: '<percentage>';
+    inherits: false;
+    initial-value: 20%;
+  }@property --13-y-position {
+    syntax: '<percentage>';
+      inherits: false;
+      initial-value: 80%;
+    }@property --14-x-position {
+  syntax: '<percentage>';
+    inherits: false;
+    initial-value: 80%;
+  }@property --14-y-position {
+    syntax: '<percentage>';
+      inherits: false;
+      initial-value: 20%;
+    }@property --15-x-position {
+  syntax: '<percentage>';
+    inherits: false;
+    initial-value: 80%;
+  }@property --15-y-position {
+    syntax: '<percentage>';
+      inherits: false;
+      initial-value: 80%;
+    }@property --16-x-position {
+  syntax: '<percentage>';
+    inherits: false;
+    initial-value: 80%;
+  }@property --16-y-position {
+    syntax: '<percentage>';
+      inherits: false;
+      initial-value: 80%;
+    }:root {--4-x-position: 20%;--4-y-position: 80%;--5-x-position: 80%;--5-y-position: 20%;--6-x-position: 20%;--6-y-position: 80%;--7-x-position: 80%;--7-y-position: 20%;--9-x-position: 20%;--9-y-position: 80%;--10-x-position: 80%;--10-y-position: 20%;--11-x-position: 80%;--11-y-position: 80%;--13-x-position: 20%;--13-y-position: 80%;--14-x-position: 80%;--14-y-position: 20%;--15-x-position: 80%;--15-y-position: 80%;--16-x-position: 80%;--16-y-position: 80%;}
+@keyframes main {
+  25% {--13-x-position: 15%;--13-y-position: 15%;--14-x-position: 85%;--14-y-position: 80%;}50% {--13-x-position: 80%;--13-y-position: 15%;--14-x-position: 15%;--14-y-position: 85%;--15-x-position: 20%;--15-y-position: 20%;--16-x-position: 20%;--16-y-position: 20%;}
+}
+
+
+
 /** For tablet devices **/
 @media (min-width: 768px) and (max-width: 1023px) {
   .custom-shape-divider-top-1708824647 svg {
