@@ -49,6 +49,8 @@ export const DashboardTraining = () => {
 		}
 	};
 
+	console.log(filteredTrainings);
+
 	const filterTrainings = () => {
 		if (selectedCategories.length > 0) {
 			setFilteredTrainings(trainings.filter((training) => selectedCategories.includes(training.trainingCategory)));
@@ -60,19 +62,29 @@ export const DashboardTraining = () => {
 	return (
 		<div>
 			<div className='pb-8'>
-				<CategoryDropdown selectedCategories={selectedCategories} onCategoryChange={handleCategoryChange} />
+				<CategoryDropdown
+					selectedCategories={selectedCategories}
+					onCategoryChange={handleCategoryChange}
+				/>
 				<div className='flex flex-wrap gap-2 pt-4 '>
 					{selectedCategories
 						.slice()
 						.sort((a, b) => a.localeCompare(b))
 						.map((category, index) => (
-							<CategoryBadge key={index} style='badge' category={category} />
+							<CategoryBadge
+								key={index}
+								style='badge'
+								category={category}
+							/>
 						))}
 				</div>
 			</div>
 			<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full pb-8'>
 				{filteredTrainings.map((training: Training) => (
-					<TrainingCard key={training.trainingId} trainingData={training as Training} />
+					<TrainingCard
+						key={training.trainingId}
+						trainingData={training as Training}
+					/>
 				))}
 				{trainings.length === 0 ||
 					(filteredTrainings.length === 0 && (

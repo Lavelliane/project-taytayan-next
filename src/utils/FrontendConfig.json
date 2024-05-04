@@ -1,0 +1,14 @@
+{
+	"images": {
+		"trainings": [
+			{
+				"name": "Jump Camp 2024",
+				"url": [
+					"https://firebasestorage.googleapis.com/v0/b/taytayan-9c7ec.appspot.com/o/jump_camp_image_2.jpg?alt=media&token=be6c5876-af53-4ec4-9036-2812b663df0f",
+					"https://firebasestorage.googleapis.com/v0/b/taytayan-9c7ec.appspot.com/o/jump_camp_image_1.jpg?alt=media&token=b689fed5-a531-4a2a-b9a0-9a5deeaf6096",
+					"https://firebasestorage.googleapis.com/v0/b/taytayan-9c7ec.appspot.com/o/jump_camp_logo.jpg?alt=media&token=03fe99d0-19eb-45f4-a961-515a3bae2eb8"
+				]
+			}
+		]
+	}
+}

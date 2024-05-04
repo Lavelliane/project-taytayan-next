@@ -205,7 +205,17 @@ const Profile = () => {
 			<div className='mt-6 flex flex-col gap-4'>
 				<h1 className='font-semibold xl:text-lg md:text-base text-sm'>Trainings & Certifications</h1>
 				<div className='flex flex-wrap gap-6'>
-					{user.trainings.map((tr, index) => (
+					{training.map((tr, index) => (
+						<div key={tr.trainingId}>
+							{user.trainings[index] ? (
+								<CertTrainingCard
+									userId={user.uid}
+									trainings={training[index]}
+								/>
+							) : null}
+						</div>
+					))}
+					{/* {user.trainings.map((tr, index) => (
 						<div key={training[index]?.trainingId}>
 							{training[index] ? (
 								<CertTrainingCard
@@ -214,7 +224,7 @@ const Profile = () => {
 								/>
 							) : null}
 						</div>
-					))}
+					))} */}
 				</div>
 			</div>
 			<div className='mt-6 flex flex-col gap-4'>

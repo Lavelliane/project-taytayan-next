@@ -9,6 +9,7 @@ import { cardTheme } from '@/utils/ComponentThemes';
 import TrainingRegistrationStatus from './TrainingRegistrationStatus';
 import Image from 'next/image';
 import flavorImage from '../../../public/assets/stock_2.jpg';
+import FrontendConfig from '../../utils/FrontendConfig.json';
 
 interface TrainingProps {
 	trainingData: Training;
@@ -34,6 +35,7 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 		trainingAddress,
 		trainingRegistration,
 		trainingCategory,
+		coverPhoto,
 	} = props.trainingData;
 
 	useEffect(() => {
@@ -45,6 +47,9 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 		}
 	}, [trainingCategory]);
 
+	//const training = FrontendConfig.images.trainings.find((training) => training.name === trainingName);
+	console.log(coverPhoto);
+	//console.log(training);
 	return (
 		<Card
 			className='max-w-full p-0 shadow-none border-[1px] md:border-[1px] justify-between'
@@ -52,13 +57,15 @@ export const TrainingCard: React.FC<TrainingProps> = (props) => {
 			renderImage={() => (
 				<div className='flex min-w-fit h-48 relative w-full items-center justify-center rounded-t-lg'>
 					<Image
-						src={flavorImage}
-						alt='banner image'
+						src={coverPhoto || flavorImage}
+						alt={trainingName || 'banner image'}
 						style={{
 							objectFit: 'cover',
 							width: '100%',
 							height: '100%',
 						}}
+						width={600}
+						height={400}
 						sizes='auto'
 						className='rounded-t-lg'
 					/>
