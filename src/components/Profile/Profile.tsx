@@ -46,22 +46,18 @@ const Profile = () => {
 
 			try {
 				const trainingDoc = await getDocs(trainingRef);
-				const trainingData = trainingDoc?.docs.map((doc) => doc.data()) as Training[];
+				if (trainingDoc) {
+					const trainingData = trainingDoc.docs.map((doc) => doc.data()) as Training[];
+					let fetchedTraining: Training[] = trainingData;
 
-				let fetchedTraining: Training[] = trainingData;
-				console.log(trainingData);
+					// trainingData.map((tr, index) => {
+					// 	if (tr.trainingRegistrants?.find(({ registrantId }) => registrantId === user.uid)?.attended === false) {
+					// 		fetchedTraining.splice(index);
+					// 	}
 
-				console.log(fetchedTraining);
-				console.log(
-					fetchedTraining[1].trainingRegistrants?.find(({ registrantId }) => registrantId === user.uid)?.attended
-				);
-				trainingData.map((tr, index) => {
-					if (tr.trainingRegistrants?.find(({ registrantId }) => registrantId === user.uid)?.attended === false) {
-						fetchedTraining.splice(index);
-					}
-
+					// });
 					setTraining(fetchedTraining);
-				});
+				}
 
 				// // Calculate the number of completed trainings
 				// const completedTrainingsCount = trainingData.reduce((count, training) => {
@@ -97,11 +93,11 @@ const Profile = () => {
 		nameInitials = user?.firstName.charAt(0) + user?.lastName.charAt(0);
 	}
 
-	const checkAttendance = (index: number) => {
-		return training[index]?.trainingRegistrants[
-			training[index].trainingRegistrants.findIndex((id) => id.registrantId === user.uid)
-		].attended;
-	};
+	// const checkAttendance = (index: number) => {
+	// 	return training[index]?.trainingRegistrants[
+	// 		training[index].trainingRegistrants.findIndex((id) => id.registrantId === user.uid)
+	// 	].attended;
+	// };
 
 	return (
 		<main className='h-fit w-full'>
@@ -230,8 +226,8 @@ const Profile = () => {
 			<div className='mt-6 flex flex-col gap-4'>
 				<h1 className='font-semibold xl:text-lg md:text-base text-sm'>Events Joined</h1>
 				<div className='grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6'>
-					{user?.eventsJoined?.map((ev, index) => (
-						<div key={event[index]?.eventId}>{event[index] && <CertEventCard Events={event[index]} />}</div>
+					{event.map((ev, index) => (
+						<div key={ev.eventId}>{user.eventsJoined[index] && <CertEventCard Events={event[index]} />}</div>
 					))}
 				</div>
 			</div>
