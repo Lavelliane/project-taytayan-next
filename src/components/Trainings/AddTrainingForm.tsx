@@ -95,8 +95,7 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 
 	const submitAddTrainingForm = async (data: AddTrainingFormType) => {
 		setIsLoading(true);
-		const { certificateTemplate, ...dataWithoutCertificate } = data;
-		const { coverPhoto, ...dataWithoutCoverPhoto } = data;
+		const { certificateTemplate, coverPhoto, ...dataWithoutCertificate } = data;
 		const trainingActivitiesArray = data.trainingActivities
 			.split(';')
 			.map((item: string) => item.trim())
@@ -107,7 +106,6 @@ export const AddTrainingForm = ({ addTrainingOpened, handleAddTrainingClose }: A
 			.filter((str) => str !== '');
 		const finalPayload = {
 			...dataWithoutCertificate,
-			...dataWithoutCoverPhoto,
 			trainingId: '',
 			trainingRegistrants: [],
 			createdBy: '',
