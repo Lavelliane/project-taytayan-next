@@ -53,6 +53,8 @@ const DefaultTraining: Training = {
 	trainingObjectives: [],
 	trainingRegistration: '',
 	trainingCategory: '',
+	certificateTemplate: '',
+	coverPhoto: '',
 	createdBy: '',
 };
 
