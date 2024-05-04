@@ -6,6 +6,11 @@ module.exports = {
 				hostname: 'lh3.googleusercontent.com',
 				pathname: '**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'firebasestorage.googleapis.com',
+				pathname: '**',
+			},
 		],
 	},
 	async headers() {

@@ -38,6 +38,8 @@ type Training = {
 	trainingRegistration: string;
 	trainingCategory: string;
 	createdBy: string;
+	certificateTemplate: string;
+	coverPhoto: string;
 };
 
 type Registrant = {
